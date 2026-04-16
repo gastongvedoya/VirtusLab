@@ -284,11 +284,24 @@
 // ============ SUPABASE CONFIG ============
 const SUPABASE_URL = 'https://pybkzlslfbwoktyvcwhk.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_obpv0u23Rf4O-EChOmOg3w_jT7-C3Lf';
-const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+let _supabase = null;
 let currentUser = null;
+
+try {
+  if (window.supabase && window.supabase.createClient) {
+    _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  } else {
+    console.error('Supabase JS not loaded');
+    document.getElementById('auth-error').textContent = 'Error cargando Supabase. Recargá la página.';
+    document.getElementById('auth-error').style.display = 'block';
+  }
+} catch(e) {
+  console.error('Supabase init error:', e);
+}
 
 // ============ AUTH SYSTEM ============
 async function initAuth() {
+  if (!_supabase) { showAuthScreen(); return; }
   const { data: { session } } = await _supabase.auth.getSession();
   if (session) {
     currentUser = session.user;
@@ -5019,3 +5032,7 @@ window.handleRegister = handleRegister;
 window.handleSignOut = async function() { await signOut(); };
 
 // ============ INIT — don't render until auth resolves ============
+initAuth();
+</script>
+</body>
+</html>
