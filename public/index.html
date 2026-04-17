@@ -674,12 +674,13 @@ function transformWhoopToLegacy(recoveryArr, sleepArr, cyclesArr) {
 async function saveWhoopDataToSupabase(recoveryArr, sleepArr, cyclesArr) {
   if (!currentUser || !_supabase) return;
 
-  // Save recovery records
-  for (const r of (recoveryArr || [])) {
+  // Build all records then do batch upserts
+  const recoveryRecords = [];
+  (recoveryArr || []).forEach(r => {
     const score = r.score || {};
     const date = (r.created_at || '').split('T')[0];
-    if (!date) continue;
-    await _supabase.from('whoop_recovery').upsert({
+    if (!date) return;
+    recoveryRecords.push({
       user_id: currentUser.id,
       cycle_id: r.cycle_id || null,
       sleep_id: r.sleep_id || null,
@@ -690,16 +691,16 @@ async function saveWhoopDataToSupabase(recoveryArr, sleepArr, cyclesArr) {
       spo2: score.spo2_percentage || null,
       skin_temp: score.skin_temp_celsius || null,
       raw_json: r,
-    }, { onConflict: 'user_id,date' });
-  }
+    });
+  });
 
-  // Save sleep records
-  for (const s of (sleepArr || [])) {
+  const sleepRecords = [];
+  (sleepArr || []).forEach(s => {
     const score = s.score || {};
     const stages = score.stage_summary || {};
     const date = (s.end || s.created_at || '').split('T')[0];
-    if (!date) continue;
-    await _supabase.from('whoop_sleep').upsert({
+    if (!date) return;
+    sleepRecords.push({
       user_id: currentUser.id,
       sleep_id: s.id || null,
       date,
@@ -713,15 +714,15 @@ async function saveWhoopDataToSupabase(recoveryArr, sleepArr, cyclesArr) {
       awake_min: Math.round((stages.total_awake_time_milli || 0) / 60000) || null,
       respiratory_rate: score.respiratory_rate || null,
       raw_json: s,
-    }, { onConflict: 'user_id,date' });
-  }
+    });
+  });
 
-  // Save cycle records
-  for (const c of (cyclesArr || [])) {
+  const cycleRecords = [];
+  (cyclesArr || []).forEach(c => {
     const score = c.score || {};
     const date = (c.start || c.created_at || '').split('T')[0];
-    if (!date) continue;
-    await _supabase.from('whoop_cycles').upsert({
+    if (!date) return;
+    cycleRecords.push({
       user_id: currentUser.id,
       cycle_id: c.id || null,
       date,
@@ -730,8 +731,25 @@ async function saveWhoopDataToSupabase(recoveryArr, sleepArr, cyclesArr) {
       avg_hr: Math.round(score.average_heart_rate || 0) || null,
       max_hr: Math.round(score.max_heart_rate || 0) || null,
       raw_json: c,
-    }, { onConflict: 'user_id,date' });
+    });
+  });
+
+  // Batch upserts (one query each, much faster than row-by-row)
+  const results = {};
+  if (recoveryRecords.length > 0) {
+    const { error } = await _supabase.from('whoop_recovery').upsert(recoveryRecords, { onConflict: 'user_id,date' });
+    results.recovery = error ? ('Error: ' + error.message) : 'OK (' + recoveryRecords.length + ')';
   }
+  if (sleepRecords.length > 0) {
+    const { error } = await _supabase.from('whoop_sleep').upsert(sleepRecords, { onConflict: 'user_id,date' });
+    results.sleep = error ? ('Error: ' + error.message) : 'OK (' + sleepRecords.length + ')';
+  }
+  if (cycleRecords.length > 0) {
+    const { error } = await _supabase.from('whoop_cycles').upsert(cycleRecords, { onConflict: 'user_id,date' });
+    results.cycles = error ? ('Error: ' + error.message) : 'OK (' + cycleRecords.length + ')';
+  }
+  console.log('WHOOP save results:', results);
+  return results;
 }
 
 async function loadWhoopDataFromSupabase() {
@@ -754,24 +772,13 @@ async function loadWhoopDataFromSupabase() {
 }
 
 async function applyRealWhoopData() {
-  // Try to load data from Supabase and update WHOOP_RAW
+  // Try to load data from Supabase and update the portal's data
   const stored = await loadWhoopDataFromSupabase();
   if (!stored) return false;
   const transformed = transformWhoopToLegacy(stored.recovery, stored.sleep, stored.cycles);
   if (transformed.length === 0) return false;
-  // Replace the legacy WHOOP_RAW data
-  window.WHOOP_RAW_REAL = transformed;
-  // Recompute derived variables
-  if (typeof days !== 'undefined') {
-    window._originalWhoopRaw = window._originalWhoopRaw || WHOOP_RAW;
-    // Overwrite the arrays used throughout the portal
-    days.length = 0;
-    transformed.filter(d => d.hrv !== null).forEach(d => days.push(d));
-    if (days.length > 0) {
-      window.todayData = days[days.length - 1];
-      window.last30 = days.slice(-30);
-    }
-  }
+  // Replace the portal's data
+  recomputeBaseline(transformed);
   return true;
 }
 
@@ -945,10 +952,10 @@ async function sendChatMessage(userMessage) {
 <script>
 const WHOOP_RAW = [{"d":"02-02","hrv":86,"rhr":52,"rec":98,"str":6,"sl":9.93,"eff":88,"reg":null,"dp":125,"rm":106,"rsp":13.1,"sp":96.3,"sk":34.87},{"d":"02-04","hrv":65,"rhr":53,"rec":73,"str":9.1,"sl":5.87,"eff":87,"reg":32,"dp":126,"rm":37,"rsp":13,"sp":98.18,"sk":34.66},{"d":"02-06","hrv":51,"rhr":54,"rec":7,"str":12.9,"sl":1.33,"eff":94,"reg":null,"dp":43,"rm":9,"rsp":13.2,"sp":96.75,"sk":35.01},{"d":"02-07","hrv":51,"rhr":59,"rec":37,"str":15.4,"sl":4.63,"eff":81,"reg":19,"dp":86,"rm":50,"rsp":12.9,"sp":96.33,"sk":33.47},{"d":"02-08","hrv":44,"rhr":65,"rec":29,"str":7.8,"sl":5.38,"eff":83,"reg":20,"dp":75,"rm":115,"rsp":13.2,"sp":96.54,"sk":34.57},{"d":"02-09","hrv":58,"rhr":51,"rec":44,"str":7.1,"sl":5.75,"eff":90,"reg":19,"dp":82,"rm":77,"rsp":13.1,"sp":97.64,"sk":34.56},{"d":"02-10","hrv":60,"rhr":50,"rec":41,"str":14.8,"sl":4.92,"eff":93,"reg":35,"dp":83,"rm":62,"rsp":13,"sp":97,"sk":34.59},{"d":"02-12","hrv":58,"rhr":52,"rec":59,"str":11.3,"sl":6.1,"eff":92,"reg":46,"dp":75,"rm":68,"rsp":13.2,"sp":94.85,"sk":34.39},{"d":"02-13","hrv":69,"rhr":48,"rec":84,"str":15.1,"sl":8.32,"eff":89,"reg":36,"dp":76,"rm":142,"rsp":12.7,"sp":97.5,"sk":34.58},{"d":"02-14","hrv":65,"rhr":51,"rec":73,"str":17.5,"sl":7.33,"eff":92,"reg":53,"dp":123,"rm":123,"rsp":13.1,"sp":97.19,"sk":34.33},{"d":"02-15","hrv":43,"rhr":65,"rec":28,"str":7.4,"sl":6.53,"eff":90,"reg":18,"dp":125,"rm":85,"rsp":13.1,"sp":96.29,"sk":34.82},{"d":"02-16","hrv":55,"rhr":57,"rec":55,"str":12.9,"sl":7.67,"eff":87,"reg":45,"dp":82,"rm":149,"rsp":13.5,"sp":95.73,"sk":34.4},{"d":"02-17","hrv":68,"rhr":53,"rec":83,"str":6.3,"sl":6.63,"eff":94,"reg":45,"dp":139,"rm":77,"rsp":13.2,"sp":96.82,"sk":34.96},{"d":"02-18","hrv":68,"rhr":48,"rec":61,"str":4.4,"sl":4.92,"eff":97,"reg":44,"dp":121,"rm":46,"rsp":12.9,"sp":95.83,"sk":34.63},{"d":"02-19","hrv":58,"rhr":51,"rec":52,"str":5,"sl":6.08,"eff":93,"reg":45,"dp":107,"rm":103,"rsp":12.7,"sp":96.27,"sk":34.37},{"d":"02-21","hrv":55,"rhr":54,"rec":56,"str":8.2,"sl":7.65,"eff":91,"reg":26,"dp":102,"rm":131,"rsp":13,"sp":95.26,"sk":34.78},{"d":"02-22","hrv":76,"rhr":48,"rec":94,"str":13.1,"sl":7.13,"eff":93,"reg":49,"dp":100,"rm":115,"rsp":12.7,"sp":94.39,"sk":34.33},{"d":"02-24","hrv":63,"rhr":52,"rec":70,"str":5.6,"sl":6.75,"eff":90,"reg":43,"dp":101,"rm":103,"rsp":12.8,"sp":96.33,"sk":34.24},{"d":"02-25","hrv":64,"rhr":52,"rec":68,"str":14.1,"sl":6.52,"eff":92,"reg":61,"dp":83,"rm":114,"rsp":12.9,"sp":94.82,"sk":34.5},{"d":"02-26","hrv":65,"rhr":52,"rec":71,"str":4.4,"sl":7.82,"eff":86,"reg":52,"dp":102,"rm":128,"rsp":13.1,"sp":95.03,"sk":34.77},{"d":"02-27","hrv":57,"rhr":51,"rec":50,"str":12.3,"sl":6.38,"eff":93,"reg":69,"dp":95,"rm":56,"rsp":13.1,"sp":95,"sk":34.12},{"d":"02-28","hrv":62,"rhr":54,"rec":65,"str":13.5,"sl":8.42,"eff":91,"reg":52,"dp":132,"rm":129,"rsp":12.9,"sp":94.67,"sk":34.2},{"d":"03-01","hrv":58,"rhr":54,"rec":60,"str":8.3,"sl":8.87,"eff":91,"reg":55,"dp":83,"rm":160,"rsp":12.9,"sp":94.79,"sk":34.65},{"d":"03-02","hrv":74,"rhr":49,"rec":94,"str":16.9,"sl":6.4,"eff":92,"reg":52,"dp":66,"rm":90,"rsp":12.7,"sp":96.11,"sk":34.56},{"d":"03-03","hrv":58,"rhr":51,"rec":51,"str":8.3,"sl":6.67,"eff":91,"reg":68,"dp":117,"rm":92,"rsp":12.9,"sp":95.06,"sk":34.73},{"d":"03-04","hrv":68,"rhr":51,"rec":82,"str":8.6,"sl":6.95,"eff":94,"reg":61,"dp":99,"rm":84,"rsp":12.7,"sp":96.38,"sk":34.71},{"d":"03-05","hrv":68,"rhr":50,"rec":79,"str":14.8,"sl":6.62,"eff":91,"reg":75,"dp":95,"rm":101,"rsp":12.9,"sp":95.5,"sk":34.55},{"d":"03-06","hrv":59,"rhr":57,"rec":56,"str":5.6,"sl":6.67,"eff":91,"reg":23,"dp":72,"rm":89,"rsp":12.9,"sp":97.27,"sk":34.82},{"d":"03-07","hrv":59,"rhr":50,"rec":60,"str":8.8,"sl":6.35,"eff":92,"reg":42,"dp":95,"rm":87,"rsp":13.1,"sp":95.71,"sk":34.96},{"d":"03-08","hrv":69,"rhr":55,"rec":84,"str":9.8,"sl":8.28,"eff":94,"reg":49,"dp":103,"rm":96,"rsp":13.8,"sp":94.78,"sk":34.66},{"d":"03-09","hrv":67,"rhr":51,"rec":74,"str":15.3,"sl":6.45,"eff":96,"reg":38,"dp":110,"rm":58,"rsp":13.2,"sp":94.53,"sk":34.72},{"d":"03-11","hrv":67,"rhr":50,"rec":79,"str":13.5,"sl":7.5,"eff":92,"reg":35,"dp":107,"rm":104,"rsp":13.2,"sp":96.5,"sk":34.17},{"d":"03-12","hrv":62,"rhr":55,"rec":56,"str":10.5,"sl":6.08,"eff":90,"reg":61,"dp":113,"rm":68,"rsp":12.7,"sp":97.17,"sk":34.38},{"d":"03-13","hrv":80,"rhr":48,"rec":87,"str":5.1,"sl":5.87,"eff":91,"reg":56,"dp":61,"rm":79,"rsp":12.9,"sp":96.08,"sk":34.46},{"d":"03-14","hrv":58,"rhr":49,"rec":51,"str":8.2,"sl":9.52,"eff":92,"reg":55,"dp":116,"rm":151,"rsp":13.6,"sp":95.39,"sk":34.63},{"d":"03-15","hrv":53,"rhr":57,"rec":36,"str":4.9,"sl":5.68,"eff":91,"reg":28,"dp":86,"rm":89,"rsp":12.5,"sp":94.35,"sk":33.94},{"d":"03-16","hrv":67,"rhr":47,"rec":76,"str":6.8,"sl":10.47,"eff":91,"reg":52,"dp":164,"rm":177,"rsp":12.8,"sp":96.54,"sk":34.77},{"d":"03-17","hrv":76,"rhr":50,"rec":94,"str":14.1,"sl":8.42,"eff":87,"reg":64,"dp":85,"rm":117,"rsp":12.8,"sp":96.33,"sk":34.62},{"d":"03-18","hrv":71,"rhr":48,"rec":79,"str":9.3,"sl":6.55,"eff":90,"reg":56,"dp":128,"rm":86,"rsp":12.6,"sp":94.95,"sk":34.72},{"d":"03-19","hrv":66,"rhr":47,"rec":69,"str":14.4,"sl":6.87,"eff":93,"reg":66,"dp":111,"rm":122,"rsp":13.1,"sp":97.4,"sk":34.04},{"d":"03-20","hrv":55,"rhr":53,"rec":31,"str":9.3,"sl":4.75,"eff":97,"reg":64,"dp":95,"rm":41,"rsp":13.3,"sp":94.6,"sk":34.39},{"d":"03-21","hrv":72,"rhr":50,"rec":58,"str":14.4,"sl":5.2,"eff":91,"reg":69,"dp":72,"rm":71,"rsp":12.8,"sp":96.17,"sk":35.02},{"d":"03-22","hrv":67,"rhr":51,"rec":61,"str":5.2,"sl":6.12,"eff":95,"reg":77,"dp":141,"rm":87,"rsp":12.9,"sp":96.17,"sk":33.97},{"d":"03-23","hrv":66,"rhr":49,"rec":69,"str":11.5,"sl":8.32,"eff":92,"reg":60,"dp":126,"rm":167,"rsp":12.9,"sp":95.91,"sk":33.66},{"d":"03-24","hrv":67,"rhr":49,"rec":71,"str":15.6,"sl":6.53,"eff":92,"reg":70,"dp":113,"rm":68,"rsp":12.9,"sp":94.33,"sk":34.54},{"d":"03-25","hrv":70,"rhr":46,"rec":82,"str":9.4,"sl":8.23,"eff":93,"reg":68,"dp":119,"rm":151,"rsp":13.1,"sp":96.24,"sk":34.74},{"d":"03-26","hrv":68,"rhr":47,"rec":73,"str":13,"sl":7.7,"eff":92,"reg":81,"dp":124,"rm":134,"rsp":13,"sp":97.31,"sk":34.39},{"d":"03-27","hrv":61,"rhr":47,"rec":54,"str":8,"sl":7.18,"eff":89,"reg":85,"dp":110,"rm":103,"rsp":13.2,"sp":96.25,"sk":34.41},{"d":"03-28","hrv":69,"rhr":50,"rec":80,"str":9.9,"sl":7.87,"eff":96,"reg":63,"dp":136,"rm":129,"rsp":13.1,"sp":96.31,"sk":34.38},{"d":"03-29","hrv":67,"rhr":54,"rec":63,"str":5.6,"sl":5.73,"eff":89,"reg":77,"dp":125,"rm":79,"rsp":13.5,"sp":95.78,"sk":34.74},{"d":"03-30","hrv":63,"rhr":51,"rec":56,"str":5.4,"sl":8.25,"eff":92,"reg":72,"dp":90,"rm":129,"rsp":13.5,"sp":94.55,"sk":34.52},{"d":"03-31","hrv":69,"rhr":49,"rec":82,"str":17.9,"sl":7.32,"eff":92,"reg":81,"dp":124,"rm":125,"rsp":13,"sp":95.8,"sk":35.07},{"d":"04-01","hrv":62,"rhr":53,"rec":46,"str":7.1,"sl":6.43,"eff":87,"reg":83,"dp":112,"rm":93,"rsp":13.8,"sp":97.06,"sk":34.56},{"d":"04-02","hrv":66,"rhr":49,"rec":67,"str":15.5,"sl":7.18,"eff":94,"reg":89,"dp":92,"rm":72,"rsp":13.1,"sp":95.03,"sk":34.75},{"d":"04-03","hrv":69,"rhr":53,"rec":82,"str":10.7,"sl":8.48,"eff":94,"reg":83,"dp":112,"rm":124,"rsp":12.8,"sp":95.63,"sk":34.58},{"d":"04-04","hrv":62,"rhr":54,"rec":47,"str":9.4,"sl":6.1,"eff":80,"reg":77,"dp":113,"rm":70,"rsp":13.6,"sp":94.88,"sk":32.16},{"d":"04-05","hrv":66,"rhr":50,"rec":69,"str":10.5,"sl":7.5,"eff":89,"reg":52,"dp":129,"rm":94,"rsp":13.5,"sp":97.8,"sk":33.85},{"d":"04-06","hrv":60,"rhr":55,"rec":42,"str":10.1,"sl":6.78,"eff":91,"reg":57,"dp":86,"rm":99,"rsp":14.2,"sp":96.59,"sk":34.93},{"d":"04-07","hrv":85,"rhr":48,"rec":94,"str":8,"sl":7.1,"eff":86,"reg":73,"dp":113,"rm":108,"rsp":13.3,"sp":94.62,"sk":34.62}];
 
-const days = WHOOP_RAW.filter(d => d.hrv !== null);
-const todayData = days[days.length - 1];
-const last30 = days.slice(-30);
-const baseline = {
+let days = WHOOP_RAW.filter(d => d.hrv !== null);
+let todayData = days[days.length - 1];
+let last30 = days.slice(-30);
+let baseline = {
   hrv: Math.round(last30.reduce((s,d)=>s+d.hrv,0)/last30.length),
   rhr: Math.round(last30.reduce((s,d)=>s+d.rhr,0)/last30.length),
   sleep: +(last30.reduce((s,d)=>s+d.sl,0)/last30.length).toFixed(1),
@@ -961,6 +968,28 @@ const baseline = {
   spo2: 97.5,
   skin: 33.4,
 };
+
+// Recomputes days/todayData/last30/baseline from a new WHOOP_RAW-like array
+function recomputeBaseline(newRawData) {
+  days = newRawData.filter(d => d.hrv !== null);
+  if (days.length === 0) return;
+  todayData = days[days.length - 1];
+  last30 = days.slice(-30);
+  const regDays = last30.filter(d=>d.reg);
+  baseline = {
+    hrv: Math.round(last30.reduce((s,d)=>s+d.hrv,0)/last30.length),
+    rhr: Math.round(last30.reduce((s,d)=>s+d.rhr,0)/last30.length),
+    sleep: +(last30.reduce((s,d)=>s+(d.sl||0),0)/last30.length).toFixed(1),
+    reg: regDays.length > 0 ? Math.round(regDays.reduce((s,d)=>s+d.reg,0)/regDays.length) : 0,
+    resp: +(last30.reduce((s,d)=>s+(d.rsp||0),0)/last30.length).toFixed(1),
+    rec: Math.round(last30.reduce((s,d)=>s+(d.rec||0),0)/last30.length),
+    strain: +(days.slice(-30).reduce((s,d)=>s+(d.str||0),0)/30).toFixed(1),
+    acwr: 1.0,
+    fatigue: 40,
+    spo2: last30.reduce((s,d)=>s+(d.sp||0),0)/last30.length || 97.5,
+    skin: last30.reduce((s,d)=>s+(d.sk||0),0)/last30.length || 33.4,
+  };
+}
 
 const VL = {
   bg: '#0e0e10', panel: '#16161a', panelHi: '#1c1c21',
