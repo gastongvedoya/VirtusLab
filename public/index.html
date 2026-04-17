@@ -907,10 +907,12 @@ function buildUserContext() {
   ctx.push('Natural siempre (sin PEDs). Entrena 6 días/semana. Home gym completo.');
   ctx.push('Fase actual: reconstrucción — 7-8h sueño, sin alcohol, alimentación con carbos pre-running.');
 
-  // WHOOP data if available
-  if (typeof WHOOP_RAW !== 'undefined' && WHOOP_RAW.length > 0) {
-    const last7 = WHOOP_RAW.slice(-7);
-    ctx.push('\n=== WHOOP ÚLTIMOS 7 DÍAS ===');
+  // WHOOP data if available — usar `days` que tiene los datos reales actualizados
+  if (typeof days !== 'undefined' && days.length > 0) {
+    const last7 = days.slice(-7);
+    const latest = days[days.length - 1];
+    ctx.push('\n=== WHOOP ÚLTIMOS 7 DÍAS (datos reales) ===');
+    ctx.push(`Último día registrado: ${latest.d}`);
     last7.forEach(d => {
       ctx.push(`${d.d}: HRV ${d.hrv}ms, FC reposo ${d.rhr}bpm, Recovery ${d.rec}%, Strain ${d.str}, Sueño ${d.sl}h, Eficiencia ${d.eff}%, SpO2 ${d.sp}%`);
     });
@@ -2340,7 +2342,7 @@ function getReadiness(d) {
   if (rec >= 34) return 'yellow';
   return 'red';
 }
-const readiness = getReadiness(todayData);
+// NOTA: readiness se calcula dentro de renderDashboard para usar datos actualizados
 function discScore() { return Math.round(habits.filter(h=>h.done).length/habits.length*100); }
 
 const insights = [
@@ -2738,6 +2740,7 @@ function renderDashboard() {
     yellow: { bg: VL.yellowDim, text: VL.yellow, border: VL.yellow },
     red: { bg: VL.redDim, text: VL.red, border: VL.red },
   };
+  const readiness = getReadiness(todayData);
   const forced = getModeForcedReadiness();
   const c = forced || readiness;
   const cc = colors[c];
