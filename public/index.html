@@ -474,6 +474,54 @@ async function loadUserData() {
   });
   // Check WHOOP connection status
   await checkWhoopConnection();
+  // If WHOOP is connected, load stored data from Supabase
+  if (whoopConnected) {
+    await applyRealWhoopData();
+    // Auto-sync in background (Nivel 2)
+    autoSyncWhoopBackground();
+  }
+}
+
+// Background sync — doesn't block UI, silent fail
+async function autoSyncWhoopBackground() {
+  if (!whoopTokens || !currentUser) return;
+  try {
+    const response = await fetch('/.netlify/functions/whoop-sync', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_token: whoopTokens.access_token,
+        refresh_token: whoopTokens.refresh_token,
+        expires_at: whoopTokens.expires_at,
+      })
+    });
+    const data = await response.json();
+    if (data.error) return;
+    if (data.newTokens) {
+      await _supabase
+        .from('whoop_tokens')
+        .update({
+          access_token: data.newTokens.access_token,
+          refresh_token: data.newTokens.refresh_token,
+          expires_at: data.newTokens.expires_at,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('user_id', currentUser.id);
+      whoopTokens = { ...whoopTokens, ...data.newTokens };
+    }
+    whoopData = {
+      recovery: data.recovery || [],
+      sleep: data.sleep || [],
+      cycles: data.cycles || [],
+      profile: data.profile || null,
+      syncedAt: new Date().toISOString(),
+    };
+    await saveWhoopDataToSupabase(whoopData.recovery, whoopData.sleep, whoopData.cycles);
+    await applyRealWhoopData();
+    render();
+  } catch(e) {
+    console.warn('Auto-sync failed silently:', e);
+  }
 }
 
 // ============ WHOOP INTEGRATION ============
@@ -569,6 +617,164 @@ async function disconnectWhoop() {
 let _whoopSyncing = false;
 let whoopData = null;
 
+// Transform WHOOP API data into the legacy WHOOP_RAW format the portal uses
+function transformWhoopToLegacy(recoveryArr, sleepArr, cyclesArr) {
+  // Build a map by date
+  const byDate = {};
+
+  // Recovery: contains HRV, RHR, recovery score, SpO2, skin temp
+  (recoveryArr || []).forEach(r => {
+    const score = r.score || {};
+    // Use cycle_id to match with cycle data, or derive date from created_at
+    const dateStr = (r.created_at || '').split('T')[0];
+    if (!dateStr) return;
+    const key = dateStr.substring(5); // "MM-DD"
+    if (!byDate[key]) byDate[key] = { d: key };
+    byDate[key].hrv = Math.round(score.hrv_rmssd_milli || 0);
+    byDate[key].rhr = Math.round(score.resting_heart_rate || 0);
+    byDate[key].rec = Math.round(score.recovery_score || 0);
+    byDate[key].sp = score.spo2_percentage || null;
+    byDate[key].sk = score.skin_temp_celsius || null;
+  });
+
+  // Sleep: contains duration, efficiency, stages
+  (sleepArr || []).forEach(s => {
+    const score = s.score || {};
+    const stages = score.stage_summary || {};
+    const dateStr = (s.end || s.created_at || '').split('T')[0];
+    if (!dateStr) return;
+    const key = dateStr.substring(5);
+    if (!byDate[key]) byDate[key] = { d: key };
+    // sleep duration in hours
+    const totalMilli = stages.total_in_bed_time_milli || 0;
+    byDate[key].sl = +(totalMilli / 3600000).toFixed(2);
+    byDate[key].eff = Math.round(score.sleep_efficiency_percentage || 0);
+    byDate[key].reg = Math.round(score.sleep_consistency_percentage || 0);
+    byDate[key].dp = Math.round((stages.total_slow_wave_sleep_time_milli || 0) / 60000);
+    byDate[key].rm = Math.round((stages.total_rem_sleep_time_milli || 0) / 60000);
+    byDate[key].rsp = score.respiratory_rate ? +score.respiratory_rate.toFixed(1) : null;
+  });
+
+  // Cycles: contains strain, avg HR, max HR
+  (cyclesArr || []).forEach(c => {
+    const score = c.score || {};
+    const dateStr = (c.start || c.created_at || '').split('T')[0];
+    if (!dateStr) return;
+    const key = dateStr.substring(5);
+    if (!byDate[key]) byDate[key] = { d: key };
+    byDate[key].str = score.strain ? +score.strain.toFixed(1) : null;
+  });
+
+  // Convert to array sorted by date
+  return Object.values(byDate)
+    .filter(d => d.hrv != null)
+    .sort((a, b) => a.d.localeCompare(b.d));
+}
+
+async function saveWhoopDataToSupabase(recoveryArr, sleepArr, cyclesArr) {
+  if (!currentUser || !_supabase) return;
+
+  // Save recovery records
+  for (const r of (recoveryArr || [])) {
+    const score = r.score || {};
+    const date = (r.created_at || '').split('T')[0];
+    if (!date) continue;
+    await _supabase.from('whoop_recovery').upsert({
+      user_id: currentUser.id,
+      cycle_id: r.cycle_id || null,
+      sleep_id: r.sleep_id || null,
+      date,
+      recovery_score: Math.round(score.recovery_score || 0) || null,
+      hrv_rmssd: score.hrv_rmssd_milli || null,
+      resting_hr: Math.round(score.resting_heart_rate || 0) || null,
+      spo2: score.spo2_percentage || null,
+      skin_temp: score.skin_temp_celsius || null,
+      raw_json: r,
+    }, { onConflict: 'user_id,date' });
+  }
+
+  // Save sleep records
+  for (const s of (sleepArr || [])) {
+    const score = s.score || {};
+    const stages = score.stage_summary || {};
+    const date = (s.end || s.created_at || '').split('T')[0];
+    if (!date) continue;
+    await _supabase.from('whoop_sleep').upsert({
+      user_id: currentUser.id,
+      sleep_id: s.id || null,
+      date,
+      total_sleep_min: Math.round((stages.total_in_bed_time_milli || 0) / 60000) || null,
+      sleep_efficiency: score.sleep_efficiency_percentage || null,
+      sleep_performance: score.sleep_performance_percentage || null,
+      sleep_consistency: score.sleep_consistency_percentage || null,
+      slow_wave_min: Math.round((stages.total_slow_wave_sleep_time_milli || 0) / 60000) || null,
+      rem_min: Math.round((stages.total_rem_sleep_time_milli || 0) / 60000) || null,
+      light_min: Math.round((stages.total_light_sleep_time_milli || 0) / 60000) || null,
+      awake_min: Math.round((stages.total_awake_time_milli || 0) / 60000) || null,
+      respiratory_rate: score.respiratory_rate || null,
+      raw_json: s,
+    }, { onConflict: 'user_id,date' });
+  }
+
+  // Save cycle records
+  for (const c of (cyclesArr || [])) {
+    const score = c.score || {};
+    const date = (c.start || c.created_at || '').split('T')[0];
+    if (!date) continue;
+    await _supabase.from('whoop_cycles').upsert({
+      user_id: currentUser.id,
+      cycle_id: c.id || null,
+      date,
+      strain: score.strain || null,
+      kilojoules: score.kilojoule || null,
+      avg_hr: Math.round(score.average_heart_rate || 0) || null,
+      max_hr: Math.round(score.max_heart_rate || 0) || null,
+      raw_json: c,
+    }, { onConflict: 'user_id,date' });
+  }
+}
+
+async function loadWhoopDataFromSupabase() {
+  if (!currentUser || !_supabase) return null;
+  try {
+    const [rec, slp, cyc] = await Promise.all([
+      _supabase.from('whoop_recovery').select('*').eq('user_id', currentUser.id).order('date', { ascending: true }),
+      _supabase.from('whoop_sleep').select('*').eq('user_id', currentUser.id).order('date', { ascending: true }),
+      _supabase.from('whoop_cycles').select('*').eq('user_id', currentUser.id).order('date', { ascending: true }),
+    ]);
+    const recovery = (rec.data || []).map(r => r.raw_json).filter(Boolean);
+    const sleep = (slp.data || []).map(s => s.raw_json).filter(Boolean);
+    const cycles = (cyc.data || []).map(c => c.raw_json).filter(Boolean);
+    if (recovery.length === 0 && sleep.length === 0 && cycles.length === 0) return null;
+    return { recovery, sleep, cycles };
+  } catch(e) {
+    console.warn('Error loading WHOOP data:', e);
+    return null;
+  }
+}
+
+async function applyRealWhoopData() {
+  // Try to load data from Supabase and update WHOOP_RAW
+  const stored = await loadWhoopDataFromSupabase();
+  if (!stored) return false;
+  const transformed = transformWhoopToLegacy(stored.recovery, stored.sleep, stored.cycles);
+  if (transformed.length === 0) return false;
+  // Replace the legacy WHOOP_RAW data
+  window.WHOOP_RAW_REAL = transformed;
+  // Recompute derived variables
+  if (typeof days !== 'undefined') {
+    window._originalWhoopRaw = window._originalWhoopRaw || WHOOP_RAW;
+    // Overwrite the arrays used throughout the portal
+    days.length = 0;
+    transformed.filter(d => d.hrv !== null).forEach(d => days.push(d));
+    if (days.length > 0) {
+      window.todayData = days[days.length - 1];
+      window.last30 = days.slice(-30);
+    }
+  }
+  return true;
+}
+
 async function syncWhoop() {
   if (!whoopTokens || !currentUser) return;
   if (_whoopSyncing) return;
@@ -618,7 +824,13 @@ async function syncWhoop() {
       syncedAt: new Date().toISOString(),
     };
 
-    const msg = `Sincronizado:\n• ${whoopData.recovery.length} recovery\n• ${whoopData.sleep.length} sleep\n• ${whoopData.cycles.length} cycles`;
+    // Save to Supabase (in background)
+    await saveWhoopDataToSupabase(whoopData.recovery, whoopData.sleep, whoopData.cycles);
+
+    // Apply real data to portal
+    await applyRealWhoopData();
+
+    const msg = `Sincronizado:\n• ${whoopData.recovery.length} recovery\n• ${whoopData.sleep.length} sleep\n• ${whoopData.cycles.length} cycles\n\nLos datos reales ahora se muestran en el portal.`;
     alert(msg);
   } catch(e) {
     alert('Error: ' + e.message);
