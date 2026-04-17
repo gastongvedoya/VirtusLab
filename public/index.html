@@ -2494,6 +2494,12 @@ function getActiveHabits() {
   return habits;
 }
 
+// Devuelve el índice del día de hoy en weekPlan (Lun=0, Mar=1, ..., Dom=6)
+function getTodayPlanIndex() {
+  const jsDay = new Date().getDay(); // 0=Dom, 1=Lun, ..., 6=Sab
+  return jsDay === 0 ? 6 : jsDay - 1;
+}
+
 function render() {
   const app = document.getElementById('app');
   const activeMode = getActiveMode();
@@ -2740,12 +2746,13 @@ function renderDashboard() {
   if (modeTravel && !afterShift && !modeSick) label = 'Modo viaje · sostener base';
 
   const modifiedPlan = getModifiedPlan(weekPlan);
-  const todayPlan = modifiedPlan[0];
+  const todayIdx = getTodayPlanIndex();
+  const todayPlan = modifiedPlan[todayIdx];
   const projStrain = calcTotalStrain(todayPlan);
   const ds = discScore();
   const mode = getActiveMode();
   const effectivePerf = mode === 'sick' || mode === 'shift' ? '—' : perfScore;
-  const todayMacros = macrosForDay(todayPlan, 0);
+  const todayMacros = macrosForDay(todayPlan, todayIdx);
 
   return `
     ${sectionTitle('Dashboard', 'Omnia sub oculis · ad virtutem')}
@@ -2822,6 +2829,7 @@ function renderDashboard() {
       <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px;">
         ${modifiedPlan.map((d, i) => {
           const numerals = ['I','II','III','IV','V','VI','VII'];
+          const isToday = i === todayIdx;
           const dotColor = {
             alta: 'rgba(184,64,64,0.85)',
             media: 'rgba(184,137,63,0.85)',
@@ -2841,12 +2849,12 @@ function renderDashboard() {
           ];
           const short = shortLabels[i] || 'Descanso';
           return `
-            <div style="padding: 10px 6px; background: ${VL.bg}; border: 0.5px solid ${VL.border}; min-height: 78px; display: flex; flex-direction: column; gap: 6px;">
+            <div style="padding: 10px 6px; background: ${isToday ? VL.blueDim : VL.bg}; border: 0.5px solid ${isToday ? VL.blue : VL.border}; min-height: 78px; display: flex; flex-direction: column; gap: 6px;">
               <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div style="font-family: Georgia, serif; font-size: 13px; font-style: italic; color: ${VL.text};">${numerals[i]}</div>
+                <div style="font-family: Georgia, serif; font-size: 13px; font-style: italic; color: ${isToday ? VL.blue : VL.text}; font-weight: ${isToday ? '500' : '400'};">${numerals[i]}</div>
                 <div style="width: 7px; height: 7px; border-radius: 50%; background: ${dotColor};"></div>
               </div>
-              <div style="font-size: 10px; color: ${VL.textMuted}; line-height: 1.35;">${short}</div>
+              <div style="font-size: 10px; color: ${isToday ? VL.text : VL.textMuted}; line-height: 1.35;">${short}</div>
             </div>
           `;
         }).join('')}
