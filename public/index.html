@@ -566,8 +566,70 @@ async function disconnectWhoop() {
   }
 }
 
+let _whoopSyncing = false;
+let whoopData = null;
+
+async function syncWhoop() {
+  if (!whoopTokens || !currentUser) return;
+  if (_whoopSyncing) return;
+  _whoopSyncing = true;
+  render();
+
+  try {
+    const response = await fetch('/.netlify/functions/whoop-sync', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_token: whoopTokens.access_token,
+        refresh_token: whoopTokens.refresh_token,
+        expires_at: whoopTokens.expires_at,
+      })
+    });
+    const data = await response.json();
+
+    if (data.error) {
+      alert('Error sincronizando: ' + (data.detail || data.error));
+      _whoopSyncing = false;
+      render();
+      return;
+    }
+
+    // If tokens were refreshed, save new tokens
+    if (data.newTokens) {
+      const { error } = await _supabase
+        .from('whoop_tokens')
+        .update({
+          access_token: data.newTokens.access_token,
+          refresh_token: data.newTokens.refresh_token,
+          expires_at: data.newTokens.expires_at,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('user_id', currentUser.id);
+      if (!error) {
+        whoopTokens = { ...whoopTokens, ...data.newTokens };
+      }
+    }
+
+    whoopData = {
+      recovery: data.recovery || [],
+      sleep: data.sleep || [],
+      cycles: data.cycles || [],
+      profile: data.profile || null,
+      syncedAt: new Date().toISOString(),
+    };
+
+    const msg = `Sincronizado:\n• ${whoopData.recovery.length} recovery\n• ${whoopData.sleep.length} sleep\n• ${whoopData.cycles.length} cycles`;
+    alert(msg);
+  } catch(e) {
+    alert('Error: ' + e.message);
+  }
+  _whoopSyncing = false;
+  render();
+}
+
 window.connectWhoop = connectWhoop;
 window.disconnectWhoop = disconnectWhoop;
+window.syncWhoop = syncWhoop;
 
 
 // ============ CLAUDE API (VirtusLab AI) ============
@@ -3930,16 +3992,26 @@ function renderSettingsModal() {
         </div>
 
         <div style="font-size: 10px; color: ${VL.textMuted}; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px;">Dispositivos conectados</div>
-        <div style="border: 0.5px solid ${VL.border}; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; background: ${VL.bg}; display: flex; align-items: center; gap: 12px;">
-          <div style="color: ${whoopConnected ? VL.green : VL.textMuted};">${ICONS.pulse}</div>
-          <div style="flex: 1;">
-            <div style="font-size: 13px; font-weight: 500;">WHOOP</div>
-            <div style="font-size: 10px; color: ${whoopConnected ? VL.green : VL.textFaint}; margin-top: 2px;">${whoopConnected ? '● Conectado' : 'No conectado'}</div>
+        <div style="border: 0.5px solid ${VL.border}; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; background: ${VL.bg};">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="color: ${whoopConnected ? VL.green : VL.textMuted};">${ICONS.pulse}</div>
+            <div style="flex: 1;">
+              <div style="font-size: 13px; font-weight: 500;">WHOOP</div>
+              <div style="font-size: 10px; color: ${whoopConnected ? VL.green : VL.textFaint}; margin-top: 2px;">${whoopConnected ? '● Conectado' : 'No conectado'}</div>
+            </div>
+            ${whoopConnected
+              ? `<button onclick="disconnectWhoop()" style="padding: 6px 14px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; border: 0.5px solid ${VL.red}; border-radius: 20px; background: transparent; color: ${VL.red}; cursor: pointer;">Desconectar</button>`
+              : `<button onclick="connectWhoop()" style="padding: 6px 14px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; border: 0.5px solid ${VL.blue}; border-radius: 20px; background: ${VL.blueDim}; color: ${VL.blue}; cursor: pointer;">Conectar</button>`
+            }
           </div>
-          ${whoopConnected
-            ? `<button onclick="disconnectWhoop()" style="padding: 6px 14px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; border: 0.5px solid ${VL.red}; border-radius: 20px; background: transparent; color: ${VL.red}; cursor: pointer;">Desconectar</button>`
-            : `<button onclick="connectWhoop()" style="padding: 6px 14px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; border: 0.5px solid ${VL.blue}; border-radius: 20px; background: ${VL.blueDim}; color: ${VL.blue}; cursor: pointer;">Conectar</button>`
-          }
+          ${whoopConnected ? `
+            <div style="margin-top: 12px; padding-top: 12px; border-top: 0.5px solid ${VL.border}; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+              <div style="font-size: 10px; color: ${VL.textMuted};">
+                ${whoopData ? `Última sync: ${whoopData.recovery.length}r · ${whoopData.sleep.length}s · ${whoopData.cycles.length}c` : 'Nunca sincronizado'}
+              </div>
+              <button onclick="syncWhoop()" ${_whoopSyncing ? 'disabled' : ''} style="padding: 6px 14px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; border: 0.5px solid ${VL.blue}; border-radius: 20px; background: transparent; color: ${VL.blue}; cursor: ${_whoopSyncing ? 'wait' : 'pointer'}; opacity: ${_whoopSyncing ? '0.5' : '1'};">${_whoopSyncing ? 'Sincronizando...' : 'Sincronizar ahora'}</button>
+            </div>
+          ` : ''}
         </div>
 
         <div style="font-size: 10px; color: ${VL.textMuted}; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px;">Próximamente</div>
