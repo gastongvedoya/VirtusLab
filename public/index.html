@@ -635,34 +635,40 @@ function transformWhoopToLegacy(recoveryArr, sleepArr, cyclesArr) {
   // Recovery: contains HRV, RHR, recovery score, SpO2, skin temp
   (recoveryArr || []).forEach(r => {
     const score = r.score || {};
-    // Use cycle_id to match with cycle data, or derive date from created_at
     const dateStr = (r.created_at || '').split('T')[0];
     if (!dateStr) return;
     const key = dateStr.substring(5); // "MM-DD"
-    if (!byDate[key]) byDate[key] = { d: key };
-    byDate[key].hrv = Math.round(score.hrv_rmssd_milli || 0);
-    byDate[key].rhr = Math.round(score.resting_heart_rate || 0);
-    byDate[key].rec = Math.round(score.recovery_score || 0);
-    byDate[key].sp = score.spo2_percentage || null;
-    byDate[key].sk = score.skin_temp_celsius || null;
+    if (!byDate[key]) byDate[key] = { d: key, hrv:null, rhr:null, rec:null, str:null, sl:null, eff:null, reg:null, dp:null, rm:null, rsp:null, sp:null, sk:null };
+    if (score.hrv_rmssd_milli != null) byDate[key].hrv = Math.round(score.hrv_rmssd_milli);
+    if (score.resting_heart_rate != null) byDate[key].rhr = Math.round(score.resting_heart_rate);
+    if (score.recovery_score != null) byDate[key].rec = Math.round(score.recovery_score);
+    if (score.spo2_percentage != null) byDate[key].sp = score.spo2_percentage;
+    if (score.skin_temp_celsius != null) byDate[key].sk = score.skin_temp_celsius;
   });
 
-  // Sleep: contains duration, efficiency, stages
+  // Sleep: contains duration, efficiency, stages (skip naps, keep longest per day)
+  const longestSleepByDate = {};
   (sleepArr || []).forEach(s => {
-    const score = s.score || {};
-    const stages = score.stage_summary || {};
+    const stages = (s.score || {}).stage_summary || {};
     const dateStr = (s.end || s.created_at || '').split('T')[0];
     if (!dateStr) return;
+    const duration = stages.total_in_bed_time_milli || 0;
+    if (!longestSleepByDate[dateStr] || duration > longestSleepByDate[dateStr].dur) {
+      longestSleepByDate[dateStr] = { s, dur: duration };
+    }
+  });
+  Object.entries(longestSleepByDate).forEach(([dateStr, { s }]) => {
+    const score = s.score || {};
+    const stages = score.stage_summary || {};
     const key = dateStr.substring(5);
-    if (!byDate[key]) byDate[key] = { d: key };
-    // sleep duration in hours
+    if (!byDate[key]) byDate[key] = { d: key, hrv:null, rhr:null, rec:null, str:null, sl:null, eff:null, reg:null, dp:null, rm:null, rsp:null, sp:null, sk:null };
     const totalMilli = stages.total_in_bed_time_milli || 0;
-    byDate[key].sl = +(totalMilli / 3600000).toFixed(2);
-    byDate[key].eff = Math.round(score.sleep_efficiency_percentage || 0);
-    byDate[key].reg = Math.round(score.sleep_consistency_percentage || 0);
-    byDate[key].dp = Math.round((stages.total_slow_wave_sleep_time_milli || 0) / 60000);
-    byDate[key].rm = Math.round((stages.total_rem_sleep_time_milli || 0) / 60000);
-    byDate[key].rsp = score.respiratory_rate ? +score.respiratory_rate.toFixed(1) : null;
+    if (totalMilli > 0) byDate[key].sl = +(totalMilli / 3600000).toFixed(2);
+    if (score.sleep_efficiency_percentage != null) byDate[key].eff = Math.round(score.sleep_efficiency_percentage);
+    if (score.sleep_consistency_percentage != null) byDate[key].reg = Math.round(score.sleep_consistency_percentage);
+    if (stages.total_slow_wave_sleep_time_milli != null) byDate[key].dp = Math.round(stages.total_slow_wave_sleep_time_milli / 60000);
+    if (stages.total_rem_sleep_time_milli != null) byDate[key].rm = Math.round(stages.total_rem_sleep_time_milli / 60000);
+    if (score.respiratory_rate != null) byDate[key].rsp = +score.respiratory_rate.toFixed(1);
   });
 
   // Cycles: contains strain, avg HR, max HR
@@ -671,11 +677,11 @@ function transformWhoopToLegacy(recoveryArr, sleepArr, cyclesArr) {
     const dateStr = (c.start || c.created_at || '').split('T')[0];
     if (!dateStr) return;
     const key = dateStr.substring(5);
-    if (!byDate[key]) byDate[key] = { d: key };
-    byDate[key].str = score.strain ? +score.strain.toFixed(1) : null;
+    if (!byDate[key]) byDate[key] = { d: key, hrv:null, rhr:null, rec:null, str:null, sl:null, eff:null, reg:null, dp:null, rm:null, rsp:null, sp:null, sk:null };
+    if (score.strain != null) byDate[key].str = +score.strain.toFixed(1);
   });
 
-  // Convert to array sorted by date
+  // Convert to array sorted by date, keep only days with at least hrv
   return Object.values(byDate)
     .filter(d => d.hrv != null)
     .sort((a, b) => a.d.localeCompare(b.d));
@@ -686,14 +692,17 @@ async function saveWhoopDataToSupabase(recoveryArr, sleepArr, cyclesArr) {
 
   // Build all records then do batch upserts
   const recoveryRecords = [];
+  const seenRecoveryDates = new Set();
   (recoveryArr || []).forEach(r => {
     const score = r.score || {};
     const date = (r.created_at || '').split('T')[0];
     if (!date) return;
+    if (seenRecoveryDates.has(date)) return; // skip duplicates
+    seenRecoveryDates.add(date);
     recoveryRecords.push({
       user_id: currentUser.id,
-      cycle_id: r.cycle_id || null,
-      sleep_id: r.sleep_id || null,
+      cycle_id: r.cycle_id ? String(r.cycle_id) : null,
+      sleep_id: r.sleep_id ? String(r.sleep_id) : null,
       date,
       recovery_score: Math.round(score.recovery_score || 0) || null,
       hrv_rmssd: score.hrv_rmssd_milli || null,
@@ -704,15 +713,24 @@ async function saveWhoopDataToSupabase(recoveryArr, sleepArr, cyclesArr) {
     });
   });
 
-  const sleepRecords = [];
+  // Sleep: multiple sleeps per day possible (naps), keep only the longest one
+  const sleepByDate = {};
   (sleepArr || []).forEach(s => {
     const score = s.score || {};
     const stages = score.stage_summary || {};
     const date = (s.end || s.created_at || '').split('T')[0];
     if (!date) return;
-    sleepRecords.push({
+    const duration = stages.total_in_bed_time_milli || 0;
+    if (!sleepByDate[date] || duration > (sleepByDate[date].duration || 0)) {
+      sleepByDate[date] = { s, score, stages, duration };
+    }
+  });
+
+  const sleepRecords = Object.entries(sleepByDate).map(([date, info]) => {
+    const { s, score, stages } = info;
+    return {
       user_id: currentUser.id,
-      sleep_id: s.id || null,
+      sleep_id: s.id ? String(s.id) : null,
       date,
       total_sleep_min: Math.round((stages.total_in_bed_time_milli || 0) / 60000) || null,
       sleep_efficiency: score.sleep_efficiency_percentage || null,
@@ -724,17 +742,20 @@ async function saveWhoopDataToSupabase(recoveryArr, sleepArr, cyclesArr) {
       awake_min: Math.round((stages.total_awake_time_milli || 0) / 60000) || null,
       respiratory_rate: score.respiratory_rate || null,
       raw_json: s,
-    });
+    };
   });
 
   const cycleRecords = [];
+  const seenCycleDates = new Set();
   (cyclesArr || []).forEach(c => {
     const score = c.score || {};
     const date = (c.start || c.created_at || '').split('T')[0];
     if (!date) return;
+    if (seenCycleDates.has(date)) return;
+    seenCycleDates.add(date);
     cycleRecords.push({
       user_id: currentUser.id,
-      cycle_id: c.id || null,
+      cycle_id: c.id ? String(c.id) : null,
       date,
       strain: score.strain || null,
       kilojoules: score.kilojoule || null,
@@ -744,7 +765,6 @@ async function saveWhoopDataToSupabase(recoveryArr, sleepArr, cyclesArr) {
     });
   });
 
-  // Batch upserts (one query each, much faster than row-by-row)
   const results = {};
   if (recoveryRecords.length > 0) {
     const { error } = await _supabase.from('whoop_recovery').upsert(recoveryRecords, { onConflict: 'user_id,date' });
