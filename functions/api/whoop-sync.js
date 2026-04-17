@@ -1,5 +1,6 @@
 // Cloudflare Pages Function: /api/whoop-sync
-// Fetches last 90 days of WHOOP data, refreshes token if needed
+// Fetches ONE type of data at a time (recovery, sleep, or cycles) for last 30 days
+// Body: { access_token, refresh_token, expires_at, type: 'recovery' | 'sleep' | 'cycles' }
 
 export async function onRequestPost(context) {
   const { request, env } = context;
@@ -9,8 +10,16 @@ export async function onRequestPost(context) {
 
   try {
     const body = await request.json();
-    let { access_token, refresh_token, expires_at } = body;
+    let { access_token, refresh_token, expires_at, type } = body;
 
+    if (!type || !['recovery', 'sleep', 'cycles', 'profile'].includes(type)) {
+      return new Response(JSON.stringify({ error: 'invalid_type' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    // Check if token needs refresh
     const now = Date.now();
     const expiresAt = expires_at ? new Date(expires_at).getTime() : 0;
     const needsRefresh = !expires_at || (expiresAt - now) < 5 * 60 * 1000;
@@ -45,48 +54,63 @@ export async function onRequestPost(context) {
       };
     }
 
-    const startDate = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString();
     const headers = { 'Authorization': 'Bearer ' + access_token };
 
-    async function fetchAllPages(basePath) {
-      const all = [];
-      let nextToken = null;
-      let pages = 0;
-      do {
-        let url = 'https://api.prod.whoop.com/developer' + basePath
-          + '?start=' + encodeURIComponent(startDate) + '&limit=25';
-        if (nextToken) url += '&nextToken=' + encodeURIComponent(nextToken);
-        const resp = await fetch(url, { headers });
-        if (!resp.ok) {
-          return { records: all, error: 'API error ' + resp.status };
-        }
-        const data = await resp.json();
-        if (data.records && Array.isArray(data.records)) all.push(...data.records);
-        nextToken = data.next_token || null;
-        pages++;
-        if (pages > 10) break;
-      } while (nextToken);
-      return { records: all };
+    // 30 days is faster and avoids Cloudflare timeout
+    const startDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+
+    // Profile endpoint is just one call
+    if (type === 'profile') {
+      const resp = await fetch('https://api.prod.whoop.com/developer/v2/user/profile/basic', { headers });
+      if (!resp.ok) {
+        return new Response(JSON.stringify({ error: 'api_error', status: resp.status }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+      const data = await resp.json();
+      return new Response(JSON.stringify({ profile: data, newTokens }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
 
-    async function fetchOne(path) {
-      const resp = await fetch('https://api.prod.whoop.com/developer' + path, { headers });
-      if (!resp.ok) return null;
-      return await resp.json();
-    }
+    // Map type to API path
+    const pathMap = {
+      recovery: '/v2/recovery',
+      sleep: '/v2/activity/sleep',
+      cycles: '/v2/cycle',
+    };
+    const basePath = pathMap[type];
 
-    const [recovery, sleep, cycles, profile] = await Promise.all([
-      fetchAllPages('/v2/recovery'),
-      fetchAllPages('/v2/activity/sleep'),
-      fetchAllPages('/v2/cycle'),
-      fetchOne('/v2/user/profile/basic'),
-    ]);
+    // Paginate
+    const records = [];
+    let nextToken = null;
+    let pages = 0;
+    const MAX_PAGES = 6; // 6 * 25 = 150 records max, enough for 30 days
+
+    do {
+      let url = 'https://api.prod.whoop.com/developer' + basePath
+        + '?start=' + encodeURIComponent(startDate) + '&limit=25';
+      if (nextToken) url += '&nextToken=' + encodeURIComponent(nextToken);
+      const resp = await fetch(url, { headers });
+      if (!resp.ok) {
+        return new Response(JSON.stringify({
+          error: 'api_error', status: resp.status, records, type
+        }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+      const data = await resp.json();
+      if (data.records && Array.isArray(data.records)) records.push(...data.records);
+      nextToken = data.next_token || null;
+      pages++;
+    } while (nextToken && pages < MAX_PAGES);
 
     return new Response(JSON.stringify({
-      recovery: recovery.records || [],
-      sleep: sleep.records || [],
-      cycles: cycles.records || [],
-      profile: profile || null,
+      records,
+      type,
       newTokens,
     }), {
       status: 200,
