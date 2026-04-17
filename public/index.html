@@ -486,7 +486,7 @@ async function loadUserData() {
 async function autoSyncWhoopBackground() {
   if (!whoopTokens || !currentUser) return;
   try {
-    const response = await fetch('/.netlify/functions/whoop-sync', {
+    const response = await fetch('/api/whoop-sync', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -529,7 +529,7 @@ let whoopConnected = false;
 let whoopTokens = null;
 
 const WHOOP_CLIENT_ID = '708dc8a7-b891-46ab-af98-5d5049a1502c';
-const WHOOP_REDIRECT_URI = 'https://virtuslab1.netlify.app/.netlify/functions/whoop-callback';
+const WHOOP_REDIRECT_URI = window.location.origin + '/api/whoop-callback';
 const WHOOP_SCOPES = 'offline read:recovery read:sleep read:workout read:cycles read:profile read:body_measurement';
 
 async function checkWhoopConnection() {
@@ -789,7 +789,7 @@ async function syncWhoop() {
   render();
 
   try {
-    const response = await fetch('/.netlify/functions/whoop-sync', {
+    const response = await fetch('/api/whoop-sync', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -853,7 +853,7 @@ window.syncWhoop = syncWhoop;
 
 // ============ CLAUDE API (VirtusLab AI) ============
 // API key is stored securely in Netlify environment variables
-// Calls go through /.netlify/functions/claude-proxy
+// Calls go through /api/claude-proxy
 
 function buildUserContext() {
   // Gather all available data for the AI
@@ -921,7 +921,7 @@ async function sendChatMessage(userMessage) {
       content: m.text
     }));
 
-    const response = await fetch('/.netlify/functions/claude-proxy', {
+    const response = await fetch('/api/claude-proxy', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
