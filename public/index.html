@@ -1014,7 +1014,23 @@ let baseline = {
 
 // Recomputes days/todayData/last30/baseline from a new WHOOP_RAW-like array
 function recomputeBaseline(newRawData) {
-  days = newRawData.filter(d => d.hrv !== null);
+  // Fill null fields with safe defaults so toFixed() etc never breaks
+  const safeDays = newRawData.map(d => ({
+    d: d.d,
+    hrv: d.hrv ?? 60,
+    rhr: d.rhr ?? 55,
+    rec: d.rec ?? 50,
+    str: d.str ?? 10,
+    sl: d.sl ?? 7,
+    eff: d.eff ?? 85,
+    reg: d.reg ?? null,
+    dp: d.dp ?? 100,
+    rm: d.rm ?? 100,
+    rsp: d.rsp ?? 13,
+    sp: d.sp ?? 96,
+    sk: d.sk ?? 34,
+  }));
+  days = safeDays.filter(d => d.hrv !== null);
   if (days.length === 0) return;
   todayData = days[days.length - 1];
   last30 = days.slice(-30);
@@ -1023,14 +1039,14 @@ function recomputeBaseline(newRawData) {
     hrv: Math.round(last30.reduce((s,d)=>s+d.hrv,0)/last30.length),
     rhr: Math.round(last30.reduce((s,d)=>s+d.rhr,0)/last30.length),
     sleep: +(last30.reduce((s,d)=>s+(d.sl||0),0)/last30.length).toFixed(1),
-    reg: regDays.length > 0 ? Math.round(regDays.reduce((s,d)=>s+d.reg,0)/regDays.length) : 0,
+    reg: regDays.length > 0 ? Math.round(regDays.reduce((s,d)=>s+d.reg,0)/regDays.length) : 50,
     resp: +(last30.reduce((s,d)=>s+(d.rsp||0),0)/last30.length).toFixed(1),
     rec: Math.round(last30.reduce((s,d)=>s+(d.rec||0),0)/last30.length),
     strain: +(days.slice(-30).reduce((s,d)=>s+(d.str||0),0)/30).toFixed(1),
     acwr: 1.0,
     fatigue: 40,
-    spo2: last30.reduce((s,d)=>s+(d.sp||0),0)/last30.length || 97.5,
-    skin: last30.reduce((s,d)=>s+(d.sk||0),0)/last30.length || 33.4,
+    spo2: +(last30.reduce((s,d)=>s+(d.sp||0),0)/last30.length).toFixed(1) || 97.5,
+    skin: +(last30.reduce((s,d)=>s+(d.sk||0),0)/last30.length).toFixed(1) || 33.4,
   };
 }
 
