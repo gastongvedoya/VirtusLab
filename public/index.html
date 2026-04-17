@@ -485,7 +485,8 @@ async function loadUserData() {
 // Background sync — doesn't block UI, silent fail
 async function autoSyncWhoopBackground() {
   if (!whoopTokens || !currentUser) return;
-  try {
+
+  async function fetchType(type) {
     const response = await fetch('/api/whoop-sync', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -493,29 +494,38 @@ async function autoSyncWhoopBackground() {
         access_token: whoopTokens.access_token,
         refresh_token: whoopTokens.refresh_token,
         expires_at: whoopTokens.expires_at,
+        type,
       })
     });
     const data = await response.json();
-    if (data.error) return;
-    if (data.newTokens) {
+    if (data.error) throw new Error(type);
+    if (data.newTokens) whoopTokens = { ...whoopTokens, ...data.newTokens };
+    return data.records || [];
+  }
+
+  try {
+    const recovery = await fetchType('recovery');
+    const sleep = await fetchType('sleep');
+    const cycles = await fetchType('cycles');
+
+    whoopData = {
+      recovery, sleep, cycles,
+      syncedAt: new Date().toISOString(),
+    };
+
+    // Save tokens if refreshed
+    if (whoopTokens.access_token !== null) {
       await _supabase
         .from('whoop_tokens')
         .update({
-          access_token: data.newTokens.access_token,
-          refresh_token: data.newTokens.refresh_token,
-          expires_at: data.newTokens.expires_at,
+          access_token: whoopTokens.access_token,
+          refresh_token: whoopTokens.refresh_token,
+          expires_at: whoopTokens.expires_at,
           updated_at: new Date().toISOString(),
         })
         .eq('user_id', currentUser.id);
-      whoopTokens = { ...whoopTokens, ...data.newTokens };
     }
-    whoopData = {
-      recovery: data.recovery || [],
-      sleep: data.sleep || [],
-      cycles: data.cycles || [],
-      profile: data.profile || null,
-      syncedAt: new Date().toISOString(),
-    };
+
     await saveWhoopDataToSupabase(whoopData.recovery, whoopData.sleep, whoopData.cycles);
     await applyRealWhoopData();
     render();
@@ -788,7 +798,10 @@ async function syncWhoop() {
   _whoopSyncing = true;
   render();
 
-  try {
+  const results = { recovery: [], sleep: [], cycles: [] };
+  let newTokensUpdated = null;
+
+  async function fetchType(type) {
     const response = await fetch('/api/whoop-sync', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -796,49 +809,59 @@ async function syncWhoop() {
         access_token: whoopTokens.access_token,
         refresh_token: whoopTokens.refresh_token,
         expires_at: whoopTokens.expires_at,
+        type,
       })
     });
     const data = await response.json();
+    if (data.error) throw new Error(type + ': ' + (data.detail || data.error));
+    if (data.newTokens) newTokensUpdated = data.newTokens;
+    return data.records || [];
+  }
 
-    if (data.error) {
-      alert('Error sincronizando: ' + (data.detail || data.error));
-      _whoopSyncing = false;
-      render();
-      return;
+  try {
+    results.recovery = await fetchType('recovery');
+    // refresh tokens if we got new ones
+    if (newTokensUpdated) {
+      whoopTokens = { ...whoopTokens, ...newTokensUpdated };
+      newTokensUpdated = null;
+    }
+    results.sleep = await fetchType('sleep');
+    if (newTokensUpdated) {
+      whoopTokens = { ...whoopTokens, ...newTokensUpdated };
+      newTokensUpdated = null;
+    }
+    results.cycles = await fetchType('cycles');
+    if (newTokensUpdated) {
+      whoopTokens = { ...whoopTokens, ...newTokensUpdated };
     }
 
-    // If tokens were refreshed, save new tokens
-    if (data.newTokens) {
-      const { error } = await _supabase
+    // Save new tokens to Supabase if they got refreshed
+    if (whoopTokens.access_token !== null) {
+      await _supabase
         .from('whoop_tokens')
         .update({
-          access_token: data.newTokens.access_token,
-          refresh_token: data.newTokens.refresh_token,
-          expires_at: data.newTokens.expires_at,
+          access_token: whoopTokens.access_token,
+          refresh_token: whoopTokens.refresh_token,
+          expires_at: whoopTokens.expires_at,
           updated_at: new Date().toISOString(),
         })
         .eq('user_id', currentUser.id);
-      if (!error) {
-        whoopTokens = { ...whoopTokens, ...data.newTokens };
-      }
     }
 
     whoopData = {
-      recovery: data.recovery || [],
-      sleep: data.sleep || [],
-      cycles: data.cycles || [],
-      profile: data.profile || null,
+      recovery: results.recovery,
+      sleep: results.sleep,
+      cycles: results.cycles,
       syncedAt: new Date().toISOString(),
     };
 
-    // Save to Supabase (in background)
+    // Save to Supabase
     await saveWhoopDataToSupabase(whoopData.recovery, whoopData.sleep, whoopData.cycles);
 
     // Apply real data to portal
     await applyRealWhoopData();
 
-    const msg = `Sincronizado:\n• ${whoopData.recovery.length} recovery\n• ${whoopData.sleep.length} sleep\n• ${whoopData.cycles.length} cycles\n\nLos datos reales ahora se muestran en el portal.`;
-    alert(msg);
+    alert(`Sincronizado:\n• ${whoopData.recovery.length} recovery\n• ${whoopData.sleep.length} sleep\n• ${whoopData.cycles.length} cycles\n\nLos datos reales se muestran en el portal.`);
   } catch(e) {
     alert('Error: ' + e.message);
   }
