@@ -306,9 +306,14 @@
 <body>
 <div id="auth-screen" style="display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #0a0a0c; padding: 20px;">
   <div style="width: 100%; max-width: 380px; text-align: center;">
-    <div style="margin-bottom: 32px;">
-      <div style="font-size: 22px; letter-spacing: 3px; font-weight: 600; color: #f5f1e8; text-transform: uppercase;">VirtusLab</div>
-      <div style="font-size: 10px; letter-spacing: 2px; color: #6b6962; margin-top: 6px; text-transform: uppercase;">Engineered for Peak Human Performance</div>
+    <div style="margin-bottom: 32px; display: flex; flex-direction: column; align-items: center; gap: 16px;">
+      <div style="width: 72px; height: 72px; background: #0f0f12; border: 1px solid rgba(245,241,232,0.08); display: flex; align-items: center; justify-content: center; border-radius: 14px;">
+        <span style="font-family: Georgia, 'Times New Roman', serif; font-size: 36px; color: #3b82f6; font-style: italic; font-weight: 500; letter-spacing: -2px;">VL</span>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-family: Georgia, 'Times New Roman', serif; font-size: 22px; letter-spacing: 0.3px; color: #f5f1e8; font-weight: 500; font-style: italic;">Virtvs<span style="color: #3b82f6;">Lab</span></div>
+        <div style="font-size: 9px; letter-spacing: 2px; color: #6b6962; margin-top: 6px; text-transform: uppercase;">Engineered for Peak Human Performance</div>
+      </div>
     </div>
     <div id="auth-error" style="display: none; background: rgba(184,64,64,0.12); border: 0.5px solid #b84040; color: #b84040; padding: 10px 14px; border-radius: 6px; font-size: 13px; margin-bottom: 16px;"></div>
     <div id="auth-success" style="display: none; background: rgba(122,148,86,0.12); border: 0.5px solid #7a9456; color: #7a9456; padding: 10px 14px; border-radius: 6px; font-size: 13px; margin-bottom: 16px;"></div>
@@ -2563,13 +2568,13 @@ function renderHeader() {
 
   return `
     <div class="header-row" style="padding: 14px 2rem; border-bottom: 0.5px solid ${VL.border}; background: ${VL.panel}; display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap; gap: 12px;">
-      <div class="header-logo" style="display: flex; align-items: center; gap: 14px; min-width: 0;">
-        <div style="width: 44px; height: 44px; background: ${VL.blue}; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 6px; box-shadow: 0 0 0 1px rgba(59,130,246,0.3), 0 2px 8px rgba(59,130,246,0.15);">
-          <span style="font-family: Georgia, 'Times New Roman', serif; font-size: 20px; color: #fff; font-style: italic; font-weight: 600; letter-spacing: -1px;">VL</span>
+      <div class="header-logo" style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+        <div style="width: 44px; height: 44px; background: ${VL.bg}; border: 1px solid ${VL.border}; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 8px;">
+          <span style="font-family: Georgia, 'Times New Roman', serif; font-size: 22px; color: ${VL.blue}; font-style: italic; font-weight: 500; letter-spacing: -1.5px;">VL</span>
         </div>
         <div class="header-text" style="min-width: 0;">
-          <div style="font-family: Georgia, 'Times New Roman', serif; font-size: 22px; letter-spacing: 0.5px; color: ${VL.text}; font-weight: 500;"><span style="font-style: italic;">Virtvs</span><span style="color: ${VL.blue}; font-style: italic;">Lab</span></div>
-          <div class="header-tagline" style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1.8px; text-transform: uppercase; margin-top: 2px;">Measure · Adapt · Become</div>
+          <div style="font-family: Georgia, 'Times New Roman', serif; font-size: 20px; letter-spacing: 0.3px; color: ${VL.text}; font-weight: 500; font-style: italic;">Virtvs<span style="color: ${VL.blue};">Lab</span></div>
+          <div class="header-tagline" style="font-size: 8px; color: ${VL.textFaint}; letter-spacing: 2px; text-transform: uppercase; margin-top: 3px;">Measure · Adapt · Become</div>
         </div>
       </div>
       <div class="header-actions" style="display: flex; align-items: center; gap: 8px; flex-shrink: 0; margin-left: auto;">
@@ -3014,21 +3019,15 @@ function renderTraining() {
             </div>
             <div style="font-size: 12px; font-family: Georgia, serif; color: ${VL.text}; text-align: right;">${z.pace}</div>
           </div>
-          <div class="table-row-mobile" style="padding: 12px 14px; border: 0.5px solid ${VL.border}; border-left: 3px solid ${z.color}; background: ${VL.bg};">
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-              <div style="font-size: 16px; font-weight: 500; font-family: Georgia, serif; color: ${z.color};">${z.z}</div>
-              <div style="font-size: 12px; color: ${VL.text}; font-weight: 500;">${z.sys}</div>
+          <div class="table-row-mobile" style="padding: 10px 12px; border: 0.5px solid ${VL.border}; border-left: 3px solid ${z.color}; background: ${VL.bg};">
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px;">
+              <div style="font-size: 14px; font-weight: 500; font-family: Georgia, serif; color: ${z.color}; line-height: 1;">${z.z}</div>
+              <div style="font-size: 10px; color: ${VL.text}; font-weight: 500; flex: 1;">${z.sys}</div>
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-              <div>
-                <div style="font-size: 8px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Frecuencia</div>
-                <div style="font-size: 13px; font-family: Georgia, serif; color: ${VL.text}; margin-top: 3px;">${z.fc} <span style="font-size: 10px; color: ${VL.textFaint};">bpm</span></div>
-                <div style="font-size: 9px; color: ${VL.textFaint}; margin-top: 2px;">${z.fcPct} reserva</div>
-              </div>
-              <div>
-                <div style="font-size: 8px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Pace</div>
-                <div style="font-size: 13px; font-family: Georgia, serif; color: ${VL.text}; margin-top: 3px;">${z.pace}</div>
-              </div>
+            <div style="display: flex; gap: 10px; font-size: 11px; font-family: Georgia, serif; color: ${VL.text};">
+              <span>${z.fc} <span style="font-size: 9px; color: ${VL.textFaint};">bpm</span></span>
+              <span style="color: ${VL.textFaint};">·</span>
+              <span>${z.pace}</span>
             </div>
           </div>
         `).join('')}
@@ -3050,13 +3049,12 @@ function renderTraining() {
             <div style="font-size: 11px; color: ${VL.textFaint};">${z.detail}</div>
             <div style="font-size: 11px; color: ${VL.textMuted}; text-align: right;">${z.use}</div>
           </div>
-          <div class="table-row-mobile" style="padding: 12px 14px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; gap: 10px;">
-              <div style="font-size: 13px; font-weight: 500; font-family: Georgia, serif; color: ${VL.text};">${z.zone}</div>
-              <div style="font-size: 13px; font-family: Georgia, serif; color: ${VL.blue}; font-weight: 500; flex-shrink: 0;">${z.base}</div>
+          <div class="table-row-mobile" style="padding: 10px 12px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 3px;">
+              <div style="font-size: 12px; font-weight: 500; font-family: Georgia, serif; color: ${VL.text};">${z.zone}</div>
+              <div style="font-size: 12px; font-family: Georgia, serif; color: ${VL.blue}; font-weight: 500; flex-shrink: 0;">${z.base}</div>
             </div>
-            <div style="font-size: 11px; color: ${VL.textFaint}; line-height: 1.5; margin-bottom: 6px;">${z.detail}</div>
-            <div style="font-size: 10px; color: ${VL.textMuted};"><span style="color: ${VL.textFaint}; letter-spacing: 0.5px; text-transform: uppercase; font-size: 8px;">Días:</span> ${z.use}</div>
+            <div style="font-size: 10px; color: ${VL.textFaint}; line-height: 1.4;">${z.detail}</div>
           </div>
         `).join('')}
       </div>
@@ -3439,20 +3437,15 @@ function renderNutrition() {
             <div style="font-size: 11px; color: ${VL.blue}; font-family: Georgia, serif; text-align: right;">${c.carbs}</div>
             <div style="font-size: 11px; color: ${VL.textMuted}; text-align: right; font-family: Georgia, serif;">${c.water}</div>
           </div>
-          <div class="table-row-mobile" style="padding: 12px 14px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-              <div style="font-family: Georgia, serif; font-size: 18px; font-style: italic; color: ${VL.blue}; min-width: 24px;">${c.day}</div>
-              <div style="font-size: 12px; color: ${VL.text}; font-weight: 500; line-height: 1.3;">${c.session}</div>
+          <div class="table-row-mobile" style="padding: 10px 12px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+              <div style="font-family: Georgia, serif; font-size: 14px; font-style: italic; color: ${VL.blue}; line-height: 1;">${c.day}</div>
+              <div style="font-size: 11px; color: ${VL.text}; line-height: 1.3; flex: 1;">${c.session}</div>
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-top: 8px; border-top: 0.5px solid ${VL.border};">
-              <div>
-                <div style="font-size: 8px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Pre-workout</div>
-                <div style="font-size: 12px; color: ${VL.blue}; font-family: Georgia, serif; margin-top: 3px; line-height: 1.3;">${c.carbs}</div>
-              </div>
-              <div>
-                <div style="font-size: 8px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Hidratación</div>
-                <div style="font-size: 12px; color: ${VL.textMuted}; font-family: Georgia, serif; margin-top: 3px;">${c.water}</div>
-              </div>
+            <div style="display: flex; gap: 12px; font-size: 11px; font-family: Georgia, serif;">
+              <span style="color: ${VL.blue};">${c.carbs}</span>
+              <span style="color: ${VL.textFaint};">·</span>
+              <span style="color: ${VL.textMuted};">${c.water}</span>
             </div>
           </div>
         `).join('')}
@@ -5619,24 +5612,21 @@ function renderSessionHistoryCharts() {
 <script>
 // ============ NAVIGATION & STATE HANDLERS ============
 
-// Cambio 2: setSection NO hace scrollTo(0,0) - mantiene el scroll donde estaba
-// pero sí auto-scrollea el nav horizontal para que la pestaña activa quede visible
+// setSection NO hace scrollTo(0,0) - mantiene el scroll donde estaba
+// Tampoco mueve el nav horizontal - se queda exactamente donde el usuario lo dejó
 window.setSection = function(id) {
   activeSection = id;
   openDayIndex = null;
   showStatusMenu = false;
+  // Guardar posición actual del nav para restaurarla después del render
+  const navBefore = document.getElementById('main-nav');
+  const navScrollLeft = navBefore ? navBefore.scrollLeft : 0;
   render();
-  // Auto-scroll del nav horizontal para que la pestaña activa quede visible
+  // Restaurar posición del nav después del re-render
   setTimeout(() => {
-    const btn = document.querySelector('[data-nav-id="' + id + '"]');
-    const nav = document.getElementById('main-nav');
-    if (btn && nav) {
-      const btnRect = btn.getBoundingClientRect();
-      const navRect = nav.getBoundingClientRect();
-      const scrollLeft = btn.offsetLeft - (nav.clientWidth / 2) + (btn.clientWidth / 2);
-      nav.scrollTo({ left: scrollLeft, behavior: 'smooth' });
-    }
-  }, 20);
+    const navAfter = document.getElementById('main-nav');
+    if (navAfter) navAfter.scrollLeft = navScrollLeft;
+  }, 0);
 };
 
 window.toggleDay = function(i) {
