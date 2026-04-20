@@ -35,6 +35,12 @@
     -ms-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
   #app-wrapper {
     width: 100%;
     min-height: 100vh;
@@ -115,6 +121,17 @@
   }
   .mobile-scroll-x::-webkit-scrollbar {
     height: 4px;
+  }
+
+  /* Cards apiladas en mobile (reemplaza tablas densas) */
+  .table-row-desktop { display: grid; }
+  .table-row-mobile { display: none; }
+  @media (max-width: 768px) {
+    .table-row-desktop { display: none !important; }
+    .table-row-mobile { display: block !important; }
+    .table-header-desktop { display: none !important; }
+    /* Ocultar tagline superior en mobile */
+    .top-tagline { display: none !important; }
   }
 
   /* ============ RESPONSIVE MOBILE ============ */
@@ -2463,7 +2480,7 @@ function render() {
   const activeMode = getActiveMode();
   app.innerHTML = `
     <div style="background: ${VL.bg}; overflow: hidden; color: ${VL.text}; min-height: 100vh;">
-      <div style="background: ${VL.panelHi}; border-bottom: 0.5px solid ${VL.border}; padding: 6px 2rem; display: flex; align-items: center; justify-content: center; gap: 10px;">
+      <div class="top-tagline" style="background: ${VL.panelHi}; border-bottom: 0.5px solid ${VL.border}; padding: 6px 2rem; display: flex; align-items: center; justify-content: center; gap: 10px;">
         <div style="font-family: Georgia, serif; font-size: 10px; color: ${VL.textMuted}; letter-spacing: 2.5px; text-transform: uppercase; font-style: italic;">Engineered for peak human performance</div>
       </div>
       <div class="sticky-header">
@@ -2547,11 +2564,11 @@ function renderHeader() {
   return `
     <div class="header-row" style="padding: 14px 2rem; border-bottom: 0.5px solid ${VL.border}; background: ${VL.panel}; display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap; gap: 12px;">
       <div class="header-logo" style="display: flex; align-items: center; gap: 14px; min-width: 0;">
-        <div style="width: 40px; height: 40px; background: ${VL.blue}; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-          <span style="font-family: Georgia, serif; font-size: 17px; color: ${VL.bg}; font-style: italic; font-weight: 500; letter-spacing: -0.5px;">VL</span>
+        <div style="width: 44px; height: 44px; background: ${VL.blue}; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 6px; box-shadow: 0 0 0 1px rgba(59,130,246,0.3), 0 2px 8px rgba(59,130,246,0.15);">
+          <span style="font-family: Georgia, 'Times New Roman', serif; font-size: 20px; color: #fff; font-style: italic; font-weight: 600; letter-spacing: -1px;">VL</span>
         </div>
         <div class="header-text" style="min-width: 0;">
-          <div style="font-family: Georgia, 'Times New Roman', serif; font-size: 20px; letter-spacing: 1.4px; color: ${VL.text};">VIRTUS<span style="color: ${VL.blue};">LAB</span></div>
+          <div style="font-family: Georgia, 'Times New Roman', serif; font-size: 22px; letter-spacing: 0.5px; color: ${VL.text}; font-weight: 500;"><span style="font-style: italic;">Virtvs</span><span style="color: ${VL.blue}; font-style: italic;">Lab</span></div>
           <div class="header-tagline" style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1.8px; text-transform: uppercase; margin-top: 2px;">Measure · Adapt · Become</div>
         </div>
       </div>
@@ -2604,9 +2621,9 @@ function renderFooter() {
 
 function renderNav() {
   return `
-    <div style="display: flex; justify-content: space-around; gap: 0; padding: 0 1.5rem; background: ${VL.panel}; overflow-x: auto; border-bottom: 0.5px solid ${VL.border};">
+    <div id="main-nav" style="display: flex; justify-content: space-around; gap: 0; padding: 0 1.5rem; background: ${VL.panel}; overflow-x: auto; border-bottom: 0.5px solid ${VL.border};">
       ${sections.map(s => `
-        <button onclick="setSection('${s.id}')" style="
+        <button data-nav-id="${s.id}" onclick="setSection('${s.id}')" style="
           padding: 12px 14px; font-size: 11px; border: none; background: transparent;
           color: ${activeSection === s.id ? VL.blue : VL.textMuted};
           font-weight: ${activeSection === s.id ? '500' : '400'};
@@ -2974,55 +2991,74 @@ function renderTraining() {
         </div>
       </div>
 
-      <div class="mobile-scroll-x">
-        <div style="min-width: 560px;">
-          <div style="display: grid; grid-template-columns: 60px 1fr 130px 130px; gap: 14px; padding: 0 16px 10px; border-bottom: 0.5px solid ${VL.border}; margin-bottom: 8px;">
-            <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Zona</div>
-            <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Sistema</div>
-            <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase; text-align: right;">Frecuencia</div>
-            <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase; text-align: right;">Pace</div>
+      <div class="table-header-desktop" style="display: grid; grid-template-columns: 60px 1fr 130px 130px; gap: 14px; padding: 0 16px 10px; border-bottom: 0.5px solid ${VL.border}; margin-bottom: 8px;">
+        <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Zona</div>
+        <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Sistema</div>
+        <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase; text-align: right;">Frecuencia</div>
+        <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase; text-align: right;">Pace</div>
+      </div>
+      <div style="display: grid; gap: 4px;">
+        ${[
+          { z:'Z1', sys:'Recuperación', fc:'<137', fcPct:'<60%', pace:'>7:30/km', color:VL.textFaint },
+          { z:'Z2', sys:'Base aeróbica', fc:'137-152', fcPct:'60-70%', pace:'6:40-7:00/km', color:VL.green },
+          { z:'Z3', sys:'Aeróbico medio', fc:'152-167', fcPct:'70-80%', pace:'5:50-6:20/km', color:VL.green },
+          { z:'Z4', sys:'Umbral de lactato', fc:'167-181', fcPct:'80-90%', pace:'5:10-5:30/km', color:VL.yellow },
+          { z:'Z5', sys:'VO2max / anaeróbico', fc:'>181', fcPct:'>90%', pace:'4:30-4:50/km', color:VL.red },
+        ].map(z => `
+          <div class="table-row-desktop" style="display: grid; grid-template-columns: 60px 1fr 130px 130px; gap: 14px; align-items: center; padding: 12px 16px; border: 0.5px solid ${VL.border}; border-left: 3px solid ${z.color}; background: ${VL.bg};">
+            <div style="font-size: 14px; font-weight: 500; font-family: Georgia, serif; color: ${z.color};">${z.z}</div>
+            <div style="font-size: 12px; color: ${VL.text};">${z.sys}</div>
+            <div style="text-align: right;">
+              <div style="font-size: 12px; font-family: Georgia, serif; color: ${VL.text};">${z.fc} <span style="font-size: 10px; color: ${VL.textFaint};">bpm</span></div>
+              <div style="font-size: 9px; color: ${VL.textFaint}; margin-top: 2px;">${z.fcPct} reserva</div>
+            </div>
+            <div style="font-size: 12px; font-family: Georgia, serif; color: ${VL.text}; text-align: right;">${z.pace}</div>
           </div>
-          <div style="display: grid; gap: 4px;">
-            ${[
-              { z:'Z1', sys:'Recuperación', fc:'<137', fcPct:'<60%', pace:'>7:30/km', color:VL.textFaint },
-              { z:'Z2', sys:'Base aeróbica', fc:'137-152', fcPct:'60-70%', pace:'6:40-7:00/km', color:VL.green },
-              { z:'Z3', sys:'Aeróbico medio', fc:'152-167', fcPct:'70-80%', pace:'5:50-6:20/km', color:VL.green },
-              { z:'Z4', sys:'Umbral de lactato', fc:'167-181', fcPct:'80-90%', pace:'5:10-5:30/km', color:VL.yellow },
-              { z:'Z5', sys:'VO2max / anaeróbico', fc:'>181', fcPct:'>90%', pace:'4:30-4:50/km', color:VL.red },
-            ].map(z => `
-              <div style="display: grid; grid-template-columns: 60px 1fr 130px 130px; gap: 14px; align-items: center; padding: 12px 16px; border: 0.5px solid ${VL.border}; border-left: 3px solid ${z.color}; background: ${VL.bg};">
-                <div style="font-size: 14px; font-weight: 500; font-family: Georgia, serif; color: ${z.color};">${z.z}</div>
-                <div style="font-size: 12px; color: ${VL.text};">${z.sys}</div>
-                <div style="text-align: right;">
-                  <div style="font-size: 12px; font-family: Georgia, serif; color: ${VL.text};">${z.fc} <span style="font-size: 10px; color: ${VL.textFaint};">bpm</span></div>
-                  <div style="font-size: 9px; color: ${VL.textFaint}; margin-top: 2px;">${z.fcPct} reserva</div>
-                </div>
-                <div style="font-size: 12px; font-family: Georgia, serif; color: ${VL.text}; text-align: right;">${z.pace}</div>
+          <div class="table-row-mobile" style="padding: 12px 14px; border: 0.5px solid ${VL.border}; border-left: 3px solid ${z.color}; background: ${VL.bg};">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+              <div style="font-size: 16px; font-weight: 500; font-family: Georgia, serif; color: ${z.color};">${z.z}</div>
+              <div style="font-size: 12px; color: ${VL.text}; font-weight: 500;">${z.sys}</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div>
+                <div style="font-size: 8px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Frecuencia</div>
+                <div style="font-size: 13px; font-family: Georgia, serif; color: ${VL.text}; margin-top: 3px;">${z.fc} <span style="font-size: 10px; color: ${VL.textFaint};">bpm</span></div>
+                <div style="font-size: 9px; color: ${VL.textFaint}; margin-top: 2px;">${z.fcPct} reserva</div>
               </div>
-            `).join('')}
+              <div>
+                <div style="font-size: 8px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Pace</div>
+                <div style="font-size: 13px; font-family: Georgia, serif; color: ${VL.text}; margin-top: 3px;">${z.pace}</div>
+              </div>
+            </div>
           </div>
-        </div>
+        `).join('')}
       </div>
 
       <div style="margin: 26px 0 12px;">
         <div style="font-size: 13px; font-weight: 500; color: ${VL.text};">Zonas específicas del plan</div>
       </div>
-      <div class="mobile-scroll-x">
-        <div style="min-width: 560px; display: grid; gap: 4px;">
-          ${[
-            { zone:'Easy run', base:'Z2', use:'Lunes, Jueves', detail:'Base aeróbica · ritmo conversacional' },
-            { zone:'Long run', base:'Z2', use:'Sábado', detail:'Larga duración · acumulación de minutos en zona' },
-            { zone:'Pasadas progresivas', base:'Z3-Z4', use:'Miércoles', detail:'Umbral · 3×1.5km progresivo con amigo' },
-            { zone:'Sprint intervals', base:'>Z5', use:'Viernes', detail:'All-out neural · 10-15s con recuperación completa' },
-          ].map(z => `
-            <div style="display: grid; grid-template-columns: 170px 70px 1fr 110px; gap: 14px; align-items: center; padding: 12px 16px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
-              <div style="font-size: 12px; font-weight: 500; font-family: Georgia, serif; color: ${VL.text};">${z.zone}</div>
-              <div style="font-size: 12px; font-family: Georgia, serif; color: ${VL.blue};">${z.base}</div>
-              <div style="font-size: 11px; color: ${VL.textFaint};">${z.detail}</div>
-              <div style="font-size: 11px; color: ${VL.textMuted}; text-align: right;">${z.use}</div>
+      <div style="display: grid; gap: 4px;">
+        ${[
+          { zone:'Easy run', base:'Z2', use:'Lunes, Jueves', detail:'Base aeróbica · ritmo conversacional' },
+          { zone:'Long run', base:'Z2', use:'Sábado', detail:'Larga duración · acumulación de minutos en zona' },
+          { zone:'Pasadas progresivas', base:'Z3-Z4', use:'Miércoles', detail:'Umbral · 3×1.5km progresivo con amigo' },
+          { zone:'Sprint intervals', base:'>Z5', use:'Viernes', detail:'All-out neural · 10-15s con recuperación completa' },
+        ].map(z => `
+          <div class="table-row-desktop" style="display: grid; grid-template-columns: 170px 70px 1fr 110px; gap: 14px; align-items: center; padding: 12px 16px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
+            <div style="font-size: 12px; font-weight: 500; font-family: Georgia, serif; color: ${VL.text};">${z.zone}</div>
+            <div style="font-size: 12px; font-family: Georgia, serif; color: ${VL.blue};">${z.base}</div>
+            <div style="font-size: 11px; color: ${VL.textFaint};">${z.detail}</div>
+            <div style="font-size: 11px; color: ${VL.textMuted}; text-align: right;">${z.use}</div>
+          </div>
+          <div class="table-row-mobile" style="padding: 12px 14px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; gap: 10px;">
+              <div style="font-size: 13px; font-weight: 500; font-family: Georgia, serif; color: ${VL.text};">${z.zone}</div>
+              <div style="font-size: 13px; font-family: Georgia, serif; color: ${VL.blue}; font-weight: 500; flex-shrink: 0;">${z.base}</div>
             </div>
-          `).join('')}
-        </div>
+            <div style="font-size: 11px; color: ${VL.textFaint}; line-height: 1.5; margin-bottom: 6px;">${z.detail}</div>
+            <div style="font-size: 10px; color: ${VL.textMuted};"><span style="color: ${VL.textFaint}; letter-spacing: 0.5px; text-transform: uppercase; font-size: 8px;">Días:</span> ${z.use}</div>
+          </div>
+        `).join('')}
       </div>
 
       <div style="font-size: 10px; color: ${VL.textFaint}; margin-top: 22px; line-height: 1.65; padding-top: 14px; border-top: 0.5px solid ${VL.border};">
@@ -3381,33 +3417,45 @@ function renderNutrition() {
 
     <div style="border: 0.5px solid ${VL.border}; padding: 18px 20px; background: ${VL.panel}; margin-bottom: 12px;">
       <div style="display: flex; align-items: center; gap: 8px; font-size: 10px; color: ${VL.blue}; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 16px;">${ICONS.flame} <span>Carbos e hidratación por día</span></div>
-      <div class="mobile-scroll-x">
-        <div style="min-width: 560px;">
-          <div style="display: grid; grid-template-columns: 32px 1fr 130px 90px; gap: 14px; padding: 0 14px 10px; border-bottom: 0.5px solid ${VL.border}; margin-bottom: 6px;">
-            <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Día</div>
-            <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Sesión</div>
-            <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase; text-align: right;">Pre-workout</div>
-            <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase; text-align: right;">Hidratación</div>
+      <div class="table-header-desktop" style="display: grid; grid-template-columns: 32px 1fr 130px 90px; gap: 14px; padding: 0 14px 10px; border-bottom: 0.5px solid ${VL.border}; margin-bottom: 6px;">
+        <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Día</div>
+        <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Sesión</div>
+        <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase; text-align: right;">Pre-workout</div>
+        <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase; text-align: right;">Hidratación</div>
+      </div>
+      <div style="display: grid; gap: 4px;">
+        ${[
+          { day:'I', session:'Fuerza piernas + Easy run Z2', carbs:'~80 g', water:'2.5-3 L' },
+          { day:'II', session:'Fuerza tren superior + Caminata Z1', carbs:'~50 g', water:'2.5 L' },
+          { day:'III', session:'Pasadas progresivas Z3-Z4', carbs:'~110 g', water:'3 L' },
+          { day:'IV', session:'Fuerza heavy + Easy run Z2', carbs:'~90 g', water:'3 L' },
+          { day:'V', session:'Fuerza + Sprints + Caminata Z1', carbs:'~70 g', water:'2.5 L' },
+          { day:'VI', session:'Long run Z2 90\'', carbs:'~145 g + 30-60 g/h intra', water:'3.5-4 L' },
+          { day:'VII', session:'Golf + Recuperación activa', carbs:'normal', water:'2.5-3 L' },
+        ].map(c => `
+          <div class="table-row-desktop" style="display: grid; grid-template-columns: 32px 1fr 130px 90px; gap: 14px; align-items: center; padding: 12px 14px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
+            <div style="font-family: Georgia, serif; font-size: 15px; font-style: italic; color: ${VL.textMuted};">${c.day}</div>
+            <div style="font-size: 11px; color: ${VL.text};">${c.session}</div>
+            <div style="font-size: 11px; color: ${VL.blue}; font-family: Georgia, serif; text-align: right;">${c.carbs}</div>
+            <div style="font-size: 11px; color: ${VL.textMuted}; text-align: right; font-family: Georgia, serif;">${c.water}</div>
           </div>
-          <div style="display: grid; gap: 4px;">
-            ${[
-              { day:'I', session:'Fuerza piernas + Easy run Z2', carbs:'~80 g', water:'2.5-3 L' },
-              { day:'II', session:'Fuerza tren superior + Caminata Z1', carbs:'~50 g', water:'2.5 L' },
-              { day:'III', session:'Pasadas progresivas Z3-Z4', carbs:'~110 g', water:'3 L' },
-              { day:'IV', session:'Fuerza heavy + Easy run Z2', carbs:'~90 g', water:'3 L' },
-              { day:'V', session:'Fuerza + Sprints + Caminata Z1', carbs:'~70 g', water:'2.5 L' },
-              { day:'VI', session:'Long run Z2 90\'', carbs:'~145 g + 30-60 g/h intra', water:'3.5-4 L' },
-              { day:'VII', session:'Golf + Recuperación activa', carbs:'normal', water:'2.5-3 L' },
-            ].map(c => `
-              <div style="display: grid; grid-template-columns: 32px 1fr 130px 90px; gap: 14px; align-items: center; padding: 12px 14px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
-                <div style="font-family: Georgia, serif; font-size: 15px; font-style: italic; color: ${VL.textMuted};">${c.day}</div>
-                <div style="font-size: 11px; color: ${VL.text};">${c.session}</div>
-                <div style="font-size: 11px; color: ${VL.blue}; font-family: Georgia, serif; text-align: right;">${c.carbs}</div>
-                <div style="font-size: 11px; color: ${VL.textMuted}; text-align: right; font-family: Georgia, serif;">${c.water}</div>
+          <div class="table-row-mobile" style="padding: 12px 14px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+              <div style="font-family: Georgia, serif; font-size: 18px; font-style: italic; color: ${VL.blue}; min-width: 24px;">${c.day}</div>
+              <div style="font-size: 12px; color: ${VL.text}; font-weight: 500; line-height: 1.3;">${c.session}</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-top: 8px; border-top: 0.5px solid ${VL.border};">
+              <div>
+                <div style="font-size: 8px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Pre-workout</div>
+                <div style="font-size: 12px; color: ${VL.blue}; font-family: Georgia, serif; margin-top: 3px; line-height: 1.3;">${c.carbs}</div>
               </div>
-            `).join('')}
+              <div>
+                <div style="font-size: 8px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Hidratación</div>
+                <div style="font-size: 12px; color: ${VL.textMuted}; font-family: Georgia, serif; margin-top: 3px;">${c.water}</div>
+              </div>
+            </div>
           </div>
-        </div>
+        `).join('')}
       </div>
       <div style="font-size: 10px; color: ${VL.textFaint}; margin-top: 14px; line-height: 1.6; padding-top: 12px; border-top: 0.5px solid ${VL.border};">
         <div style="margin-bottom: 6px;"><span style="color: ${VL.textMuted}; font-weight: 500;">Pre-workout:</span> carbohidratos 60-90 minutos antes de la sesión como dosis principal, con opción de dosis chica 15-30 minutos antes. En el long run del sábado se suma reposición intra-sesión (30-60 g/h) desde el minuto 60.</div>
@@ -5572,11 +5620,23 @@ function renderSessionHistoryCharts() {
 // ============ NAVIGATION & STATE HANDLERS ============
 
 // Cambio 2: setSection NO hace scrollTo(0,0) - mantiene el scroll donde estaba
+// pero sí auto-scrollea el nav horizontal para que la pestaña activa quede visible
 window.setSection = function(id) {
   activeSection = id;
   openDayIndex = null;
   showStatusMenu = false;
   render();
+  // Auto-scroll del nav horizontal para que la pestaña activa quede visible
+  setTimeout(() => {
+    const btn = document.querySelector('[data-nav-id="' + id + '"]');
+    const nav = document.getElementById('main-nav');
+    if (btn && nav) {
+      const btnRect = btn.getBoundingClientRect();
+      const navRect = nav.getBoundingClientRect();
+      const scrollLeft = btn.offsetLeft - (nav.clientWidth / 2) + (btn.clientWidth / 2);
+      nav.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+    }
+  }, 20);
 };
 
 window.toggleDay = function(i) {
