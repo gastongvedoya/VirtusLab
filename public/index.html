@@ -132,6 +132,11 @@
     .table-header-desktop { display: none !important; }
     /* Ocultar tagline superior en mobile */
     .top-tagline { display: none !important; }
+    /* Zonas en 2 columnas en mobile para aprovechar el ancho */
+    .zones-grid {
+      grid-template-columns: 1fr 1fr !important;
+      gap: 6px !important;
+    }
   }
 
   /* ============ RESPONSIVE MOBILE ============ */
@@ -308,7 +313,7 @@
   <div style="width: 100%; max-width: 380px; text-align: center;">
     <div style="margin-bottom: 32px; display: flex; flex-direction: column; align-items: center; gap: 16px;">
       <div style="width: 72px; height: 72px; background: #0f0f12; border: 1px solid rgba(245,241,232,0.08); display: flex; align-items: center; justify-content: center; border-radius: 14px;">
-        <span style="font-family: Georgia, 'Times New Roman', serif; font-size: 36px; color: #3b82f6; font-style: italic; font-weight: 500; letter-spacing: -2px;">VL</span>
+        <span style="font-family: Georgia, 'Times New Roman', serif; font-size: 36px; color: #3b82f6; font-style: italic; font-weight: 500; letter-spacing: 0;">VL</span>
       </div>
       <div style="text-align: center;">
         <div style="font-family: Georgia, 'Times New Roman', serif; font-size: 22px; letter-spacing: 0.3px; color: #f5f1e8; font-weight: 500; font-style: italic;">Virtvs<span style="color: #3b82f6;">Lab</span></div>
@@ -2483,6 +2488,9 @@ function getTodayPlanIndex() {
 function render() {
   const app = document.getElementById('app');
   const activeMode = getActiveMode();
+  // Guardar scrollLeft del nav antes del re-render para preservar la posición
+  const navPrev = document.getElementById('main-nav');
+  const navScrollLeft = navPrev ? navPrev.scrollLeft : 0;
   app.innerHTML = `
     <div style="background: ${VL.bg}; overflow: hidden; color: ${VL.text}; min-height: 100vh;">
       <div class="top-tagline" style="background: ${VL.panelHi}; border-bottom: 0.5px solid ${VL.border}; padding: 6px 2rem; display: flex; align-items: center; justify-content: center; gap: 10px;">
@@ -2510,6 +2518,9 @@ function render() {
     ${showSessionLog !== null ? renderSessionLogModal() : ''}
     ${showSessionHistory !== null ? renderSessionHistoryModal() : ''}
   `;
+  // Restaurar scrollLeft del nav inmediatamente (sin animación, sin flash)
+  const navNew = document.getElementById('main-nav');
+  if (navNew && navScrollLeft > 0) navNew.scrollLeft = navScrollLeft;
   setTimeout(() => {
     if (activeSection==='dashboard') renderDashboardCharts();
     if (activeSection==='recovery') renderRecoveryCharts();
@@ -2570,7 +2581,7 @@ function renderHeader() {
     <div class="header-row" style="padding: 14px 2rem; border-bottom: 0.5px solid ${VL.border}; background: ${VL.panel}; display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap; gap: 12px;">
       <div class="header-logo" style="display: flex; align-items: center; gap: 12px; min-width: 0;">
         <div style="width: 44px; height: 44px; background: ${VL.bg}; border: 1px solid ${VL.border}; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 8px;">
-          <span style="font-family: Georgia, 'Times New Roman', serif; font-size: 22px; color: ${VL.blue}; font-style: italic; font-weight: 500; letter-spacing: -1.5px;">VL</span>
+          <span style="font-family: Georgia, 'Times New Roman', serif; font-size: 22px; color: ${VL.blue}; font-style: italic; font-weight: 500; letter-spacing: 0;">VL</span>
         </div>
         <div class="header-text" style="min-width: 0;">
           <div style="font-family: Georgia, 'Times New Roman', serif; font-size: 20px; letter-spacing: 0.3px; color: ${VL.text}; font-weight: 500; font-style: italic;">Virtvs<span style="color: ${VL.blue};">Lab</span></div>
@@ -3002,7 +3013,7 @@ function renderTraining() {
         <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase; text-align: right;">Frecuencia</div>
         <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase; text-align: right;">Pace</div>
       </div>
-      <div style="display: grid; gap: 4px;">
+      <div class="zones-grid" style="display: grid; gap: 4px;">
         ${[
           { z:'Z1', sys:'Recuperación', fc:'<137', fcPct:'<60%', pace:'>7:30/km', color:VL.textFaint },
           { z:'Z2', sys:'Base aeróbica', fc:'137-152', fcPct:'60-70%', pace:'6:40-7:00/km', color:VL.green },
@@ -3020,15 +3031,12 @@ function renderTraining() {
             <div style="font-size: 12px; font-family: Georgia, serif; color: ${VL.text}; text-align: right;">${z.pace}</div>
           </div>
           <div class="table-row-mobile" style="padding: 10px 12px; border: 0.5px solid ${VL.border}; border-left: 3px solid ${z.color}; background: ${VL.bg};">
-            <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px;">
+            <div style="display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px;">
               <div style="font-size: 14px; font-weight: 500; font-family: Georgia, serif; color: ${z.color}; line-height: 1;">${z.z}</div>
-              <div style="font-size: 10px; color: ${VL.text}; font-weight: 500; flex: 1;">${z.sys}</div>
+              <div style="font-size: 10px; color: ${VL.text}; font-weight: 500; line-height: 1.2;">${z.sys}</div>
             </div>
-            <div style="display: flex; gap: 10px; font-size: 11px; font-family: Georgia, serif; color: ${VL.text};">
-              <span>${z.fc} <span style="font-size: 9px; color: ${VL.textFaint};">bpm</span></span>
-              <span style="color: ${VL.textFaint};">·</span>
-              <span>${z.pace}</span>
-            </div>
+            <div style="font-size: 11px; font-family: Georgia, serif; color: ${VL.text}; line-height: 1.4;">${z.fc}<span style="font-size: 9px; color: ${VL.textFaint};">bpm</span></div>
+            <div style="font-size: 11px; font-family: Georgia, serif; color: ${VL.textMuted}; line-height: 1.4;">${z.pace}</div>
           </div>
         `).join('')}
       </div>
@@ -3036,7 +3044,7 @@ function renderTraining() {
       <div style="margin: 26px 0 12px;">
         <div style="font-size: 13px; font-weight: 500; color: ${VL.text};">Zonas específicas del plan</div>
       </div>
-      <div style="display: grid; gap: 4px;">
+      <div class="zones-grid" style="display: grid; gap: 4px;">
         ${[
           { zone:'Easy run', base:'Z2', use:'Lunes, Jueves', detail:'Base aeróbica · ritmo conversacional' },
           { zone:'Long run', base:'Z2', use:'Sábado', detail:'Larga duración · acumulación de minutos en zona' },
@@ -3050,11 +3058,11 @@ function renderTraining() {
             <div style="font-size: 11px; color: ${VL.textMuted}; text-align: right;">${z.use}</div>
           </div>
           <div class="table-row-mobile" style="padding: 10px 12px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
-            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 3px;">
-              <div style="font-size: 12px; font-weight: 500; font-family: Georgia, serif; color: ${VL.text};">${z.zone}</div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 4px;">
+              <div style="font-size: 12px; font-weight: 500; font-family: Georgia, serif; color: ${VL.text}; line-height: 1.2;">${z.zone}</div>
               <div style="font-size: 12px; font-family: Georgia, serif; color: ${VL.blue}; font-weight: 500; flex-shrink: 0;">${z.base}</div>
             </div>
-            <div style="font-size: 10px; color: ${VL.textFaint}; line-height: 1.4;">${z.detail}</div>
+            <div style="font-size: 10px; color: ${VL.textFaint}; line-height: 1.35;">${z.detail}</div>
           </div>
         `).join('')}
       </div>
@@ -3421,7 +3429,7 @@ function renderNutrition() {
         <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase; text-align: right;">Pre-workout</div>
         <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase; text-align: right;">Hidratación</div>
       </div>
-      <div style="display: grid; gap: 4px;">
+      <div class="zones-grid" style="display: grid; gap: 4px;">
         ${[
           { day:'I', session:'Fuerza piernas + Easy run Z2', carbs:'~80 g', water:'2.5-3 L' },
           { day:'II', session:'Fuerza tren superior + Caminata Z1', carbs:'~50 g', water:'2.5 L' },
@@ -3438,15 +3446,12 @@ function renderNutrition() {
             <div style="font-size: 11px; color: ${VL.textMuted}; text-align: right; font-family: Georgia, serif;">${c.water}</div>
           </div>
           <div class="table-row-mobile" style="padding: 10px 12px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
-            <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px;">
+            <div style="display: flex; align-items: baseline; gap: 6px; margin-bottom: 5px;">
               <div style="font-family: Georgia, serif; font-size: 14px; font-style: italic; color: ${VL.blue}; line-height: 1;">${c.day}</div>
-              <div style="font-size: 11px; color: ${VL.text}; line-height: 1.3; flex: 1;">${c.session}</div>
+              <div style="font-size: 10px; color: ${VL.text}; line-height: 1.3;">${c.session}</div>
             </div>
-            <div style="display: flex; gap: 12px; font-size: 11px; font-family: Georgia, serif;">
-              <span style="color: ${VL.blue};">${c.carbs}</span>
-              <span style="color: ${VL.textFaint};">·</span>
-              <span style="color: ${VL.textMuted};">${c.water}</span>
-            </div>
+            <div style="font-size: 11px; font-family: Georgia, serif; color: ${VL.blue}; line-height: 1.35;">${c.carbs}</div>
+            <div style="font-size: 11px; font-family: Georgia, serif; color: ${VL.textMuted}; line-height: 1.35;">${c.water}</div>
           </div>
         `).join('')}
       </div>
@@ -5613,20 +5618,13 @@ function renderSessionHistoryCharts() {
 // ============ NAVIGATION & STATE HANDLERS ============
 
 // setSection NO hace scrollTo(0,0) - mantiene el scroll donde estaba
-// Tampoco mueve el nav horizontal - se queda exactamente donde el usuario lo dejó
+// El nav NO se re-renderiza completo - solo se actualizan los colores de los botones
+// Así el scroll lateral del nav queda 100% quieto donde el usuario lo dejó
 window.setSection = function(id) {
   activeSection = id;
   openDayIndex = null;
   showStatusMenu = false;
-  // Guardar posición actual del nav para restaurarla después del render
-  const navBefore = document.getElementById('main-nav');
-  const navScrollLeft = navBefore ? navBefore.scrollLeft : 0;
   render();
-  // Restaurar posición del nav después del re-render
-  setTimeout(() => {
-    const navAfter = document.getElementById('main-nav');
-    if (navAfter) navAfter.scrollLeft = navScrollLeft;
-  }, 0);
 };
 
 window.toggleDay = function(i) {
