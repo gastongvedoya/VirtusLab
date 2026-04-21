@@ -224,8 +224,16 @@
     div[style*="grid-template-columns: repeat(3, 1fr)"] {
       grid-template-columns: repeat(2, 1fr) !important;
     }
+    div.keep-3-cols[style*="grid-template-columns: repeat(3, 1fr)"],
     .keep-3-cols {
       grid-template-columns: repeat(3, 1fr) !important;
+      gap: 6px !important;
+    }
+    @media (max-width: 768px) {
+      .keep-3-cols > div > div[style*="font-size: 22px"],
+      .keep-3-cols > div > div[style*="font-size: 20px"] {
+        font-size: 17px !important;
+      }
     }
     .bars-grid {
       grid-template-columns: repeat(3, 1fr) !important;
@@ -3215,9 +3223,9 @@ function renderRecovery() {
       ${metricCardBaseline('Frec. resp.', todayData.rsp, 'rpm', baseline.resp, 'pulse')}
     </div>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px;">
+      ${metricCardBaseline('Recovery', todayData.rec, '%', baseline.rec, 'sparkle')}
       ${metricCardBaseline('SpO₂', +todayData.sp.toFixed(1), '%', baseline.spo2, 'droplet')}
       ${metricCardBaseline('Temp piel', +todayData.sk.toFixed(1), '°C', baseline.skin, 'thermo')}
-      ${metricCardBaseline('Recovery', todayData.rec, '%', baseline.rec, 'sparkle')}
     </div>
 
     <div style="border: 0.5px solid ${VL.border}; padding: 16px; background: ${VL.panel}; margin-bottom: 12px;">
