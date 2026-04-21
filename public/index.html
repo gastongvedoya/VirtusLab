@@ -124,11 +124,11 @@
   }
 
   /* Cards apiladas en mobile (reemplaza tablas densas) */
-  .table-row-desktop { display: grid; }
-  .table-row-mobile { display: none; }
+  .table-row-desktop { display: grid !important; }
+  .table-row-mobile { display: none !important; }
   @media (max-width: 768px) {
     .table-row-desktop { display: none !important; }
-    .table-row-mobile { display: block !important; }
+    .table-row-mobile { display: flex !important; }
     .table-header-desktop { display: none !important; }
     /* Ocultar tagline superior en mobile */
     .top-tagline { display: none !important; }
