@@ -229,6 +229,14 @@
       grid-template-columns: repeat(3, 1fr) !important;
       gap: 6px !important;
     }
+    /* Párrafos descriptivos: justificar + hyphens para que queden parejos */
+    div[style*="line-height: 1.6"],
+    div[style*="line-height: 1.65"],
+    div[style*="line-height: 1.7"] {
+      text-align: justify;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
     @media (max-width: 768px) {
       .keep-3-cols > div > div[style*="font-size: 22px"],
       .keep-3-cols > div > div[style*="font-size: 20px"] {
@@ -3016,18 +3024,22 @@ function renderTraining() {
         <div style="font-size: 10px; color: ${VL.textFaint};">Calculadas con tus datos reales de WHOOP</div>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 22px;">
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 22px;">
         <div style="padding: 14px 16px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
           <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">FC máxima</div>
-          <div style="font-size: 24px; font-family: Georgia, serif; color: ${VL.blue}; line-height: 1; margin-top: 8px;">196<span style="font-size: 11px; color: ${VL.textMuted}; margin-left: 5px;">bpm</span></div>
+          <div style="font-size: 22px; font-family: Georgia, serif; color: ${VL.blue}; line-height: 1; margin-top: 8px;">196<span style="font-size: 11px; color: ${VL.textMuted}; margin-left: 5px;">bpm</span></div>
         </div>
         <div style="padding: 14px 16px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
           <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">FC reposo</div>
-          <div style="font-size: 24px; font-family: Georgia, serif; color: ${VL.blue}; line-height: 1; margin-top: 8px;">49<span style="font-size: 11px; color: ${VL.textMuted}; margin-left: 5px;">bpm</span></div>
+          <div style="font-size: 22px; font-family: Georgia, serif; color: ${VL.blue}; line-height: 1; margin-top: 8px;">49<span style="font-size: 11px; color: ${VL.textMuted}; margin-left: 5px;">bpm</span></div>
+        </div>
+        <div style="padding: 14px 16px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
+          <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Reserva card.</div>
+          <div style="font-size: 22px; font-family: Georgia, serif; color: ${VL.blue}; line-height: 1; margin-top: 8px;">147<span style="font-size: 11px; color: ${VL.textMuted}; margin-left: 5px;">bpm</span></div>
         </div>
         <div style="padding: 14px 16px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
           <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">VO2max</div>
-          <div style="font-size: 24px; font-family: Georgia, serif; color: ${VL.blue}; line-height: 1; margin-top: 8px;">52.3<span style="font-size: 11px; color: ${VL.textMuted}; margin-left: 5px;">ml/kg</span></div>
+          <div style="font-size: 22px; font-family: Georgia, serif; color: ${VL.blue}; line-height: 1; margin-top: 8px;">52.3<span style="font-size: 11px; color: ${VL.textMuted}; margin-left: 5px;">ml/kg</span></div>
         </div>
       </div>
 
