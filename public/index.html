@@ -229,6 +229,19 @@
       grid-template-columns: repeat(3, 1fr) !important;
       gap: 6px !important;
     }
+    .recovery-grid {
+      grid-template-columns: 1fr 1fr 1fr !important;
+    }
+    @media (max-width: 768px) {
+      div.recovery-grid[style*="grid-template-columns"],
+      .recovery-grid {
+        grid-template-columns: 1fr 1fr !important;
+      }
+      div.bars-grid-2[style*="grid-template-columns"],
+      .bars-grid-2 {
+        grid-template-columns: 1fr 1fr !important;
+      }
+    }
     /* Párrafos descriptivos: justificar + hyphens para que queden parejos */
     div[style*="line-height: 1.6"],
     div[style*="line-height: 1.65"],
@@ -2817,10 +2830,9 @@ function renderDashboard() {
       ${metricCardBaseline('Resp. rate', todayData.rsp, 'rpm', baseline.resp, 'pulse')}
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px;" class="bars-grid">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;" class="bars-grid-2">
       ${barMetric('Fatiga física', 7, 10, VL.green)}
       ${barMetric('Fatiga mental', 6, 10, VL.yellow)}
-      ${barMetric('Disciplina', ds, 100, VL.blue)}
     </div>
 
     <div class="card" style="border: 0.5px solid ${VL.border}; border-left: 2px solid ${VL.blue}; background: ${VL.panel}; padding: 14px 18px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap;">
@@ -3229,12 +3241,10 @@ function renderRecovery() {
   return `
     ${sectionTitle('Recuperación', 'Otium sanctum · ad virtutem')}
 
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px;">
+    <div class="recovery-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px;">
       ${metricCardBaseline('HRV', todayData.hrv, 'ms', baseline.hrv, 'pulse')}
       ${metricCardBaseline('FC reposo', todayData.rhr, 'bpm', baseline.rhr, 'heart')}
       ${metricCardBaseline('Frec. resp.', todayData.rsp, 'rpm', baseline.resp, 'pulse')}
-    </div>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px;">
       ${metricCardBaseline('Recovery', todayData.rec, '%', baseline.rec, 'sparkle')}
       ${metricCardBaseline('SpO₂', +todayData.sp.toFixed(1), '%', baseline.spo2, 'droplet')}
       ${metricCardBaseline('Temp piel', +todayData.sk.toFixed(1), '°C', baseline.skin, 'thermo')}
