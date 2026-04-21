@@ -143,6 +143,19 @@
   @media (max-width: 768px) {
     #app { max-width: 100%; }
 
+    /* Metric cards más compactas en mobile */
+    div[style*="min-height: 96px"],
+    div[style*="min-height: 92px"],
+    div[style*="min-height: 100px"] {
+      min-height: 76px !important;
+      padding: 10px 12px !important;
+    }
+    div[style*="min-height: 96px"] div[style*="font-size: 24px"],
+    div[style*="min-height: 92px"] div[style*="font-size: 24px"],
+    div[style*="min-height: 100px"] div[style*="font-size: 36px"] {
+      font-size: 20px !important;
+    }
+
     .sticky-header > div,
     .sticky-header div[style*="padding: 14px 2rem"],
     div[style*="padding: 1.5rem 2rem"],
@@ -209,7 +222,10 @@
       grid-template-columns: repeat(2, 1fr) !important;
     }
     div[style*="grid-template-columns: repeat(3, 1fr)"] {
-      grid-template-columns: 1fr !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .keep-3-cols {
+      grid-template-columns: repeat(3, 1fr) !important;
     }
     .bars-grid {
       grid-template-columns: repeat(3, 1fr) !important;
@@ -3198,45 +3214,45 @@ function renderRecovery() {
 
     <div style="border: 0.5px solid ${VL.border}; padding: 16px; background: ${VL.panel}; margin-bottom: 12px;">
       <div style="display: flex; align-items: center; gap: 8px; font-size: 10px; color: ${VL.textMuted}; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 14px;">${ICONS.bed} <span>Sueño anoche · resumen</span></div>
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;">
+      <div class="keep-3-cols" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
         <div>
           <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Total</div>
-          <div style="font-size: 26px; font-weight: 500; font-family: Georgia, serif; line-height: 1.2;">${todayData.sl.toFixed(1)}<span style="font-size: 12px; color: ${VL.textMuted};">h</span></div>
+          <div style="font-size: 22px; font-weight: 500; font-family: Georgia, serif; line-height: 1.2; margin-top: 4px;">${todayData.sl.toFixed(1)}<span style="font-size: 11px; color: ${VL.textMuted};">h</span></div>
         </div>
         <div>
           <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Eficiencia</div>
-          <div style="font-size: 26px; font-weight: 500; font-family: Georgia, serif; line-height: 1.2;">${todayData.eff}<span style="font-size: 12px; color: ${VL.textMuted};">%</span></div>
+          <div style="font-size: 22px; font-weight: 500; font-family: Georgia, serif; line-height: 1.2; margin-top: 4px;">${todayData.eff}<span style="font-size: 11px; color: ${VL.textMuted};">%</span></div>
         </div>
         <div>
           <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Regularidad</div>
-          <div style="font-size: 26px; font-weight: 500; font-family: Georgia, serif; line-height: 1.2; color: ${todayData.reg>70 ? VL.green : VL.yellow};">${todayData.reg||'—'}<span style="font-size: 12px; color: ${VL.textMuted};">%</span></div>
+          <div style="font-size: 22px; font-weight: 500; font-family: Georgia, serif; line-height: 1.2; color: ${todayData.reg>70 ? VL.green : VL.yellow}; margin-top: 4px;">${todayData.reg||'—'}<span style="font-size: 11px; color: ${VL.textMuted};">%</span></div>
         </div>
       </div>
     </div>
 
     <div style="border: 0.5px solid ${VL.border}; padding: 16px; background: ${VL.panel}; margin-bottom: 12px;">
       <div style="display: flex; align-items: center; gap: 8px; font-size: 10px; color: ${VL.textMuted}; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 14px;">${ICONS.moon} <span>Sueño anoche · etapas</span></div>
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 16px;">
+      <div class="keep-3-cols" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px;">
         <div>
-          <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
-            <span style="width: 10px; height: 10px; background: #1e3a8a; display: inline-block;"></span>
-            <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Profundo</div>
+          <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 4px;">
+            <span style="width: 9px; height: 9px; background: #1e3a8a; display: inline-block; flex-shrink: 0;"></span>
+            <div style="font-size: 8px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Profundo</div>
           </div>
-          <div class="num" style="font-size: 22px; font-weight: 500; font-family: Georgia, serif; color: #1e3a8a; line-height: 1.2;">${todayData.dp}<span style="font-size: 11px; color: ${VL.textMuted};">min</span></div>
+          <div class="num" style="font-size: 20px; font-weight: 500; font-family: Georgia, serif; color: #1e3a8a; line-height: 1.1;">${todayData.dp}<span style="font-size: 10px; color: ${VL.textMuted};">min</span></div>
         </div>
         <div>
-          <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
-            <span style="width: 10px; height: 10px; background: #b84040; display: inline-block;"></span>
-            <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">REM</div>
+          <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 4px;">
+            <span style="width: 9px; height: 9px; background: #b84040; display: inline-block; flex-shrink: 0;"></span>
+            <div style="font-size: 8px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">REM</div>
           </div>
-          <div class="num" style="font-size: 22px; font-weight: 500; font-family: Georgia, serif; color: #b84040; line-height: 1.2;">${todayData.rm}<span style="font-size: 11px; color: ${VL.textMuted};">min</span></div>
+          <div class="num" style="font-size: 20px; font-weight: 500; font-family: Georgia, serif; color: #b84040; line-height: 1.1;">${todayData.rm}<span style="font-size: 10px; color: ${VL.textMuted};">min</span></div>
         </div>
         <div>
-          <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
-            <span style="width: 10px; height: 10px; background: #64748b; display: inline-block;"></span>
-            <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Ligero</div>
+          <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 4px;">
+            <span style="width: 9px; height: 9px; background: #64748b; display: inline-block; flex-shrink: 0;"></span>
+            <div style="font-size: 8px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Ligero</div>
           </div>
-          <div class="num" style="font-size: 22px; font-weight: 500; font-family: Georgia, serif; color: #94a3b8; line-height: 1.2;">${Math.round((todayData.sl*60)-todayData.dp-todayData.rm-15)}<span style="font-size: 11px; color: ${VL.textMuted};">min</span></div>
+          <div class="num" style="font-size: 20px; font-weight: 500; font-family: Georgia, serif; color: #94a3b8; line-height: 1.1;">${Math.round((todayData.sl*60)-todayData.dp-todayData.rm-15)}<span style="font-size: 10px; color: ${VL.textMuted};">min</span></div>
         </div>
       </div>
       <div style="display: flex; height: 16px; overflow: hidden; background: ${VL.borderStrong}; margin-bottom: 10px;">
@@ -3418,46 +3434,6 @@ function renderNutrition() {
             </div>
           `;
         }).join('')}
-      </div>
-    </div>
-
-    <div style="border: 0.5px solid ${VL.border}; padding: 18px 20px; background: ${VL.panel}; margin-bottom: 12px;">
-      <div style="display: flex; align-items: center; gap: 8px; font-size: 10px; color: ${VL.blue}; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 16px;">${ICONS.flame} <span>Carbos e hidratación por día</span></div>
-      <div class="table-header-desktop" style="display: grid; grid-template-columns: 32px 1fr 130px 90px; gap: 14px; padding: 0 14px 10px; border-bottom: 0.5px solid ${VL.border}; margin-bottom: 6px;">
-        <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Día</div>
-        <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase;">Sesión</div>
-        <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase; text-align: right;">Pre-workout</div>
-        <div style="font-size: 9px; color: ${VL.textFaint}; letter-spacing: 1px; text-transform: uppercase; text-align: right;">Hidratación</div>
-      </div>
-      <div class="zones-grid" style="display: grid; gap: 4px;">
-        ${[
-          { day:'I', session:'Fuerza piernas + Easy run Z2', carbs:'~80 g', water:'2.5-3 L' },
-          { day:'II', session:'Fuerza tren superior + Caminata Z1', carbs:'~50 g', water:'2.5 L' },
-          { day:'III', session:'Pasadas progresivas Z3-Z4', carbs:'~110 g', water:'3 L' },
-          { day:'IV', session:'Fuerza heavy + Easy run Z2', carbs:'~90 g', water:'3 L' },
-          { day:'V', session:'Fuerza + Sprints + Caminata Z1', carbs:'~70 g', water:'2.5 L' },
-          { day:'VI', session:'Long run Z2 90\'', carbs:'~145 g + 30-60 g/h intra', water:'3.5-4 L' },
-          { day:'VII', session:'Golf + Recuperación activa', carbs:'normal', water:'2.5-3 L' },
-        ].map(c => `
-          <div class="table-row-desktop" style="display: grid; grid-template-columns: 32px 1fr 130px 90px; gap: 14px; align-items: center; padding: 12px 14px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
-            <div style="font-family: Georgia, serif; font-size: 15px; font-style: italic; color: ${VL.textMuted};">${c.day}</div>
-            <div style="font-size: 11px; color: ${VL.text};">${c.session}</div>
-            <div style="font-size: 11px; color: ${VL.blue}; font-family: Georgia, serif; text-align: right;">${c.carbs}</div>
-            <div style="font-size: 11px; color: ${VL.textMuted}; text-align: right; font-family: Georgia, serif;">${c.water}</div>
-          </div>
-          <div class="table-row-mobile" style="padding: 10px 12px; background: ${VL.bg}; border: 0.5px solid ${VL.border};">
-            <div style="display: flex; align-items: baseline; gap: 6px; margin-bottom: 5px;">
-              <div style="font-family: Georgia, serif; font-size: 14px; font-style: italic; color: ${VL.blue}; line-height: 1;">${c.day}</div>
-              <div style="font-size: 10px; color: ${VL.text}; line-height: 1.3;">${c.session}</div>
-            </div>
-            <div style="font-size: 11px; font-family: Georgia, serif; color: ${VL.blue}; line-height: 1.35;">${c.carbs}</div>
-            <div style="font-size: 11px; font-family: Georgia, serif; color: ${VL.textMuted}; line-height: 1.35;">${c.water}</div>
-          </div>
-        `).join('')}
-      </div>
-      <div style="font-size: 10px; color: ${VL.textFaint}; margin-top: 14px; line-height: 1.6; padding-top: 12px; border-top: 0.5px solid ${VL.border};">
-        <div style="margin-bottom: 6px;"><span style="color: ${VL.textMuted}; font-weight: 500;">Pre-workout:</span> carbohidratos 60-90 minutos antes de la sesión como dosis principal, con opción de dosis chica 15-30 minutos antes. En el long run del sábado se suma reposición intra-sesión (30-60 g/h) desde el minuto 60.</div>
-        <div><span style="color: ${VL.textMuted}; font-weight: 500;">Hidratación:</span> total del día en agua. Día VI suma 500 mg de sodio extra por sudoración prolongada.</div>
       </div>
     </div>
 
