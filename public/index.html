@@ -33,8 +33,7 @@
     --green-dim: rgba(122,148,86,0.12);
   }
   html, body {
-    background: var(--bg);
-    min-height: 100vh;
+    background: var(--bg); min-height: 100vh;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     color: var(--text);
     -webkit-font-smoothing: antialiased;
@@ -59,164 +58,76 @@
   ::-webkit-scrollbar-track { background: var(--panel); }
   ::-webkit-scrollbar-thumb { background: rgba(245,241,232,0.16); }
 
-  .sticky-header {
-    position: sticky; top: 0; z-index: 50;
-    background: var(--panel);
-    border-bottom: 0.5px solid var(--border);
-  }
-  .vl-logo {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-style: italic;
-    color: var(--text);
-    font-weight: 500;
-    letter-spacing: 0.3px;
-  }
+  .sticky-header { position: sticky; top: 0; z-index: 50; background: var(--panel); border-bottom: 0.5px solid var(--border); }
+  .vl-logo { font-family: Georgia, 'Times New Roman', serif; font-style: italic; color: var(--text); font-weight: 500; letter-spacing: 0.3px; }
   .vl-logo .accent { color: var(--blue); }
-  .tagline {
-    font-family: Georgia, serif;
-    font-style: italic;
-    color: var(--text-faint);
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    font-size: 10px;
-  }
+  .tagline { font-family: Georgia, serif; font-style: italic; color: var(--text-faint); letter-spacing: 2.5px; text-transform: uppercase; font-size: 10px; }
   .num-georgia { font-family: Georgia, serif; font-weight: 500; }
   .latin { font-family: Georgia, serif; font-style: italic; letter-spacing: 0.4px; }
 
-  /* Auth */
-  .auth-wrapper {
-    display: flex; justify-content: center; align-items: center;
-    min-height: 100vh; padding: 20px;
-  }
-  .auth-card {
-    width: 100%; max-width: 380px; text-align: center;
-  }
-  .auth-input {
-    width: 100%; padding: 13px 16px; margin-bottom: 10px;
-    background: var(--panel); border: 0.5px solid var(--border); border-radius: 6px;
-    color: var(--text); font-size: 14px; outline: none;
-  }
-  .auth-button {
-    width: 100%; padding: 13px;
-    background: var(--blue); color: #fff; border: none; border-radius: 6px;
-    font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
-    font-weight: 500;
-  }
-  .auth-msg-error {
-    background: var(--red-dim); border: 0.5px solid var(--red);
-    color: var(--red); padding: 10px 14px; border-radius: 6px;
-    font-size: 13px; margin-bottom: 16px;
-  }
-  .auth-msg-ok {
-    background: var(--green-dim); border: 0.5px solid var(--green);
-    color: var(--green); padding: 10px 14px; border-radius: 6px;
-    font-size: 13px; margin-bottom: 16px;
-  }
+  .auth-wrapper { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+  .auth-card { width: 100%; max-width: 420px; text-align: center; }
+  .auth-input { width: 100%; padding: 13px 16px; margin-bottom: 10px; background: var(--panel); border: 0.5px solid var(--border); border-radius: 6px; color: var(--text); font-size: 14px; outline: none; }
+  .auth-button { width: 100%; padding: 13px; background: var(--blue); color: #fff; border: none; border-radius: 6px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; font-weight: 500; }
+  .auth-msg-error { background: var(--red-dim); border: 0.5px solid var(--red); color: var(--red); padding: 10px 14px; border-radius: 6px; font-size: 13px; margin-bottom: 16px; }
+  .auth-msg-ok { background: var(--green-dim); border: 0.5px solid var(--green); color: var(--green); padding: 10px 14px; border-radius: 6px; font-size: 13px; margin-bottom: 16px; }
   .hidden { display: none !important; }
 
-  /* Card primitives */
-  .card {
-    border: 0.5px solid var(--border);
-    background: var(--panel);
-    padding: 14px;
-  }
+  .card { border: 0.5px solid var(--border); background: var(--panel); padding: 14px; }
   .card:hover { border-color: var(--border-strong); }
-  .metric {
-    border: 0.5px solid var(--border); padding: 14px; background: var(--panel);
-    min-height: 92px; display: flex; flex-direction: column; justify-content: space-between;
-  }
-  .metric-label {
-    font-size: 9px; color: var(--text-muted);
-    letter-spacing: 1.2px; text-transform: uppercase;
-  }
-  .metric-value {
-    font-size: 24px; font-family: Georgia, serif; font-weight: 500;
-    color: var(--text); line-height: 1;
-  }
-  .metric-value .unit {
-    font-size: 11px; color: var(--text-muted); margin-left: 4px; font-weight: 400;
-  }
+  .metric { border: 0.5px solid var(--border); padding: 14px; background: var(--panel); min-height: 92px; display: flex; flex-direction: column; justify-content: space-between; }
+  .metric-label { font-size: 9px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; }
+  .metric-value { font-size: 24px; font-family: Georgia, serif; font-weight: 500; color: var(--text); line-height: 1; }
+  .metric-value .unit { font-size: 11px; color: var(--text-muted); margin-left: 4px; font-weight: 400; }
   .metric-sub { font-size: 10px; color: var(--text-faint); }
 
-  /* Buttons */
-  .btn {
-    padding: 10px 18px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
-    border-radius: 24px; font-weight: 500; cursor: pointer;
-    border: 0.5px solid var(--border-strong); background: transparent; color: var(--text-muted);
-  }
-  .btn-primary {
-    border: 0.5px solid var(--blue); background: var(--blue-dim); color: var(--blue);
-  }
-  .btn-danger {
-    border: 0.5px solid var(--red); background: transparent; color: var(--red);
-  }
-  .btn-ghost {
-    border: 0.5px solid var(--border); background: transparent; color: var(--text-muted);
-  }
+  .btn { padding: 10px 18px; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; border-radius: 24px; font-weight: 500; cursor: pointer; border: 0.5px solid var(--border-strong); background: transparent; color: var(--text-muted); }
+  .btn-primary { border: 0.5px solid var(--blue); background: var(--blue-dim); color: var(--blue); }
+  .btn-danger { border: 0.5px solid var(--red); background: transparent; color: var(--red); }
+  .btn-ghost { border: 0.5px solid var(--border); background: transparent; color: var(--text-muted); }
   .btn-block { width: 100%; }
   .btn-sm { padding: 7px 12px; font-size: 9px; }
 
-  /* Section title */
-  .section-title-block {
-    margin-bottom: 1.25rem; padding-bottom: 12px;
-    border-bottom: 0.5px solid var(--border);
-  }
-  .section-title {
-    font-size: 19px; font-weight: 500; color: var(--text); letter-spacing: -0.2px;
-  }
+  .section-title-block { margin-bottom: 1.25rem; padding-bottom: 12px; border-bottom: 0.5px solid var(--border); }
+  .section-title { font-size: 19px; font-weight: 500; color: var(--text); letter-spacing: -0.2px; }
   .section-sub { font-size: 11px; color: var(--text-faint); margin-top: 3px; }
 
-  /* Nav tabs */
-  .nav-tabs {
-    display: flex; gap: 0; padding: 0 1.5rem; background: var(--panel);
-    overflow-x: auto; border-bottom: 0.5px solid var(--border);
-  }
-  .nav-tab {
-    padding: 12px 14px; font-size: 11px; border: none; background: transparent;
-    color: var(--text-muted); font-weight: 400;
-    letter-spacing: 0.8px; text-transform: uppercase;
-    white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -0.5px;
-  }
+  .nav-tabs { display: flex; gap: 0; padding: 0 1rem; background: var(--panel); overflow-x: auto; border-bottom: 0.5px solid var(--border); }
+  .nav-tab { padding: 12px 14px; font-size: 11px; border: none; background: transparent; color: var(--text-muted); font-weight: 400; letter-spacing: 0.8px; text-transform: uppercase; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -0.5px; }
   .nav-tab.active { color: var(--blue); font-weight: 500; border-bottom-color: var(--blue); }
-
-  /* Modal */
-  .modal-bg {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.85);
-    padding: 20px; z-index: 1000; overflow-y: auto;
-  }
-  .modal-card {
-    background: var(--panel); padding: 1.75rem;
-    max-width: 560px; margin: 40px auto;
-    border: 0.5px solid var(--border-strong); border-radius: 14px;
-    color: var(--text);
+  @media (min-width: 880px) {
+    .nav-tabs { justify-content: space-around; }
   }
 
-  /* Goal pill */
-  .pill {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 4px 10px; border-radius: 20px;
-    font-size: 9px; letter-spacing: 1px; text-transform: uppercase; font-weight: 500;
-  }
+  .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.85); padding: 20px; z-index: 1000; overflow-y: auto; }
+  .modal-card { background: var(--panel); padding: 1.75rem; max-width: 560px; margin: 40px auto; border: 0.5px solid var(--border-strong); border-radius: 14px; color: var(--text); }
+
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 20px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; font-weight: 500; }
   .pill-blue { background: var(--blue-dim); color: var(--blue); border: 0.5px solid var(--blue); }
   .pill-green { background: var(--green-dim); color: var(--green); border: 0.5px solid var(--green); }
   .pill-yellow { background: var(--yellow-dim); color: var(--yellow); border: 0.5px solid var(--yellow); }
   .pill-red { background: var(--red-dim); color: var(--red); border: 0.5px solid var(--red); }
   .pill-faint { background: transparent; color: var(--text-faint); border: 0.5px solid var(--border-strong); }
 
-  /* Progress bar */
   .progress-track { height: 4px; background: var(--border-strong); overflow: hidden; }
   .progress-fill { height: 100%; background: var(--blue); transition: width 0.3s ease; }
 
-  /* Patient row (doctor portal) */
-  .patient-row {
-    display: grid; grid-template-columns: 1fr auto auto auto;
-    gap: 14px; align-items: center;
-    padding: 14px 16px; background: var(--panel);
-    border: 0.5px solid var(--border); cursor: pointer;
-  }
+  .patient-row { display: grid; grid-template-columns: 1fr auto auto auto; gap: 14px; align-items: center; padding: 14px 16px; background: var(--panel); border: 0.5px solid var(--border); cursor: pointer; }
   .patient-row:hover { border-color: var(--border-strong); background: var(--panel-hi); }
 
-  /* Layout helpers */
+  .archetype-card { padding: 16px 14px; border: 0.5px solid var(--border); background: var(--panel); border-radius: 10px; cursor: pointer; text-align: left; transition: all 0.15s ease; }
+  .archetype-card:hover { border-color: var(--blue); background: var(--panel-hi); }
+  .archetype-card.selected { border: 1px solid var(--blue); background: var(--blue-dim); }
+  .archetype-numeral { width: 40px; height: 40px; border: 1px solid var(--text); display: flex; align-items: center; justify-content: center; font-family: Georgia, serif; font-style: italic; font-size: 18px; color: var(--text); border-radius: 4px; margin-bottom: 10px; }
+  .archetype-card.selected .archetype-numeral { border-color: var(--blue); color: var(--blue); }
+
+  .chat-bubble-user { background: linear-gradient(135deg, rgba(59,130,246,0.22), rgba(59,130,246,0.14)); border: 1px solid rgba(59,130,246,0.45); border-radius: 18px 18px 4px 18px; }
+  .chat-bubble-ai { background: var(--panel-hi); border: 1px solid var(--border); border-radius: 18px 18px 18px 4px; }
+  @keyframes pulseDot { 0%,80%,100% { opacity: 0.3; transform: scale(0.8); } 40% { opacity: 1; transform: scale(1); } }
+  .typing-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--text-muted); margin: 0 2px; animation: pulseDot 1.4s infinite; }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
@@ -227,7 +138,7 @@
   @media (max-width: 768px) {
     .grid-4 { grid-template-columns: repeat(2, 1fr); }
     .grid-3 { grid-template-columns: repeat(2, 1fr); }
-    .nav-tabs { padding: 0 1rem; }
+    .nav-tabs { padding: 0 0.5rem; }
     .patient-row { grid-template-columns: 1fr auto; }
     .patient-row .hide-mobile { display: none; }
     .hide-mobile { display: none; }
@@ -236,7 +147,6 @@
 </head>
 <body>
 
-<!-- ============ AUTH SCREEN ============ -->
 <div id="auth-screen" class="auth-wrapper">
   <div class="auth-card">
     <div style="margin-bottom: 32px;">
@@ -274,26 +184,22 @@
   </div>
 </div>
 
-<!-- ============ APP WRAPPER ============ -->
-<div id="app-wrapper" class="hidden">
-  <div id="app"></div>
-</div>
+<div id="app-wrapper" class="hidden"><div id="app"></div></div>
 
-<!-- ============ EXTERNAL SCRIPTS ============ -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
-<!-- ============ APP SCRIPT ============ -->
 <script>
 // ============================================================
 // CONFIG
 // ============================================================
 const SUPABASE_URL = 'https://pybkzlslfbwoktyvcwhk.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_obpv0u23Rf4O-EChOmOg3w_jT7-C3Lf';
-
 const WHOOP_CLIENT_ID = '708dc8a7-b891-46ab-af98-5d5049a1502c';
 const WHOOP_REDIRECT_URI = window.location.origin + '/api/whoop-callback';
 const WHOOP_SCOPES = 'offline read:recovery read:sleep read:workout read:cycles read:profile read:body_measurement';
+const CLAUDE_PROXY_URL = '/api/claude-proxy';
+const CLAUDE_MODEL = 'claude-haiku-4-5-20251001';
 
 let _supabase = null;
 try {
@@ -303,32 +209,106 @@ try {
 } catch(e) { console.error('Supabase init:', e); }
 
 // ============================================================
+// ARCHETYPES
+// ============================================================
+const ARCHETYPES = {
+  hybrid: {
+    label: 'Híbrido', archetype: 'Marco Aurelio', numeral: 'I',
+    desc: 'Fuerza + endurance + estética',
+    longDesc: 'Emperador, filósofo y soldado. Combinó el campo de batalla con las Meditaciones. Cuerpo y mente con la misma disciplina. El arquetipo del atleta completo.',
+    macroRatio: { p: 0.28, c: 0.45, f: 0.27 },
+    activity: 1.65,
+  },
+  strength: {
+    label: 'Fuerza', archetype: 'Hércules', numeral: 'II',
+    desc: 'Powerlifting / hipertrofia',
+    longDesc: 'Héroe de los doce trabajos. Levantó a Anteo del suelo, sostuvo los cielos por Atlas, venció al león de Nemea. Fuerza física como vocación.',
+    macroRatio: { p: 0.32, c: 0.40, f: 0.28 },
+    activity: 1.6,
+  },
+  aerobic: {
+    label: 'Aeróbico', archetype: 'Mercurio', numeral: 'III',
+    desc: 'Running / endurance',
+    longDesc: 'Mensajero de los dioses. Cruzaba el mundo con sandalias aladas, llevaba noticias del Olimpo al inframundo. Velocidad sostenida y economía.',
+    macroRatio: { p: 0.22, c: 0.55, f: 0.23 },
+    activity: 1.7,
+  },
+  longevity: {
+    label: 'Longevidad', archetype: 'Jano', numeral: 'IV',
+    desc: 'Salud a largo plazo',
+    longDesc: 'Dios romano de las puertas y umbrales, con dos caras: una al pasado, otra al futuro. Marca el inicio del año, el cambio, el tiempo.',
+    macroRatio: { p: 0.26, c: 0.42, f: 0.32 },
+    activity: 1.45,
+  },
+  aesthetic: {
+    label: 'Estético', archetype: 'Apolo', numeral: 'V',
+    desc: 'Composición corporal',
+    longDesc: 'Dios de la música, el sol y la forma. Su cuerpo fue el modelo de las esculturas griegas clásicas. Simetría, proporción, línea limpia.',
+    macroRatio: { p: 0.35, c: 0.38, f: 0.27 },
+    activity: 1.55,
+  },
+  maintenance: {
+    label: 'Mantenimiento', archetype: 'Atlas', numeral: 'VI',
+    desc: 'Sostener la base',
+    longDesc: 'El titán que sostiene el cielo sobre sus hombros. No avanza, no retrocede. Permanece. El arquetipo de la constancia.',
+    macroRatio: { p: 0.25, c: 0.45, f: 0.30 },
+    activity: 1.4,
+  },
+};
+
+const DEFAULT_HABITS = [
+  { id:'h_sun', name:'Luz solar 10 min al despertar', cat:'circadian' },
+  { id:'h_caf', name:'Sin cafeína después de las 14h', cat:'circadian' },
+  { id:'h_screens', name:'Pantallas off 60 min antes de dormir', cat:'circadian' },
+  { id:'h_mob', name:'Movilidad 10 min AM', cat:'recovery' },
+  { id:'h_str', name:'Elongación post-running', cat:'recovery' },
+  { id:'h_creat', name:'Creatina 5g', cat:'health' },
+  { id:'h_mag', name:'Magnesio glicinato noche', cat:'health' },
+  { id:'h_omega', name:'Omega-3 con comida', cat:'health' },
+  { id:'h_water', name:'2+ litros de agua', cat:'health' },
+  { id:'h_phone', name:'Celular < 3h pantalla', cat:'mind' },
+];
+
+const BIOMARKER_PANELS = [
+  { panel: 'Hormonal', items: ['Testosterona total','Testosterona libre','SHBG','Estradiol','LH','FSH','Cortisol AM','DHEA-S','Prolactina'] },
+  { panel: 'Tiroides', items: ['TSH','T3 libre','T4 libre'] },
+  { panel: 'Hierro', items: ['Hemoglobina','Ferritina','Hierro sérico','Saturación transferrina'] },
+  { panel: 'Inflamación', items: ['PCR ultrasensible','Homocisteína','LDH'] },
+  { panel: 'Lípidos', items: ['Colesterol total','HDL','LDL','Triglicéridos'] },
+  { panel: 'Metabólico', items: ['Glucosa ayunas','Insulina ayunas','HbA1c','HOMA-IR','Ácido úrico'] },
+  { panel: 'Micronutrientes', items: ['Vitamina D (25-OH)','Magnesio sérico','Zinc','Vitamina B12','Folato'] },
+  { panel: 'Hígado', items: ['GOT','GPT','GGT','Fosfatasa alcalina'] },
+];
+
+// ============================================================
 // STATE
 // ============================================================
 let currentUser = null;
 let currentProfile = null;
-let activeView = 'auth'; // 'auth' | 'onboarding' | 'athlete' | 'doctor'
+let activeView = 'auth';
 let activeSection = 'dashboard';
 let onboardingStep = 1;
 let onboardingData = {
   full_name: '', sex: 'M', birth_date: '', height_cm: '', weight_kg: '',
-  main_goal: '', goals: [],
+  archetype: 'hybrid', main_goal: '',
 };
+let athleteData = {
+  whoopRecovery: [], whoopSleep: [], whoopCycles: [],
+  sessions: [], habitChecks: {}, goals: [],
+  biomarkers: [], consultations: [],
+  whoopConnected: false, whoopTokens: null,
+};
+// Si el usuario es doctor, puede forzar la vista atleta para ver su propio portal con sus datos
+let viewModeOverride = null; // 'athlete' | null
+let chatMessages = [];
+let _aiLoading = false;
+let _whoopSyncing = false;
 
 let selectedPatientId = null;
 let selectedPatientProfile = null;
 let selectedPatientData = null;
-
-let athleteData = {
-  whoopRecovery: [],
-  whoopSleep: [],
-  whoopCycles: [],
-  sessions: [],
-  habitChecks: {},
-  goals: [],
-  whoopConnected: false,
-  whoopTokens: null,
-};
+let selectedPatientNotes = [];
+let doctorPatients = [];
 
 // ============================================================
 // UTILS
@@ -336,31 +316,33 @@ let athleteData = {
 function escapeHtml(s) {
   if (s === null || s === undefined) return '';
   return String(s)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
+    .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 }
-
 function todayISO() {
   const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return y + '-' + m + '-' + day;
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
 }
-
 function ageFromDate(birthISO) {
   if (!birthISO) return null;
-  const b = new Date(birthISO);
-  const t = new Date();
+  const b = new Date(birthISO), t = new Date();
   let age = t.getFullYear() - b.getFullYear();
   const m = t.getMonth() - b.getMonth();
   if (m < 0 || (m === 0 && t.getDate() < b.getDate())) age--;
   return age;
 }
-
+function calcTDEE(kg, cm, age, sex, activity) {
+  if (!kg || !cm || !age) return null;
+  const bmr = sex === 'F' ? (10*kg + 6.25*cm - 5*age - 161) : (10*kg + 6.25*cm - 5*age + 5);
+  return Math.round(bmr * (activity || 1.5));
+}
+function calcMacros(tdee, ratio) {
+  if (!tdee) return null;
+  const p = Math.round(tdee * ratio.p / 4);
+  const c = Math.round(tdee * ratio.c / 4);
+  const f = Math.round(tdee * ratio.f / 9);
+  return { kcal: tdee, p, c, f };
+}
 function safeChart(canvasId, config) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return null;
@@ -368,31 +350,22 @@ function safeChart(canvasId, config) {
   if (existing) existing.destroy();
   return new Chart(canvas, config);
 }
-
-function fmt(n, dec) {
-  if (n === null || n === undefined || isNaN(n)) return '—';
-  return Number(n).toFixed(dec || 0);
-}
-
 function avg(arr, key) {
   const vals = arr.map(x => key ? x[key] : x).filter(v => v !== null && v !== undefined && !isNaN(v));
   if (!vals.length) return null;
   return vals.reduce((s, v) => s + Number(v), 0) / vals.length;
 }
+function fmtDate(d) { if (!d) return '—'; return d; }
 
 function showAuthError(msg) {
   const el = document.getElementById('auth-error');
-  const ok = document.getElementById('auth-success');
-  ok.classList.add('hidden');
-  el.textContent = msg;
-  el.classList.remove('hidden');
+  document.getElementById('auth-success').classList.add('hidden');
+  el.textContent = msg; el.classList.remove('hidden');
 }
 function showAuthSuccess(msg) {
   const el = document.getElementById('auth-success');
-  const er = document.getElementById('auth-error');
-  er.classList.add('hidden');
-  el.textContent = msg;
-  el.classList.remove('hidden');
+  document.getElementById('auth-error').classList.add('hidden');
+  el.textContent = msg; el.classList.remove('hidden');
 }
 function clearAuthMsgs() {
   document.getElementById('auth-error').classList.add('hidden');
@@ -403,33 +376,17 @@ function clearAuthMsgs() {
 // AUTH
 // ============================================================
 async function initAuth() {
-  if (!_supabase) {
-    showAuthError('Error cargando Supabase. Recargá la página.');
-    return;
-  }
+  if (!_supabase) { showAuthError('Error cargando Supabase. Recargá la página.'); return; }
   const { data: { session } } = await _supabase.auth.getSession();
-  if (session) {
-    currentUser = session.user;
-    await onSignedIn();
-  } else {
-    showAuthScreen();
-  }
+  if (session) { currentUser = session.user; await onSignedIn(); } else { showAuthScreen(); }
   _supabase.auth.onAuthStateChange(async (event, session) => {
-    if (event === 'SIGNED_IN' && session) {
-      currentUser = session.user;
-      await onSignedIn();
-    } else if (event === 'SIGNED_OUT') {
-      currentUser = null;
-      currentProfile = null;
-      showAuthScreen();
-    }
+    if (event === 'SIGNED_IN' && session) { currentUser = session.user; await onSignedIn(); }
+    else if (event === 'SIGNED_OUT') { currentUser = null; currentProfile = null; showAuthScreen(); }
   });
 }
-
 async function onSignedIn() {
   const profile = await loadProfile();
   if (!profile) {
-    // Create empty profile if missing (trigger should have created it but just in case)
     await _supabase.from('profiles').insert({ id: currentUser.id, full_name: '' });
     currentProfile = { id: currentUser.id, full_name: '', role: 'athlete', profile_complete: false };
   } else {
@@ -439,14 +396,11 @@ async function onSignedIn() {
   await handleWhoopAuthCallback();
   routeUser();
 }
-
 async function loadProfile() {
-  const { data, error } = await _supabase
-    .from('profiles').select('*').eq('id', currentUser.id).maybeSingle();
+  const { data, error } = await _supabase.from('profiles').select('*').eq('id', currentUser.id).maybeSingle();
   if (error) console.warn('loadProfile:', error);
   return data;
 }
-
 function showAuthScreen() {
   document.getElementById('auth-screen').classList.remove('hidden');
   document.getElementById('app-wrapper').classList.add('hidden');
@@ -455,7 +409,6 @@ function hideAuthScreen() {
   document.getElementById('auth-screen').classList.add('hidden');
   document.getElementById('app-wrapper').classList.remove('hidden');
 }
-
 window.showRegister = function() {
   document.getElementById('auth-form-login').classList.add('hidden');
   document.getElementById('auth-form-register').classList.remove('hidden');
@@ -466,7 +419,6 @@ window.showLogin = function() {
   document.getElementById('auth-form-login').classList.remove('hidden');
   clearAuthMsgs();
 };
-
 window.handleLogin = async function() {
   const email = document.getElementById('auth-email').value.trim();
   const pass = document.getElementById('auth-pass').value;
@@ -474,11 +426,8 @@ window.handleLogin = async function() {
   try {
     const { error } = await _supabase.auth.signInWithPassword({ email, password: pass });
     if (error) throw error;
-  } catch(e) {
-    showAuthError(e.message || 'Error al iniciar sesión.');
-  }
+  } catch(e) { showAuthError(e.message || 'Error al iniciar sesión.'); }
 };
-
 window.handleRegister = async function() {
   const name = document.getElementById('reg-name').value.trim();
   const email = document.getElementById('reg-email').value.trim();
@@ -486,31 +435,20 @@ window.handleRegister = async function() {
   if (!name || !email || !pass) { showAuthError('Completá todos los campos.'); return; }
   if (pass.length < 6) { showAuthError('Contraseña mín. 6 caracteres.'); return; }
   try {
-    const { data, error } = await _supabase.auth.signUp({
-      email, password: pass,
-      options: { data: { full_name: name } }
-    });
+    const { data, error } = await _supabase.auth.signUp({ email, password: pass, options: { data: { full_name: name } } });
     if (error) throw error;
-    if (data.user && !data.session) {
-      showAuthSuccess('Cuenta creada. Revisá tu email para confirmar y después iniciá sesión.');
-    }
-  } catch(e) {
-    showAuthError(e.message || 'Error al registrarse.');
-  }
+    if (data.user && !data.session) showAuthSuccess('Cuenta creada. Revisá tu email para confirmar.');
+  } catch(e) { showAuthError(e.message || 'Error al registrarse.'); }
 };
-
 window.handleSignOut = async function() {
   if (!confirm('¿Cerrar sesión?')) return;
   await _supabase.auth.signOut();
 };
-
 document.addEventListener('keydown', function(e) {
   if (e.key !== 'Enter') return;
-  const authVisible = !document.getElementById('auth-screen').classList.contains('hidden');
-  if (!authVisible) return;
+  if (document.getElementById('auth-screen').classList.contains('hidden')) return;
   const regVisible = !document.getElementById('auth-form-register').classList.contains('hidden');
-  if (regVisible) handleRegister();
-  else handleLogin();
+  if (regVisible) handleRegister(); else handleLogin();
 });
 
 // ============================================================
@@ -519,7 +457,15 @@ document.addEventListener('keydown', function(e) {
 function routeUser() {
   if (!currentProfile) { showAuthScreen(); return; }
   const role = currentProfile.role || 'athlete';
-  if (role === 'doctor' || role === 'admin') {
+  const isDoctor = role === 'doctor' || role === 'admin';
+  // Doctor puede pedir explícitamente ver el portal atleta con sus propios datos
+  if (isDoctor && viewModeOverride === 'athlete') {
+    activeView = 'athlete';
+    activeSection = 'dashboard';
+    loadOwnAthleteData().then(loadOwnChat).then(render);
+    return;
+  }
+  if (isDoctor) {
     activeView = 'doctor';
     activeSection = 'patients';
     loadDoctorData().then(render);
@@ -532,18 +478,22 @@ function routeUser() {
     } else {
       activeView = 'athlete';
       activeSection = 'dashboard';
-      loadAthleteData().then(render);
+      loadOwnAthleteData().then(loadOwnChat).then(render);
     }
   }
 }
+window.toggleDoctorView = function() {
+  viewModeOverride = (viewModeOverride === 'athlete') ? null : 'athlete';
+  routeUser();
+};
 
 // ============================================================
-// DATA LAYER — ATHLETE
+// DATA LAYER
 // ============================================================
 async function loadAthleteData(userId) {
   const uid = userId || currentUser.id;
   try {
-    const [rec, slp, cyc, sess, hab, gol, tok] = await Promise.all([
+    const [rec, slp, cyc, sess, hab, gol, tok, bio, cons] = await Promise.all([
       _supabase.from('whoop_recovery').select('*').eq('user_id', uid).order('date', { ascending: true }),
       _supabase.from('whoop_sleep').select('*').eq('user_id', uid).order('date', { ascending: true }),
       _supabase.from('whoop_cycles').select('*').eq('user_id', uid).order('date', { ascending: true }),
@@ -551,6 +501,8 @@ async function loadAthleteData(userId) {
       _supabase.from('habit_checks').select('*').eq('user_id', uid).eq('date', todayISO()),
       _supabase.from('goals').select('*').eq('user_id', uid).order('created_at', { ascending: false }),
       _supabase.from('whoop_tokens').select('*').eq('user_id', uid).maybeSingle(),
+      _supabase.from('biomarkers').select('*').eq('user_id', uid).order('date', { ascending: false }),
+      _supabase.from('consultations').select('*').eq('patient_id', uid).order('date', { ascending: false }),
     ]);
     const habChecks = {};
     (hab.data || []).forEach(h => { habChecks[h.habit_id] = h.done; });
@@ -561,47 +513,39 @@ async function loadAthleteData(userId) {
       sessions: sess.data || [],
       habitChecks: habChecks,
       goals: gol.data || [],
+      biomarkers: bio.data || [],
+      consultations: cons.data || [],
       whoopConnected: !!tok.data,
       whoopTokens: tok.data || null,
     };
   } catch(e) {
     console.warn('loadAthleteData:', e);
-    return { whoopRecovery: [], whoopSleep: [], whoopCycles: [], sessions: [], habitChecks: {}, goals: [], whoopConnected: false, whoopTokens: null };
+    return { whoopRecovery: [], whoopSleep: [], whoopCycles: [], sessions: [], habitChecks: {}, goals: [], biomarkers: [], consultations: [], whoopConnected: false, whoopTokens: null };
   }
 }
-
-// Wrapper para el atleta logueado (escribe a athleteData)
-async function loadOwnAthleteData() {
-  athleteData = await loadAthleteData(currentUser.id);
-}
+async function loadOwnAthleteData() { athleteData = await loadAthleteData(currentUser.id); }
 
 async function saveHabitCheck(habitId, done) {
-  if (!currentUser) return;
   const { error } = await _supabase.from('habit_checks').upsert({
     user_id: currentUser.id, habit_id: habitId, date: todayISO(), done: done,
   }, { onConflict: 'user_id,habit_id,date' });
   if (error) console.warn('saveHabitCheck:', error);
 }
-
 async function addSession(session) {
-  if (!currentUser) return;
   session.id = 's_' + Date.now();
   const { error } = await _supabase.from('sessions').insert({
     id: session.id, user_id: currentUser.id,
-    day_index: session.dayIndex, date: session.date,
-    exercises: session.exercises, aerobics: session.aerobics || [],
+    day_index: session.dayIndex || 0, date: session.date,
+    exercises: session.exercises || [], aerobics: session.aerobics || [],
     rpe: session.rpe, notes: session.notes,
   });
   if (error) console.warn('addSession:', error);
 }
-
 async function deleteSessionById(id) {
   const { error } = await _supabase.from('sessions').delete().eq('id', id);
   if (error) console.warn('deleteSession:', error);
 }
-
 async function saveGoal(goal) {
-  if (!currentUser) return null;
   if (goal.id) {
     const { error } = await _supabase.from('goals').update({
       title: goal.title, description: goal.description, category: goal.category,
@@ -623,31 +567,36 @@ async function saveGoal(goal) {
     return data.id;
   }
 }
-
-async function deleteGoal(id) {
-  const { error } = await _supabase.from('goals').delete().eq('id', id);
-  if (error) console.warn('deleteGoal:', error);
-}
-
+async function deleteGoal(id) { await _supabase.from('goals').delete().eq('id', id); }
 async function updateProfile(patch) {
   const { error } = await _supabase.from('profiles').update(patch).eq('id', currentUser.id);
   if (error) console.warn('updateProfile:', error);
   currentProfile = { ...currentProfile, ...patch };
 }
+async function addBiomarker(b) {
+  const { error } = await _supabase.from('biomarkers').insert({
+    user_id: currentUser.id, panel: b.panel, name: b.name,
+    value: b.value, unit: b.unit, date: b.date || todayISO(), notes: b.notes,
+  });
+  if (error) console.warn('addBiomarker:', error);
+}
+async function deleteBiomarker(id) { await _supabase.from('biomarkers').delete().eq('id', id); }
 
-// ============================================================
-// DATA LAYER — DOCTOR
-// ============================================================
-let doctorPatients = [];
+// Doctor → write consultation note
+async function addConsultation(patientId, n) {
+  const { error } = await _supabase.from('consultations').insert({
+    patient_id: patientId, doctor_id: currentUser.id,
+    date: n.date || todayISO(), type: n.type || 'note',
+    title: n.title, body: n.body,
+  });
+  if (error) console.warn('addConsultation:', error);
+}
+async function deleteConsultation(id) { await _supabase.from('consultations').delete().eq('id', id); }
 
 async function loadDoctorData() {
-  if (!currentUser) return;
-  const { data, error } = await _supabase
-    .from('profiles').select('*').eq('role', 'athlete').order('full_name', { ascending: true });
+  const { data, error } = await _supabase.from('profiles').select('*').eq('role', 'athlete').order('full_name');
   if (error) { console.warn('loadDoctorData:', error); return; }
   doctorPatients = data || [];
-
-  // Fetch latest recovery for each patient (1 query)
   if (doctorPatients.length > 0) {
     const ids = doctorPatients.map(p => p.id);
     const since = new Date(Date.now() - 7*86400000).toISOString().split('T')[0];
@@ -655,19 +604,145 @@ async function loadDoctorData() {
       .from('whoop_recovery').select('user_id, date, recovery_score, hrv_rmssd, resting_hr')
       .in('user_id', ids).gte('date', since).order('date', { ascending: false });
     const latest = {};
-    (recs || []).forEach(r => {
-      if (!latest[r.user_id]) latest[r.user_id] = r;
-    });
+    (recs || []).forEach(r => { if (!latest[r.user_id]) latest[r.user_id] = r; });
     doctorPatients.forEach(p => { p._latestRecovery = latest[p.id] || null; });
   }
 }
-
 async function loadPatientDetail(patientId) {
   selectedPatientId = patientId;
-  const { data: prof } = await _supabase
-    .from('profiles').select('*').eq('id', patientId).maybeSingle();
+  const { data: prof } = await _supabase.from('profiles').select('*').eq('id', patientId).maybeSingle();
   selectedPatientProfile = prof;
   selectedPatientData = await loadAthleteData(patientId);
+  const { data: notes } = await _supabase.from('consultations').select('*').eq('patient_id', patientId).order('date', { ascending: false });
+  selectedPatientNotes = notes || [];
+}
+
+// ============================================================
+// CHAT (AI Insights)
+// ============================================================
+async function loadOwnChat() {
+  const { data } = await _supabase.from('chat_messages')
+    .select('*').eq('user_id', currentUser.id)
+    .order('created_at', { ascending: true }).limit(50);
+  chatMessages = (data || []).map(m => ({ from: m.role === 'assistant' ? 'ai' : 'user', text: m.content }));
+  if (!chatMessages.length) {
+    chatMessages = [{ from: 'ai', text: 'Hola. Tengo todos tus datos cargados (WHOOP, hábitos, objetivos, sesiones). Preguntame lo que quieras: cómo viniste de recovery, si conviene entrenar fuerte hoy, qué patrón ves, etc.' }];
+  }
+}
+async function persistChatMessage(role, content) {
+  await _supabase.from('chat_messages').insert({ user_id: currentUser.id, role, content });
+}
+function cleanMarkdown(t) {
+  if (!t) return '';
+  return t.replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\*([^*]+)\*/g, '$1')
+    .replace(/__([^_]+)__/g, '$1').replace(/_([^_]+)_/g, '$1')
+    .replace(/^#{1,6}\s+/gm, '').replace(/`([^`]+)`/g, '$1')
+    .replace(/^\s*[-*+]\s+/gm, '• ').trim();
+}
+function buildAIContext() {
+  const lines = [];
+  const today = new Date();
+  const dayNames = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  const monthNames = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  lines.push('=== FECHA DE HOY ===');
+  lines.push('Hoy es ' + dayNames[today.getDay()] + ' ' + today.getDate() + ' de ' + monthNames[today.getMonth()] + ' de ' + today.getFullYear());
+  lines.push('Cuando el usuario pregunte por "hoy", "ayer" o "mañana", usá esta fecha como referencia, NO las fechas de los datos históricos.');
+
+  lines.push('\n=== USUARIO ===');
+  lines.push('Nombre: ' + (currentProfile.full_name || 'sin nombre'));
+  if (currentProfile.birth_date) lines.push('Edad: ' + ageFromDate(currentProfile.birth_date) + ' años');
+  if (currentProfile.sex) lines.push('Sexo: ' + currentProfile.sex);
+  if (currentProfile.height_cm) lines.push('Altura: ' + currentProfile.height_cm + ' cm');
+  if (currentProfile.weight_kg) lines.push('Peso: ' + currentProfile.weight_kg + ' kg');
+  if (currentProfile.archetype) {
+    const a = ARCHETYPES[currentProfile.archetype];
+    lines.push('Arquetipo: ' + a.archetype + ' (' + a.label + ') - ' + a.desc);
+  }
+  if (currentProfile.main_goal) lines.push('Objetivo principal: ' + currentProfile.main_goal);
+
+  const rec = athleteData.whoopRecovery || [];
+  if (rec.length) {
+    const last7 = rec.slice(-7);
+    lines.push('\n=== WHOOP ÚLTIMOS 7 DÍAS ===');
+    last7.forEach(r => {
+      lines.push(r.date + ': HRV ' + (r.hrv_rmssd ? Math.round(r.hrv_rmssd)+'ms' : '-') + ', FCR ' + (r.resting_hr || '-') + 'bpm, Recovery ' + (r.recovery_score !== null ? r.recovery_score+'%' : '-'));
+    });
+    const last30 = rec.slice(-30);
+    const baseHrv = avg(last30, 'hrv_rmssd');
+    const baseRhr = avg(last30, 'resting_hr');
+    if (baseHrv) lines.push('Baseline 30d: HRV ' + Math.round(baseHrv) + 'ms, FCR ' + Math.round(baseRhr) + 'bpm');
+  } else {
+    lines.push('\n(Sin datos de WHOOP todavía)');
+  }
+
+  const cyc = athleteData.whoopCycles || [];
+  if (cyc.length) {
+    const lastCyc = cyc.slice(-7);
+    lines.push('\n=== STRAIN ÚLTIMOS 7 DÍAS ===');
+    lastCyc.forEach(c => lines.push(c.date + ': strain ' + (c.strain ? c.strain.toFixed(1) : '-')));
+  }
+
+  const habs = Object.entries(athleteData.habitChecks || {}).filter(([k,v]) => v).length;
+  lines.push('\n=== HÁBITOS HOY === ' + habs + '/' + DEFAULT_HABITS.length + ' completados');
+
+  if (athleteData.goals && athleteData.goals.length) {
+    lines.push('\n=== OBJETIVOS ACTIVOS ===');
+    athleteData.goals.slice(0, 5).forEach(g => {
+      lines.push('- ' + g.title + ' (' + (g.pct_progress || 0) + '%)' + (g.target_value ? ' meta: ' + g.target_value + (g.unit || '') : ''));
+    });
+  }
+
+  if (athleteData.sessions && athleteData.sessions.length) {
+    lines.push('\n=== ÚLTIMAS 3 SESIONES ===');
+    athleteData.sessions.slice(0, 3).forEach(s => {
+      lines.push(s.date + ' RPE ' + (s.rpe || '-') + ': ' + (s.notes ? s.notes.substring(0, 100) : '(sin notas)'));
+    });
+  }
+
+  return lines.join('\n');
+}
+async function sendChatMessage(userMsg) {
+  if (!userMsg.trim() || _aiLoading) return;
+  chatMessages.push({ from: 'user', text: userMsg });
+  _aiLoading = true;
+  render();
+  scrollChatToBottom();
+  try {
+    await persistChatMessage('user', userMsg);
+    const recent = chatMessages.slice(-10).map(m => ({ role: m.from === 'user' ? 'user' : 'assistant', content: m.text }));
+    const archetypeInfo = currentProfile.archetype ? ARCHETYPES[currentProfile.archetype] : null;
+    const archetypeLine = archetypeInfo ? '\nArquetipo del usuario: ' + archetypeInfo.archetype + ' (' + archetypeInfo.label + ') — ' + archetypeInfo.desc + '.' : '';
+    const sys = 'Sos el asistente de IA de VirtusLab, un sistema de optimización de rendimiento humano. Respondé en español argentino, directo y breve (máximo 3-4 oraciones salvo que pidan más detalle). Tono: coach con base científica, sin rodeos, pinceladas estoicas ocasionales.\n\nFORMATO: NUNCA uses markdown (asteriscos, headers, etc). Texto plano como WhatsApp. Si necesitás bullets, usá "•". Si querés enfatizar, usá MAYÚSCULAS puntuales.' + archetypeLine + '\n\nTenés acceso a los datos reales del usuario:\n\n' + buildAIContext();
+    const res = await fetch(CLAUDE_PROXY_URL, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: CLAUDE_MODEL, max_tokens: 800, system: sys, messages: recent })
+    });
+    const data = await res.json();
+    if (data.content && data.content[0]) {
+      const out = cleanMarkdown(data.content[0].text);
+      chatMessages.push({ from: 'ai', text: out });
+      await persistChatMessage('assistant', out);
+    } else if (data.error) {
+      chatMessages.push({ from: 'ai', text: 'Error: ' + (data.error.message || 'no pude procesar.') });
+    }
+  } catch(e) {
+    chatMessages.push({ from: 'ai', text: 'Error de conexión. Probá de nuevo.' });
+  }
+  _aiLoading = false;
+  render();
+  scrollChatToBottom();
+}
+function scrollChatToBottom() {
+  setTimeout(() => {
+    const c = document.getElementById('chat-messages-container');
+    if (c) c.scrollTop = c.scrollHeight;
+  }, 80);
+}
+async function clearOwnChat() {
+  if (!confirm('¿Borrar todo el historial de chat?')) return;
+  await _supabase.from('chat_messages').delete().eq('user_id', currentUser.id);
+  chatMessages = [{ from: 'ai', text: 'Conversación reiniciada. ¿En qué puedo ayudarte?' }];
+  render();
 }
 
 // ============================================================
@@ -683,16 +758,13 @@ function connectWhoop() {
     + '&state=' + state;
   window.location.href = authUrl;
 }
-
 async function disconnectWhoop() {
-  if (!confirm('¿Desconectar WHOOP? Dejarás de recibir datos automáticos.')) return;
-  const { error } = await _supabase.from('whoop_tokens').delete().eq('user_id', currentUser.id);
-  if (error) { alert('Error: ' + error.message); return; }
+  if (!confirm('¿Desconectar WHOOP?')) return;
+  await _supabase.from('whoop_tokens').delete().eq('user_id', currentUser.id);
   athleteData.whoopConnected = false;
   athleteData.whoopTokens = null;
   render();
 }
-
 async function handleWhoopAuthCallback() {
   if (!window.location.hash || !window.location.hash.includes('access_token')) return;
   const params = new URLSearchParams(window.location.hash.substring(1));
@@ -705,18 +777,23 @@ async function handleWhoopAuthCallback() {
     user_id: currentUser.id, access_token, refresh_token, expires_at,
     updated_at: new Date().toISOString(),
   }, { onConflict: 'user_id' });
+  window.history.replaceState({}, document.title, window.location.pathname);
   if (error) {
     alert('Error guardando WHOOP: ' + error.message);
   } else {
-    window.history.replaceState({}, document.title, window.location.pathname);
-    alert('WHOOP conectado.');
+    // Force first sync immediately
+    setTimeout(() => syncWhoop(), 500);
   }
 }
-
-let _whoopSyncing = false;
 async function syncWhoop() {
   if (_whoopSyncing) return;
-  if (!athleteData.whoopTokens) return;
+  if (!athleteData.whoopTokens && currentProfile && currentProfile.role !== 'doctor') {
+    // Fetch tokens from DB if not in athleteData yet (right after callback)
+    const { data: tok } = await _supabase.from('whoop_tokens').select('*').eq('user_id', currentUser.id).maybeSingle();
+    if (!tok) { alert('Conectá WHOOP primero.'); return; }
+    athleteData.whoopTokens = tok;
+    athleteData.whoopConnected = true;
+  }
   _whoopSyncing = true;
   render();
   try {
@@ -725,10 +802,7 @@ async function syncWhoop() {
     async function fetchType(type) {
       const res = await fetch('/api/whoop-sync', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_token: tok.access_token, refresh_token: tok.refresh_token,
-          expires_at: tok.expires_at, type,
-        })
+        body: JSON.stringify({ access_token: tok.access_token, refresh_token: tok.refresh_token, expires_at: tok.expires_at, type })
       });
       const data = await res.json();
       if (data.error) throw new Error(type + ': ' + (data.detail || data.error));
@@ -755,7 +829,6 @@ async function syncWhoop() {
   _whoopSyncing = false;
   render();
 }
-
 async function saveWhoopToSupabase(recoveryArr, sleepArr, cyclesArr) {
   const recRows = []; const seenR = new Set();
   (recoveryArr || []).forEach(r => {
@@ -763,15 +836,12 @@ async function saveWhoopToSupabase(recoveryArr, sleepArr, cyclesArr) {
     const date = (r.created_at || '').split('T')[0]; if (!date || seenR.has(date)) return;
     seenR.add(date);
     recRows.push({
-      user_id: currentUser.id,
-      cycle_id: r.cycle_id ? String(r.cycle_id) : null,
-      sleep_id: r.sleep_id ? String(r.sleep_id) : null,
-      date,
+      user_id: currentUser.id, cycle_id: r.cycle_id ? String(r.cycle_id) : null,
+      sleep_id: r.sleep_id ? String(r.sleep_id) : null, date,
       recovery_score: Math.round(score.recovery_score || 0) || null,
       hrv_rmssd: score.hrv_rmssd_milli || null,
       resting_hr: Math.round(score.resting_heart_rate || 0) || null,
-      spo2: score.spo2_percentage || null,
-      skin_temp: score.skin_temp_celsius || null,
+      spo2: score.spo2_percentage || null, skin_temp: score.skin_temp_celsius || null,
       raw_json: r,
     });
   });
@@ -794,8 +864,7 @@ async function saveWhoopToSupabase(recoveryArr, sleepArr, cyclesArr) {
       rem_min: Math.round((stages.total_rem_sleep_time_milli || 0) / 60000) || null,
       light_min: Math.round((stages.total_light_sleep_time_milli || 0) / 60000) || null,
       awake_min: Math.round((stages.total_awake_time_milli || 0) / 60000) || null,
-      respiratory_rate: score.respiratory_rate || null,
-      raw_json: s,
+      respiratory_rate: score.respiratory_rate || null, raw_json: s,
     };
   });
   const cycRows = []; const seenC = new Set();
@@ -807,37 +876,19 @@ async function saveWhoopToSupabase(recoveryArr, sleepArr, cyclesArr) {
       user_id: currentUser.id, cycle_id: c.id ? String(c.id) : null, date,
       strain: score.strain || null, kilojoules: score.kilojoule || null,
       avg_hr: Math.round(score.average_heart_rate || 0) || null,
-      max_hr: Math.round(score.max_heart_rate || 0) || null,
-      raw_json: c,
+      max_hr: Math.round(score.max_heart_rate || 0) || null, raw_json: c,
     });
   });
   if (recRows.length) await _supabase.from('whoop_recovery').upsert(recRows, { onConflict: 'user_id,date' });
   if (slpRows.length) await _supabase.from('whoop_sleep').upsert(slpRows, { onConflict: 'user_id,date' });
   if (cycRows.length) await _supabase.from('whoop_cycles').upsert(cycRows, { onConflict: 'user_id,date' });
 }
-
 window.connectWhoop = connectWhoop;
 window.disconnectWhoop = disconnectWhoop;
 window.syncWhoop = syncWhoop;
 
 // ============================================================
-// HABIT TEMPLATES (defaults para todos los atletas)
-// ============================================================
-const DEFAULT_HABITS = [
-  { id:'h_sun', name:'Luz solar 10 min al despertar', cat:'circadian' },
-  { id:'h_caf', name:'Sin cafeína después de las 14h', cat:'circadian' },
-  { id:'h_screens', name:'Pantallas off 60 min antes de dormir', cat:'circadian' },
-  { id:'h_mob', name:'Movilidad 10 min AM', cat:'recovery' },
-  { id:'h_str', name:'Elongación post-running', cat:'recovery' },
-  { id:'h_creat', name:'Creatina 5g', cat:'health' },
-  { id:'h_mag', name:'Magnesio glicinato noche', cat:'health' },
-  { id:'h_omega', name:'Omega-3 con comida', cat:'health' },
-  { id:'h_water', name:'2+ litros de agua', cat:'health' },
-  { id:'h_phone', name:'Celular < 3h pantalla', cat:'mind' },
-];
-
-// ============================================================
-// RENDER ROOT
+// RENDER
 // ============================================================
 function render() {
   const app = document.getElementById('app');
@@ -846,11 +897,11 @@ function render() {
   if (activeView === 'athlete') { app.innerHTML = renderAthlete(); afterAthleteRender(); return; }
   app.innerHTML = '';
 }
-
 function afterAthleteRender() {
   setTimeout(() => {
     if (activeSection === 'dashboard') drawAthleteCharts();
     if (activeSection === 'recovery') drawRecoveryCharts();
+    if (activeSection === 'insights') scrollChatToBottom();
   }, 0);
 }
 function afterDoctorRender() {
@@ -859,135 +910,165 @@ function afterDoctorRender() {
   }, 0);
 }
 
+function renderHeaderShared(name, subtitle) {
+  const isDoctor = currentProfile && (currentProfile.role === 'doctor' || currentProfile.role === 'admin');
+  const inAthleteView = activeView === 'athlete';
+  const switchBtn = isDoctor
+    ? '<button onclick="toggleDoctorView()" class="btn btn-primary btn-sm" title="Cambiar vista">' +
+      (inAthleteView ? '&#8634; Vista Médico' : '&#8634; Vista Atleta') +
+      '</button>'
+    : '';
+  return '<div style="padding: 14px 1.5rem; border-bottom: 0.5px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 12px;">' +
+    '<div class="row" style="gap: 12px; min-width: 0;">' +
+      '<div style="width: 40px; height: 40px; background: var(--bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; border-radius: 8px; flex-shrink: 0;">' +
+        '<span class="vl-logo" style="font-size: 20px;">VL</span>' +
+      '</div>' +
+      '<div style="min-width: 0;">' +
+        '<div class="vl-logo" style="font-size: 18px;">Virtvs<span class="accent">Lab</span></div>' +
+        '<div class="hide-mobile" style="font-size: 8px; color: var(--text-faint); letter-spacing: 2px; text-transform: uppercase; margin-top: 3px;">Measure &middot; Adapt &middot; Become</div>' +
+        '<div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px;">' + escapeHtml(subtitle) + '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="row" style="gap: 8px; flex-shrink: 0;">' +
+      switchBtn +
+      '<div class="hide-mobile" style="font-size: 11px; color: var(--text-muted); padding: 7px 12px; border: 0.5px solid var(--border); border-radius: 20px;">' + escapeHtml(name) + '</div>' +
+      '<button onclick="handleSignOut()" class="btn btn-ghost btn-sm">Salir</button>' +
+    '</div>' +
+  '</div>';
+}
+function renderFooter() {
+  return '<div style="padding: 14px 1.5rem; border-top: 0.5px solid var(--border); text-align: center; background: var(--panel);">' +
+    '<div class="tagline">Engineered for peak human performance</div></div>';
+}
+function sectionHeader(label, sub) {
+  return '<div class="section-title-block"><div class="section-title">' + escapeHtml(label) + '</div>' +
+    (sub ? '<div class="section-sub latin">' + escapeHtml(sub) + ' · ad virtutem</div>' : '') + '</div>';
+}
+function baselineCard(label, value, unit, baselineVal) {
+  return '<div class="metric"><div class="metric-label">' + escapeHtml(label) + '</div>' +
+    '<div class="metric-value">' + (value === null || value === undefined ? '—' : escapeHtml(String(value))) + '<span class="unit">' + escapeHtml(unit || '') + '</span></div>' +
+    '<div class="metric-sub">' + (baselineVal !== null && baselineVal !== undefined ? 'baseline ' + escapeHtml(String(baselineVal)) : '—') + '</div></div>';
+}
+
 // ============================================================
 // ONBOARDING
 // ============================================================
 function renderOnboarding() {
-  const o = onboardingData;
-  return `
-    <div class="auth-wrapper">
-      <div class="auth-card" style="max-width: 480px;">
-        <div style="margin-bottom: 28px;">
-          <div class="vl-logo" style="font-size: 24px;">Virtvs<span class="accent">Lab</span></div>
-          <div class="tagline" style="margin-top: 8px;">Onboarding · Paso ${onboardingStep} de 3</div>
-        </div>
-        <div class="card" style="padding: 28px 24px; text-align: left; border-radius: 12px;">
-          ${onboardingStep === 1 ? renderOnboardStep1() : ''}
-          ${onboardingStep === 2 ? renderOnboardStep2() : ''}
-          ${onboardingStep === 3 ? renderOnboardStep3() : ''}
-        </div>
-        <button onclick="handleSignOut()" class="btn btn-ghost" style="margin-top: 18px;">Cerrar sesión</button>
-      </div>
-    </div>
-  `;
+  return '<div class="auth-wrapper"><div class="auth-card" style="max-width: 520px;">' +
+    '<div style="margin-bottom: 24px;">' +
+      '<div class="vl-logo" style="font-size: 22px;">Virtvs<span class="accent">Lab</span></div>' +
+      '<div class="tagline" style="margin-top: 8px;">Onboarding · Paso ' + onboardingStep + ' de 4</div>' +
+    '</div>' +
+    '<div class="card" style="padding: 28px 24px; text-align: left; border-radius: 12px;">' +
+      (onboardingStep === 1 ? renderOnboardStep1() :
+       onboardingStep === 2 ? renderOnboardStep2() :
+       onboardingStep === 3 ? renderOnboardStep3() :
+       renderOnboardStep4()) +
+    '</div>' +
+    '<button onclick="handleSignOut()" class="btn btn-ghost" style="margin-top: 18px;">Cerrar sesión</button>' +
+  '</div></div>';
 }
-
 function renderOnboardStep1() {
   const o = onboardingData;
-  return `
-    <div style="margin-bottom: 14px;">
-      <div class="latin" style="font-size: 11px; color: var(--blue); text-transform: uppercase; letter-spacing: 1.5px;">I · Datos físicos</div>
-      <div style="font-size: 17px; font-weight: 500; margin-top: 6px;">Empecemos por lo básico</div>
-      <div style="font-size: 12px; color: var(--text-faint); margin-top: 4px; line-height: 1.5;">
-        Necesitamos esto para calcular tus zonas cardíacas, requerimiento calórico y referencias de longevidad.
-      </div>
-    </div>
-    <div style="display: grid; gap: 10px; margin-bottom: 18px;">
-      <input type="text" placeholder="Nombre completo" value="${escapeHtml(o.full_name)}" oninput="onboardingData.full_name=this.value" class="auth-input" style="margin: 0;" />
-      <div class="grid-2" style="gap: 10px;">
-        <input type="date" value="${o.birth_date}" oninput="onboardingData.birth_date=this.value" class="auth-input" style="margin: 0;" />
-        <select onchange="onboardingData.sex=this.value" class="auth-input" style="margin: 0;">
-          <option value="M" ${o.sex==='M'?'selected':''}>Masculino</option>
-          <option value="F" ${o.sex==='F'?'selected':''}>Femenino</option>
-          <option value="other" ${o.sex==='other'?'selected':''}>Otro</option>
-        </select>
-      </div>
-      <div class="grid-2" style="gap: 10px;">
-        <input type="number" placeholder="Altura (cm)" value="${o.height_cm}" oninput="onboardingData.height_cm=this.value" class="auth-input" style="margin: 0;" />
-        <input type="number" placeholder="Peso (kg)" value="${o.weight_kg}" oninput="onboardingData.weight_kg=this.value" class="auth-input" style="margin: 0;" />
-      </div>
-    </div>
-    <button onclick="onboardNext()" class="auth-button">Siguiente</button>
-  `;
+  return '<div style="margin-bottom: 14px;">' +
+    '<div class="latin" style="font-size: 11px; color: var(--blue); text-transform: uppercase; letter-spacing: 1.5px;">I · Datos físicos</div>' +
+    '<div style="font-size: 17px; font-weight: 500; margin-top: 6px;">Empecemos por lo básico</div>' +
+    '<div style="font-size: 12px; color: var(--text-faint); margin-top: 4px; line-height: 1.5;">Necesitamos esto para calcular zonas cardíacas, requerimiento calórico y referencias.</div>' +
+  '</div>' +
+  '<div style="display: grid; gap: 10px; margin-bottom: 18px;">' +
+    '<input type="text" placeholder="Nombre completo" value="' + escapeHtml(o.full_name) + '" oninput="onboardingData.full_name=this.value" class="auth-input" style="margin: 0;" />' +
+    '<div class="grid-2" style="gap: 10px;">' +
+      '<input type="date" value="' + o.birth_date + '" oninput="onboardingData.birth_date=this.value" class="auth-input" style="margin: 0;" />' +
+      '<select onchange="onboardingData.sex=this.value" class="auth-input" style="margin: 0;">' +
+        '<option value="M"' + (o.sex==='M'?' selected':'') + '>Masculino</option>' +
+        '<option value="F"' + (o.sex==='F'?' selected':'') + '>Femenino</option>' +
+        '<option value="other"' + (o.sex==='other'?' selected':'') + '>Otro</option>' +
+      '</select>' +
+    '</div>' +
+    '<div class="grid-2" style="gap: 10px;">' +
+      '<input type="number" placeholder="Altura (cm)" value="' + o.height_cm + '" oninput="onboardingData.height_cm=this.value" class="auth-input" style="margin: 0;" />' +
+      '<input type="number" placeholder="Peso (kg)" value="' + o.weight_kg + '" oninput="onboardingData.weight_kg=this.value" class="auth-input" style="margin: 0;" />' +
+    '</div>' +
+  '</div>' +
+  '<button onclick="onboardNext()" class="auth-button">Siguiente</button>';
 }
-
 function renderOnboardStep2() {
   const o = onboardingData;
-  return `
-    <div style="margin-bottom: 14px;">
-      <div class="latin" style="font-size: 11px; color: var(--blue); text-transform: uppercase; letter-spacing: 1.5px;">II · Objetivos</div>
-      <div style="font-size: 17px; font-weight: 500; margin-top: 6px;">¿Qué querés lograr?</div>
-      <div style="font-size: 12px; color: var(--text-faint); margin-top: 4px; line-height: 1.5;">
-        En 1-2 frases. Después podés agregar objetivos específicos en la app.
-      </div>
-    </div>
-    <textarea placeholder="Ej: Bajar 5 kg de grasa, correr 10K en 50 min, sentirme con más energía durante el día..." oninput="onboardingData.main_goal=this.value" style="width: 100%; min-height: 110px; padding: 13px 16px; background: var(--panel-hi); border: 0.5px solid var(--border); border-radius: 6px; color: var(--text); font-size: 14px; outline: none; resize: vertical; line-height: 1.5; margin-bottom: 18px;">${escapeHtml(o.main_goal)}</textarea>
-    <div class="row" style="gap: 8px;">
-      <button onclick="onboardingStep=1;render()" class="btn btn-ghost" style="flex: 1;">Atrás</button>
-      <button onclick="onboardNext()" class="auth-button" style="flex: 2;">Siguiente</button>
-    </div>
-  `;
+  return '<div style="margin-bottom: 14px;">' +
+    '<div class="latin" style="font-size: 11px; color: var(--blue); text-transform: uppercase; letter-spacing: 1.5px;">II · Tu arquetipo</div>' +
+    '<div style="font-size: 17px; font-weight: 500; margin-top: 6px;">¿Cuál te representa?</div>' +
+    '<div style="font-size: 12px; color: var(--text-faint); margin-top: 4px; line-height: 1.5;">Define tu perfil de entrenamiento, macros y prioridades. Lo podés cambiar después.</div>' +
+  '</div>' +
+  '<div class="grid-2" style="gap: 8px; margin-bottom: 16px;">' +
+    Object.entries(ARCHETYPES).map(([key, a]) =>
+      '<button onclick="selectArchetype(\'' + key + '\')" class="archetype-card' + (o.archetype === key ? ' selected' : '') + '">' +
+        '<div class="archetype-numeral">' + a.numeral + '</div>' +
+        '<div style="font-size: 13px; font-weight: 500; color: var(--text);">' + a.archetype + '</div>' +
+        '<div style="font-size: 10px; color: var(--blue); margin-top: 2px;">' + a.label + '</div>' +
+        '<div style="font-size: 10px; color: var(--text-faint); margin-top: 6px; line-height: 1.4;">' + a.desc + '</div>' +
+      '</button>'
+    ).join('') +
+  '</div>' +
+  '<div class="row" style="gap: 8px;">' +
+    '<button onclick="onboardingStep=1;render()" class="btn btn-ghost" style="flex: 1;">Atrás</button>' +
+    '<button onclick="onboardNext()" class="auth-button" style="flex: 2;">Siguiente</button>' +
+  '</div>';
 }
-
 function renderOnboardStep3() {
-  return `
-    <div style="margin-bottom: 18px;">
-      <div class="latin" style="font-size: 11px; color: var(--blue); text-transform: uppercase; letter-spacing: 1.5px;">III · WHOOP (opcional)</div>
-      <div style="font-size: 17px; font-weight: 500; margin-top: 6px;">¿Tenés WHOOP?</div>
-      <div style="font-size: 12px; color: var(--text-faint); margin-top: 6px; line-height: 1.6;">
-        Si conectás WHOOP, vamos a traer tu HRV, FC reposo, recovery, sueño y strain automáticamente.
-        Si no tenés, podés saltearte y hacerlo después desde Configuración.
-      </div>
-    </div>
-    <div class="row" style="gap: 8px;">
-      <button onclick="finishOnboarding(false)" class="btn btn-ghost" style="flex: 1;">Saltear</button>
-      <button onclick="finishOnboarding(true)" class="auth-button" style="flex: 2;">Conectar WHOOP</button>
-    </div>
-    <button onclick="onboardingStep=2;render()" class="btn btn-ghost btn-block" style="margin-top: 12px;">Atrás</button>
-  `;
+  const o = onboardingData;
+  return '<div style="margin-bottom: 14px;">' +
+    '<div class="latin" style="font-size: 11px; color: var(--blue); text-transform: uppercase; letter-spacing: 1.5px;">III · Objetivo principal</div>' +
+    '<div style="font-size: 17px; font-weight: 500; margin-top: 6px;">¿Qué querés lograr?</div>' +
+    '<div style="font-size: 12px; color: var(--text-faint); margin-top: 4px; line-height: 1.5;">En 1-2 frases. Después podés agregar objetivos específicos.</div>' +
+  '</div>' +
+  '<textarea placeholder="Ej: Bajar 5 kg de grasa, correr 10K en 50 min, sentirme con más energía..." oninput="onboardingData.main_goal=this.value" style="width: 100%; min-height: 110px; padding: 13px 16px; background: var(--panel-hi); border: 0.5px solid var(--border); border-radius: 6px; color: var(--text); font-size: 14px; outline: none; resize: vertical; line-height: 1.5; margin-bottom: 18px;">' + escapeHtml(o.main_goal) + '</textarea>' +
+  '<div class="row" style="gap: 8px;">' +
+    '<button onclick="onboardingStep=2;render()" class="btn btn-ghost" style="flex: 1;">Atrás</button>' +
+    '<button onclick="onboardNext()" class="auth-button" style="flex: 2;">Siguiente</button>' +
+  '</div>';
 }
-
+function renderOnboardStep4() {
+  return '<div style="margin-bottom: 18px;">' +
+    '<div class="latin" style="font-size: 11px; color: var(--blue); text-transform: uppercase; letter-spacing: 1.5px;">IV · WHOOP (opcional)</div>' +
+    '<div style="font-size: 17px; font-weight: 500; margin-top: 6px;">¿Tenés WHOOP?</div>' +
+    '<div style="font-size: 12px; color: var(--text-faint); margin-top: 6px; line-height: 1.6;">Si conectás, traemos tu HRV, FC reposo, recovery y sueño automáticamente. Si no, podés saltar y conectarlo después desde Perfil.</div>' +
+  '</div>' +
+  '<div class="row" style="gap: 8px;">' +
+    '<button onclick="finishOnboarding(false)" class="btn btn-ghost" style="flex: 1;">Saltear</button>' +
+    '<button onclick="finishOnboarding(true)" class="auth-button" style="flex: 2;">Conectar WHOOP</button>' +
+  '</div>' +
+  '<button onclick="onboardingStep=3;render()" class="btn btn-ghost btn-block" style="margin-top: 12px;">Atrás</button>';
+}
+window.selectArchetype = function(k) { onboardingData.archetype = k; render(); };
 window.onboardNext = function() {
   const o = onboardingData;
   if (onboardingStep === 1) {
-    if (!o.full_name || !o.birth_date || !o.height_cm || !o.weight_kg) {
-      alert('Completá todos los campos.'); return;
-    }
+    if (!o.full_name || !o.birth_date || !o.height_cm || !o.weight_kg) { alert('Completá todos los campos.'); return; }
     onboardingStep = 2;
   } else if (onboardingStep === 2) {
-    if (!o.main_goal || o.main_goal.trim().length < 5) {
-      alert('Contanos brevemente tu objetivo.'); return;
-    }
+    if (!o.archetype) { alert('Elegí un arquetipo.'); return; }
     onboardingStep = 3;
+  } else if (onboardingStep === 3) {
+    if (!o.main_goal || o.main_goal.trim().length < 5) { alert('Contanos brevemente tu objetivo.'); return; }
+    onboardingStep = 4;
   }
   render();
 };
-
 window.finishOnboarding = async function(connectAfter) {
   const o = onboardingData;
   await updateProfile({
-    full_name: o.full_name,
-    birth_date: o.birth_date,
-    sex: o.sex,
-    height_cm: parseFloat(o.height_cm) || null,
-    weight_kg: parseFloat(o.weight_kg) || null,
-    main_goal: o.main_goal,
-    profile_complete: true,
-    onboarded_at: new Date().toISOString(),
+    full_name: o.full_name, birth_date: o.birth_date, sex: o.sex,
+    height_cm: parseFloat(o.height_cm) || null, weight_kg: parseFloat(o.weight_kg) || null,
+    archetype: o.archetype, main_goal: o.main_goal,
+    profile_complete: true, onboarded_at: new Date().toISOString(),
   });
-  // Guardar el main_goal como un goal principal
-  await saveGoal({
-    title: 'Objetivo principal',
-    description: o.main_goal,
-    category: 'performance',
-    priority: 'high',
-  });
-  if (connectAfter) {
-    connectWhoop();
-  } else {
+  await saveGoal({ title: 'Objetivo principal', description: o.main_goal, category: 'performance', priority: 'high' });
+  if (connectAfter) connectWhoop();
+  else {
     activeView = 'athlete';
     activeSection = 'dashboard';
     await loadOwnAthleteData();
+    await loadOwnChat();
     render();
   }
 };
@@ -999,82 +1080,67 @@ const ATHLETE_SECTIONS = [
   { id: 'dashboard', label: 'Dashboard', sub: 'Omnia sub oculis' },
   { id: 'training', label: 'Entrenamiento', sub: 'Ferrum et sudor' },
   { id: 'recovery', label: 'Recuperación', sub: 'Otium sanctum' },
+  { id: 'nutrition', label: 'Nutrición', sub: 'Fundamentum corporis' },
   { id: 'habits', label: 'Hábitos', sub: 'Parva cotidie' },
   { id: 'goals', label: 'Objetivos', sub: 'Finis ante oculos' },
+  { id: 'biomarkers', label: 'Biomarcadores', sub: 'Sanguis loquitur' },
+  { id: 'insights', label: 'AI Insights', sub: 'Machina cogitat' },
+  { id: 'medical', label: 'Consulta médica', sub: 'Medicus sui' },
   { id: 'settings', label: 'Perfil', sub: 'Cura sui' },
 ];
 
 function renderAthlete() {
-  return `
-    <div style="background: var(--bg); min-height: 100vh;">
-      <div class="sticky-header">
-        ${renderHeaderShared(escapeHtml(currentProfile.full_name || 'Atleta'), 'Atleta')}
-        <div class="nav-tabs">
-          ${ATHLETE_SECTIONS.map(s => `
-            <button class="nav-tab ${activeSection===s.id?'active':''}" onclick="setSection('${s.id}')">${s.label}</button>
-          `).join('')}
-        </div>
-      </div>
-      <div style="padding: 1.5rem 2rem; min-height: 400px;">
-        ${renderAthleteSection()}
-      </div>
-      ${renderFooter()}
-    </div>
-  `;
+  const archInfo = currentProfile.archetype ? ARCHETYPES[currentProfile.archetype] : null;
+  const subtitle = archInfo ? 'Atleta · ' + archInfo.archetype : 'Atleta';
+  return '<div style="background: var(--bg); min-height: 100vh;">' +
+    '<div class="sticky-header">' +
+      renderHeaderShared(currentProfile.full_name || 'Atleta', subtitle) +
+      '<div class="nav-tabs">' +
+        ATHLETE_SECTIONS.map(s => '<button class="nav-tab' + (activeSection===s.id?' active':'') + '" onclick="setSection(\'' + s.id + '\')">' + s.label + '</button>').join('') +
+      '</div>' +
+    '</div>' +
+    '<div style="padding: 1.5rem 1.5rem;">' + renderAthleteSection() + '</div>' +
+    renderFooter() +
+  '</div>';
 }
-
 function renderAthleteSection() {
   switch (activeSection) {
     case 'dashboard': return renderAthleteDashboard();
     case 'training': return renderAthleteTraining();
     case 'recovery': return renderAthleteRecovery();
+    case 'nutrition': return renderAthleteNutrition();
     case 'habits': return renderAthleteHabits();
     case 'goals': return renderAthleteGoals();
+    case 'biomarkers': return renderAthleteBiomarkers();
+    case 'insights': return renderAthleteInsights();
+    case 'medical': return renderAthleteMedical();
     case 'settings': return renderAthleteSettings();
   }
   return '';
 }
+window.setSection = function(s) { activeSection = s; render(); };
 
-window.setSection = function(s) {
-  activeSection = s;
-  render();
-};
-
-function renderHeaderShared(name, subtitle) {
-  return `
-    <div style="padding: 14px 2rem; border-bottom: 0.5px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 12px;">
-      <div class="row" style="gap: 12px; min-width: 0;">
-        <div style="width: 40px; height: 40px; background: var(--bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; border-radius: 8px; flex-shrink: 0;">
-          <span class="vl-logo" style="font-size: 20px;">VL</span>
-        </div>
-        <div style="min-width: 0;">
-          <div class="vl-logo" style="font-size: 18px;">Virtvs<span class="accent">Lab</span></div>
-          <div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px;">${escapeHtml(subtitle)}</div>
-        </div>
-      </div>
-      <div class="row" style="gap: 8px; flex-shrink: 0;">
-        <div style="font-size: 11px; color: var(--text-muted); padding: 7px 12px; border: 0.5px solid var(--border); border-radius: 20px;" class="hide-mobile">${escapeHtml(name)}</div>
-        <button onclick="handleSignOut()" class="btn btn-ghost btn-sm">Salir</button>
-      </div>
-    </div>
-  `;
+function getReadiness(rec) {
+  if (rec === null || rec === undefined) return { c: 'var(--text-faint)', label: '—', bg: 'transparent' };
+  if (rec >= 67) return { c: 'var(--green)', label: 'Listo para entrenar', bg: 'var(--green-dim)' };
+  if (rec >= 34) return { c: 'var(--yellow)', label: 'Precaución', bg: 'var(--yellow-dim)' };
+  return { c: 'var(--red)', label: 'Recuperar', bg: 'var(--red-dim)' };
 }
 
-function renderFooter() {
-  return `
-    <div style="padding: 14px 1.5rem; border-top: 0.5px solid var(--border); text-align: center; background: var(--panel);">
-      <div class="tagline">Engineered for peak human performance</div>
-    </div>
-  `;
-}
-
-function sectionHeader(s) {
-  return `
-    <div class="section-title-block">
-      <div class="section-title">${s.label}</div>
-      <div class="section-sub latin">${s.sub} · ad virtutem</div>
-    </div>
-  `;
+function renderWhoopStateBanner() {
+  if (athleteData.whoopConnected && athleteData.whoopRecovery.length > 0) return '';
+  if (!athleteData.whoopConnected) {
+    return '<div class="card" style="border-left: 3px solid var(--yellow); background: var(--yellow-dim); padding: 18px 22px; margin-bottom: 14px;">' +
+      '<div style="font-size: 13px; font-weight: 500;">Conectá tu WHOOP</div>' +
+      '<div style="font-size: 11px; color: var(--text-muted); margin-top: 6px; line-height: 1.6;">Para ver HRV, recovery, sueño y strain reales. Andá a Perfil → Conectar.</div>' +
+      '<button onclick="setSection(\'settings\')" class="btn btn-primary" style="margin-top: 12px;">Ir a Perfil</button>' +
+    '</div>';
+  }
+  return '<div class="card" style="border-left: 3px solid var(--blue); background: var(--blue-dim); padding: 18px 22px; margin-bottom: 14px;">' +
+    '<div style="font-size: 13px; font-weight: 500;">WHOOP conectado, sincronizando datos</div>' +
+    '<div style="font-size: 11px; color: var(--text-muted); margin-top: 6px; line-height: 1.6;">Si tenés WHOOP hace tiempo, tocá Sincronizar para traer tu historial. Si es cuenta nueva, los primeros datos pueden tardar 24h.</div>' +
+    '<button onclick="syncWhoop()" class="btn btn-primary" style="margin-top: 12px;"' + (_whoopSyncing?' disabled':'') + '>' + (_whoopSyncing?'Sincronizando...':'Sincronizar ahora') + '</button>' +
+  '</div>';
 }
 
 // ---------- DASHBOARD ----------
@@ -1086,108 +1152,99 @@ function renderAthleteDashboard() {
   const last = rec[rec.length - 1] || null;
   const lastSlp = slp[slp.length - 1] || null;
   const lastCyc = cyc[cyc.length - 1] || null;
-
   const baselineHrv = rec.length ? avg(rec.slice(-30), 'hrv_rmssd') : null;
   const baselineRhr = rec.length ? avg(rec.slice(-30), 'resting_hr') : null;
   const baselineSlp = slp.length ? avg(slp.slice(-30).map(x => (x.total_sleep_min || 0) / 60)) : null;
-
+  const baselineRec = rec.length ? avg(rec.slice(-30), 'recovery_score') : null;
+  const baselineStr = cyc.length ? avg(cyc.slice(-30), 'strain') : null;
+  const baselineRsp = slp.length ? avg(slp.slice(-30), 'respiratory_rate') : null;
   const habitsDone = Object.values(athleteData.habitChecks).filter(Boolean).length;
   const habitsTotal = DEFAULT_HABITS.length;
+  const readiness = getReadiness(last ? last.recovery_score : null);
+  const topGoal = athleteData.goals[0] || null;
 
-  return `
-    ${sectionHeader(s)}
+  return sectionHeader(s.label, s.sub) +
+    renderWhoopStateBanner() +
 
-    ${rec.length === 0 ? renderEmptyHero() : ''}
+    '<div class="grid-2" style="margin-bottom: 10px;">' +
+      '<div class="card" style="background: ' + readiness.bg + '; border-left: 3px solid ' + readiness.c + '; padding: 18px 20px; min-height: 110px; display: flex; flex-direction: column; justify-content: space-between;">' +
+        '<div class="row-between">' +
+          '<div class="row" style="gap: 10px;"><div style="width: 10px; height: 10px; border-radius: 50%; background: ' + readiness.c + ';"></div><div style="font-size: 9px; color: ' + readiness.c + '; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500;">Readiness</div></div>' +
+          '<div style="font-size: 9px; color: ' + readiness.c + '; letter-spacing: 1px; text-transform: uppercase; opacity: 0.7;">' + (last && last.date ? escapeHtml(last.date) : 'sin datos') + '</div>' +
+        '</div>' +
+        '<div class="row-between">' +
+          '<div style="font-size: 15px; font-weight: 500; color: ' + readiness.c + ';">' + readiness.label + '</div>' +
+          '<div class="num num-georgia" style="font-size: 36px; color: ' + readiness.c + '; line-height: 1;">' + (last && last.recovery_score !== null ? last.recovery_score : '—') + (last && last.recovery_score !== null ? '<span style="font-size: 16px; opacity: 0.7;">%</span>' : '') + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="card" style="border-left: 3px solid var(--blue); background: var(--blue-dim); padding: 18px 20px; min-height: 110px; display: flex; flex-direction: column; justify-content: space-between;">' +
+        '<div class="row-between">' +
+          '<div style="font-size: 9px; color: var(--blue); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500;">Disciplina hoy</div>' +
+          '<div style="font-size: 9px; color: var(--blue); opacity: 0.7; letter-spacing: 1px; text-transform: uppercase;">Hábitos</div>' +
+        '</div>' +
+        '<div class="row-between">' +
+          '<div style="font-size: 13px; color: var(--text); font-weight: 500;">' + escapeHtml(todayISO()) + '</div>' +
+          '<div class="num num-georgia" style="font-size: 36px; color: var(--blue); line-height: 1;">' + habitsDone + '<span style="font-size: 16px; opacity: 0.7;">/' + habitsTotal + '</span></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
 
-    <div class="grid-2" style="margin-bottom: 10px;">
-      <div class="card" style="border-left: 3px solid var(--blue); background: var(--blue-dim); padding: 18px 20px; min-height: 100px; display: flex; flex-direction: column; justify-content: space-between;">
-        <div class="row-between">
-          <div style="font-size: 9px; color: var(--blue); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500;">Recovery</div>
-          <div style="font-size: 9px; color: var(--blue); opacity: 0.7; letter-spacing: 1px; text-transform: uppercase;">${last ? escapeHtml(last.date) : 'sin datos'}</div>
-        </div>
-        <div class="num num-georgia" style="font-size: 36px; color: var(--blue); line-height: 1;">${last && last.recovery_score !== null ? last.recovery_score : '—'}<span style="font-size: 16px; opacity: 0.7;">${last && last.recovery_score !== null ? '%' : ''}</span></div>
-      </div>
-      <div class="card" style="border-left: 3px solid var(--blue); background: var(--blue-dim); padding: 18px 20px; min-height: 100px; display: flex; flex-direction: column; justify-content: space-between;">
-        <div class="row-between">
-          <div style="font-size: 9px; color: var(--blue); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500;">Disciplina hoy</div>
-          <div style="font-size: 9px; color: var(--blue); opacity: 0.7; letter-spacing: 1px; text-transform: uppercase;">Hábitos</div>
-        </div>
-        <div class="num num-georgia" style="font-size: 36px; color: var(--blue); line-height: 1;">${habitsDone}<span style="font-size: 16px; opacity: 0.7;">/${habitsTotal}</span></div>
-      </div>
-    </div>
+    '<div class="grid-3" style="margin-bottom: 8px;">' +
+      baselineCard('HRV', last && last.hrv_rmssd ? Math.round(last.hrv_rmssd) : '—', 'ms', baselineHrv ? Math.round(baselineHrv) : null) +
+      baselineCard('FC reposo', last && last.resting_hr ? last.resting_hr : '—', 'bpm', baselineRhr ? Math.round(baselineRhr) : null) +
+      baselineCard('Sueño', lastSlp && lastSlp.total_sleep_min ? (lastSlp.total_sleep_min/60).toFixed(1) : '—', 'h', baselineSlp ? baselineSlp.toFixed(1) : null) +
+    '</div>' +
+    '<div class="grid-3" style="margin-bottom: 14px;">' +
+      baselineCard('Recovery', last && last.recovery_score !== null ? last.recovery_score : '—', '%', baselineRec ? Math.round(baselineRec) : null) +
+      baselineCard('Strain', lastCyc && lastCyc.strain ? lastCyc.strain.toFixed(1) : '—', '', baselineStr ? baselineStr.toFixed(1) : null) +
+      baselineCard('Resp.', lastSlp && lastSlp.respiratory_rate ? lastSlp.respiratory_rate.toFixed(1) : '—', 'rpm', baselineRsp ? baselineRsp.toFixed(1) : null) +
+    '</div>' +
 
-    <div class="grid-4" style="margin-bottom: 8px;">
-      ${baselineCard('HRV', last && last.hrv_rmssd ? Math.round(last.hrv_rmssd) : '—', 'ms', baselineHrv ? Math.round(baselineHrv) : null)}
-      ${baselineCard('FC reposo', last && last.resting_hr ? last.resting_hr : '—', 'bpm', baselineRhr ? Math.round(baselineRhr) : null)}
-      ${baselineCard('Sueño', lastSlp && lastSlp.total_sleep_min ? (lastSlp.total_sleep_min/60).toFixed(1) : '—', 'h', baselineSlp ? baselineSlp.toFixed(1) : null)}
-      ${baselineCard('Strain', lastCyc && lastCyc.strain ? lastCyc.strain.toFixed(1) : '—', '', null)}
-    </div>
+    (topGoal ? (
+      '<div class="card" style="border-left: 2px solid var(--blue); padding: 14px 18px; margin-bottom: 14px;">' +
+        '<div class="row-between" style="margin-bottom: 8px;">' +
+          '<div><div style="font-size: 9px; color: var(--blue); letter-spacing: 1.2px; text-transform: uppercase;">Objetivo principal</div>' +
+          '<div style="font-size: 13px; font-weight: 500; margin-top: 3px;">' + escapeHtml(topGoal.title) + '</div></div>' +
+          '<div class="num num-georgia" style="font-size: 22px;">' + (topGoal.pct_progress || 0) + '<span style="font-size: 11px; color: var(--text-muted);">%</span></div>' +
+        '</div>' +
+        '<div class="progress-track"><div class="progress-fill" style="width: ' + (topGoal.pct_progress || 0) + '%;"></div></div>' +
+      '</div>'
+    ) : '') +
 
-    <div class="card" style="margin-bottom: 8px; padding: 16px 20px;">
-      <div class="row-between" style="margin-bottom: 4px;">
-        <div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase;">HRV — últimos 60 días</div>
-      </div>
-      <div style="font-size: 10px; color: var(--text-faint); margin-bottom: 14px;">${rec.length ? 'Datos reales de WHOOP.' : 'Conectá WHOOP para ver tendencias.'}</div>
-      <div style="position: relative; height: 220px;"><canvas id="hrvChart"></canvas></div>
-    </div>
+    (rec.length > 0 ? (
+      '<div class="card" style="margin-bottom: 8px; padding: 16px 20px;">' +
+        '<div class="row-between" style="margin-bottom: 4px;">' +
+          '<div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase;">HRV — últimos 60 días</div>' +
+        '</div>' +
+        '<div style="font-size: 10px; color: var(--text-faint); margin-bottom: 14px;">Datos reales de tu WHOOP.</div>' +
+        '<div style="position: relative; height: 220px;"><canvas id="hrvChart"></canvas></div>' +
+      '</div>'
+    ) : '') +
 
-    <div class="card" style="padding: 16px 20px;">
-      <div class="row-between" style="margin-bottom: 4px;">
-        <div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase;">Strain diario — últimos 60 días</div>
-      </div>
-      <div style="font-size: 10px; color: var(--text-faint); margin-bottom: 14px;">Cada barra es un día. WHOOP 0-21.</div>
-      <div style="position: relative; height: 220px;"><canvas id="strainChart"></canvas></div>
-    </div>
-  `;
+    (cyc.length > 0 ? (
+      '<div class="card" style="padding: 16px 20px;">' +
+        '<div class="row-between" style="margin-bottom: 4px;">' +
+          '<div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase;">Strain diario — últimos 60 días</div>' +
+        '</div>' +
+        '<div style="font-size: 10px; color: var(--text-faint); margin-bottom: 14px;">WHOOP 0-21.</div>' +
+        '<div style="position: relative; height: 220px;"><canvas id="strainChart"></canvas></div>' +
+      '</div>'
+    ) : '');
 }
-
-function renderEmptyHero() {
-  return `
-    <div class="card" style="border-left: 3px solid var(--yellow); background: var(--yellow-dim); padding: 20px 22px; margin-bottom: 14px;">
-      <div style="font-size: 13px; color: var(--text); font-weight: 500;">Sin datos de WHOOP todavía</div>
-      <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px; line-height: 1.6; max-width: 600px;">
-        Para ver tu HRV, recovery y strain reales: andá a <strong>Perfil</strong> y conectá tu WHOOP. Si tenés una cuenta nueva tarda hasta 24h en juntar tus primeros datos.
-      </div>
-      <button onclick="setSection('settings')" class="btn btn-primary" style="margin-top: 12px;">Conectar WHOOP</button>
-    </div>
-  `;
-}
-
-function baselineCard(label, value, unit, baselineVal) {
-  return `
-    <div class="metric">
-      <div class="metric-label">${label}</div>
-      <div class="metric-value">${value}<span class="unit">${unit}</span></div>
-      <div class="metric-sub">${baselineVal !== null && baselineVal !== undefined ? 'baseline ' + baselineVal : '—'}</div>
-    </div>
-  `;
-}
-
 function drawAthleteCharts() {
   const rec = athleteData.whoopRecovery.slice(-60);
   const cyc = athleteData.whoopCycles.slice(-60);
   if (rec.length) {
     safeChart('hrvChart', {
       type: 'line',
-      data: {
-        labels: rec.map(r => r.date.substring(5)),
-        datasets: [
-          { data: rec.map(r => r.hrv_rmssd), borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.12)', tension: 0.3, fill: true, pointRadius: 0, borderWidth: 2 }
-        ]
-      },
+      data: { labels: rec.map(r => r.date.substring(5)), datasets: [{ data: rec.map(r => r.hrv_rmssd), borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.12)', tension: 0.3, fill: true, pointRadius: 0, borderWidth: 2 }] },
       options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { maxTicksLimit: 8, font: { size: 9 }, color: '#a8a59c' }, grid: { color: 'rgba(245,241,232,0.08)' } }, y: { ticks: { font: { size: 9 }, color: '#a8a59c' }, grid: { color: 'rgba(245,241,232,0.08)' } } } }
     });
   }
   if (cyc.length) {
     safeChart('strainChart', {
       type: 'bar',
-      data: {
-        labels: cyc.map(c => c.date.substring(5)),
-        datasets: [{
-          data: cyc.map(c => c.strain),
-          backgroundColor: cyc.map(c => c.strain > 15 ? '#b84040' : c.strain > 10 ? '#b8893f' : '#3b82f6')
-        }]
-      },
+      data: { labels: cyc.map(c => c.date.substring(5)), datasets: [{ data: cyc.map(c => c.strain), backgroundColor: cyc.map(c => c.strain > 15 ? '#b84040' : c.strain > 10 ? '#b8893f' : '#3b82f6') }] },
       options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { maxTicksLimit: 8, font: { size: 9 }, color: '#a8a59c' }, grid: { color: 'rgba(245,241,232,0.08)' } }, y: { ticks: { font: { size: 9 }, color: '#a8a59c' }, grid: { color: 'rgba(245,241,232,0.08)' } } } }
     });
   }
@@ -1197,107 +1254,68 @@ function drawAthleteCharts() {
 function renderAthleteTraining() {
   const s = ATHLETE_SECTIONS[1];
   const sessions = athleteData.sessions;
-  return `
-    ${sectionHeader(s)}
-    <div class="row-between" style="margin-bottom: 14px;">
-      <div style="font-size: 11px; color: var(--text-muted);">${sessions.length} ${sessions.length === 1 ? 'sesión registrada' : 'sesiones registradas'}</div>
-      <button onclick="openQuickSession()" class="btn btn-primary">+ Registrar sesión</button>
-    </div>
-    ${sessions.length === 0 ? `
-      <div class="card" style="padding: 30px; text-align: center; color: var(--text-faint); font-size: 12px; line-height: 1.6;">
-        Sin sesiones registradas todavía.<br>Tocá <strong style="color: var(--text);">+ Registrar sesión</strong> para empezar.
-      </div>
-    ` : `
-      <div class="stack">
-        ${sessions.map(sess => renderSessionRow(sess)).join('')}
-      </div>
-    `}
-    <div id="quick-session-modal" class="hidden"></div>
-  `;
+  return sectionHeader(s.label, s.sub) +
+    '<div class="row-between" style="margin-bottom: 14px;">' +
+      '<div style="font-size: 11px; color: var(--text-muted);">' + sessions.length + ' ' + (sessions.length === 1 ? 'sesión registrada' : 'sesiones registradas') + '</div>' +
+      '<button onclick="openQuickSession()" class="btn btn-primary">+ Registrar sesión</button>' +
+    '</div>' +
+    (sessions.length === 0 ?
+      '<div class="card" style="padding: 30px; text-align: center; color: var(--text-faint); font-size: 12px; line-height: 1.6;">Sin sesiones registradas todavía.<br>Tocá <strong style="color: var(--text);">+ Registrar sesión</strong> para empezar.</div>' :
+      '<div class="stack">' + sessions.map(renderSessionRow).join('') + '</div>') +
+    '<div id="quick-session-modal" class="hidden"></div>';
 }
-
 function renderSessionRow(sess) {
-  const exCount = (sess.exercises || []).length;
-  const aeCount = (sess.aerobics || []).length;
-  return `
-    <div class="card" style="padding: 14px 16px;">
-      <div class="row-between" style="gap: 10px;">
-        <div style="flex: 1; min-width: 0;">
-          <div style="font-size: 12px; font-weight: 500;">${escapeHtml(sess.date)}</div>
-          <div style="font-size: 10px; color: var(--text-faint); margin-top: 3px;">RPE ${sess.rpe || '—'}/10 · ${exCount} ej · ${aeCount} aer</div>
-          ${sess.notes ? `<div style="font-size: 11px; color: var(--text-muted); margin-top: 6px; font-style: italic;">${escapeHtml(sess.notes)}</div>` : ''}
-        </div>
-        <button onclick="confirmDeleteSession('${escapeHtml(sess.id)}')" class="btn btn-danger btn-sm">Borrar</button>
-      </div>
-    </div>
-  `;
+  return '<div class="card" style="padding: 14px 16px;">' +
+    '<div class="row-between" style="gap: 10px;">' +
+      '<div style="flex: 1; min-width: 0;">' +
+        '<div style="font-size: 12px; font-weight: 500;">' + escapeHtml(sess.date) + '</div>' +
+        '<div style="font-size: 10px; color: var(--text-faint); margin-top: 3px;">RPE ' + (sess.rpe || '—') + '/10</div>' +
+        (sess.notes ? '<div style="font-size: 11px; color: var(--text-muted); margin-top: 6px; font-style: italic;">' + escapeHtml(sess.notes) + '</div>' : '') +
+      '</div>' +
+      '<button onclick="confirmDeleteSession(\'' + escapeHtml(sess.id) + '\')" class="btn btn-danger btn-sm">Borrar</button>' +
+    '</div>' +
+  '</div>';
 }
-
 window.confirmDeleteSession = async function(id) {
   if (!confirm('¿Borrar esta sesión?')) return;
-  await deleteSessionById(id);
-  await loadOwnAthleteData();
-  render();
+  await deleteSessionById(id); await loadOwnAthleteData(); render();
 };
-
 window.openQuickSession = function() {
-  const html = `
-    <div class="modal-bg" onclick="if(event.target===this)closeQuickSession()">
-      <div class="modal-card">
-        <div class="row-between" style="margin-bottom: 14px; padding-bottom: 12px; border-bottom: 0.5px solid var(--border);">
-          <div>
-            <div style="font-size: 9px; color: var(--blue); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;">Nueva sesión</div>
-            <div style="font-size: 18px; font-family: Georgia, serif; font-weight: 500; margin-top: 3px;">${todayISO()}</div>
-          </div>
-          <button onclick="closeQuickSession()" class="btn btn-ghost btn-sm">Cerrar</button>
-        </div>
-        <div style="display: grid; gap: 12px; margin-bottom: 16px;">
-          <div>
-            <div style="font-size: 9px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px;">Tipo de sesión</div>
-            <select id="qs-type" class="auth-input" style="margin: 0;">
-              <option value="strength">Fuerza</option>
-              <option value="run">Running</option>
-              <option value="mixed">Mixta (fuerza + aeróbico)</option>
-              <option value="other">Otra</option>
-            </select>
-          </div>
-          <div>
-            <div style="font-size: 9px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px;">RPE (1-10)</div>
-            <input id="qs-rpe" type="number" min="1" max="10" placeholder="Ej: 7" class="auth-input" style="margin: 0;" />
-          </div>
-          <div>
-            <div style="font-size: 9px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px;">Notas (qué hiciste, cómo te fue)</div>
-            <textarea id="qs-notes" placeholder="Ej: 5x5 sentadilla 130kg, todo limpio. Después 5K en 24:30." style="width: 100%; min-height: 100px; padding: 12px; font-size: 13px; border: 0.5px solid var(--border); background: var(--panel-hi); color: var(--text); border-radius: 6px; resize: vertical; line-height: 1.5;"></textarea>
-          </div>
-        </div>
-        <div class="row" style="gap: 8px;">
-          <button onclick="closeQuickSession()" class="btn btn-ghost" style="flex: 1;">Cancelar</button>
-          <button onclick="saveQuickSession()" class="btn btn-primary" style="flex: 2;">Guardar</button>
-        </div>
-      </div>
-    </div>
-  `;
+  const html = '<div class="modal-bg" onclick="if(event.target===this)closeQuickSession()">' +
+    '<div class="modal-card">' +
+      '<div class="row-between" style="margin-bottom: 14px; padding-bottom: 12px; border-bottom: 0.5px solid var(--border);">' +
+        '<div><div style="font-size: 9px; color: var(--blue); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;">Nueva sesión</div>' +
+        '<div style="font-size: 18px; font-family: Georgia, serif; font-weight: 500; margin-top: 3px;">' + todayISO() + '</div></div>' +
+        '<button onclick="closeQuickSession()" class="btn btn-ghost btn-sm">Cerrar</button>' +
+      '</div>' +
+      '<div style="display: grid; gap: 12px; margin-bottom: 16px;">' +
+        '<div><div style="font-size: 9px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px;">Tipo</div>' +
+        '<select id="qs-type" class="auth-input" style="margin: 0;">' +
+          '<option value="strength">Fuerza</option><option value="run">Running</option>' +
+          '<option value="mixed">Mixta</option><option value="other">Otra</option></select></div>' +
+        '<div><div style="font-size: 9px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px;">RPE (1-10)</div>' +
+        '<input id="qs-rpe" type="number" min="1" max="10" placeholder="Ej: 7" class="auth-input" style="margin: 0;" /></div>' +
+        '<div><div style="font-size: 9px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px;">Notas</div>' +
+        '<textarea id="qs-notes" placeholder="Ej: 5x5 sentadilla 130kg, después 5K en 24:30." style="width: 100%; min-height: 100px; padding: 12px; font-size: 13px; border: 0.5px solid var(--border); background: var(--panel-hi); color: var(--text); border-radius: 6px; resize: vertical; line-height: 1.5;"></textarea></div>' +
+      '</div>' +
+      '<div class="row" style="gap: 8px;">' +
+        '<button onclick="closeQuickSession()" class="btn btn-ghost" style="flex: 1;">Cancelar</button>' +
+        '<button onclick="saveQuickSession()" class="btn btn-primary" style="flex: 2;">Guardar</button>' +
+      '</div>' +
+    '</div></div>';
   document.getElementById('quick-session-modal').classList.remove('hidden');
   document.getElementById('quick-session-modal').innerHTML = html;
 };
-
 window.closeQuickSession = function() {
   const el = document.getElementById('quick-session-modal');
   if (el) { el.innerHTML = ''; el.classList.add('hidden'); }
 };
-
 window.saveQuickSession = async function() {
   const type = document.getElementById('qs-type').value;
   const rpe = parseInt(document.getElementById('qs-rpe').value) || null;
   const notes = document.getElementById('qs-notes').value;
-  if (!notes || notes.trim().length < 3) {
-    alert('Agregá al menos una nota corta de la sesión.'); return;
-  }
-  await addSession({
-    dayIndex: 0, date: todayISO(),
-    exercises: [], aerobics: [{ type }],
-    rpe, notes,
-  });
+  if (!notes || notes.trim().length < 3) { alert('Agregá una nota corta.'); return; }
+  await addSession({ dayIndex: 0, date: todayISO(), exercises: [], aerobics: [{ type }], rpe, notes });
   closeQuickSession();
   await loadOwnAthleteData();
   render();
@@ -1310,51 +1328,92 @@ function renderAthleteRecovery() {
   const slp = athleteData.whoopSleep;
   const last = rec[rec.length - 1] || null;
   const lastSlp = slp[slp.length - 1] || null;
-  return `
-    ${sectionHeader(s)}
-    ${rec.length === 0 ? renderEmptyHero() : ''}
-
-    <div class="grid-3" style="margin-bottom: 12px;">
-      ${baselineCard('HRV', last && last.hrv_rmssd ? Math.round(last.hrv_rmssd) : '—', 'ms', null)}
-      ${baselineCard('FC reposo', last && last.resting_hr ? last.resting_hr : '—', 'bpm', null)}
-      ${baselineCard('Recovery', last && last.recovery_score !== null ? last.recovery_score : '—', '%', null)}
-      ${baselineCard('Sueño', lastSlp && lastSlp.total_sleep_min ? (lastSlp.total_sleep_min/60).toFixed(1) : '—', 'h', null)}
-      ${baselineCard('Eficiencia', lastSlp && lastSlp.sleep_efficiency ? Math.round(lastSlp.sleep_efficiency) : '—', '%', null)}
-      ${baselineCard('Resp.', lastSlp && lastSlp.respiratory_rate ? lastSlp.respiratory_rate.toFixed(1) : '—', 'rpm', null)}
-    </div>
-
-    <div class="card" style="padding: 16px 20px; margin-bottom: 8px;">
-      <div class="row-between" style="margin-bottom: 4px;">
-        <div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase;">HRV vs FC reposo — 60 días</div>
-      </div>
-      <div style="position: relative; height: 220px;"><canvas id="hrvRhrChart"></canvas></div>
-    </div>
-  `;
+  return sectionHeader(s.label, s.sub) +
+    renderWhoopStateBanner() +
+    '<div class="grid-3" style="margin-bottom: 12px;">' +
+      baselineCard('HRV', last && last.hrv_rmssd ? Math.round(last.hrv_rmssd) : '—', 'ms', null) +
+      baselineCard('FC reposo', last && last.resting_hr ? last.resting_hr : '—', 'bpm', null) +
+      baselineCard('Recovery', last && last.recovery_score !== null ? last.recovery_score : '—', '%', null) +
+      baselineCard('Sueño', lastSlp && lastSlp.total_sleep_min ? (lastSlp.total_sleep_min/60).toFixed(1) : '—', 'h', null) +
+      baselineCard('Eficiencia', lastSlp && lastSlp.sleep_efficiency ? Math.round(lastSlp.sleep_efficiency) : '—', '%', null) +
+      baselineCard('Resp.', lastSlp && lastSlp.respiratory_rate ? lastSlp.respiratory_rate.toFixed(1) : '—', 'rpm', null) +
+    '</div>' +
+    (rec.length > 0 ? (
+      '<div class="card" style="padding: 16px 20px; margin-bottom: 8px;">' +
+        '<div class="row-between" style="margin-bottom: 4px;">' +
+          '<div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase;">HRV vs FC reposo — 60 días</div>' +
+        '</div>' +
+        '<div style="position: relative; height: 220px;"><canvas id="hrvRhrChart"></canvas></div>' +
+      '</div>'
+    ) : '');
 }
-
 function drawRecoveryCharts() {
   const rec = athleteData.whoopRecovery.slice(-60);
   if (!rec.length) return;
   safeChart('hrvRhrChart', {
     type: 'line',
-    data: {
-      labels: rec.map(r => r.date.substring(5)),
-      datasets: [
-        { label: 'HRV', data: rec.map(r => r.hrv_rmssd), borderColor: '#3b82f6', tension: 0.3, pointRadius: 0, borderWidth: 2, yAxisID: 'y' },
-        { label: 'FCR', data: rec.map(r => r.resting_hr), borderColor: '#b84040', tension: 0.3, pointRadius: 0, borderWidth: 2, yAxisID: 'y1' },
-      ]
-    },
+    data: { labels: rec.map(r => r.date.substring(5)), datasets: [
+      { label: 'HRV', data: rec.map(r => r.hrv_rmssd), borderColor: '#3b82f6', tension: 0.3, pointRadius: 0, borderWidth: 2, yAxisID: 'y' },
+      { label: 'FCR', data: rec.map(r => r.resting_hr), borderColor: '#b84040', tension: 0.3, pointRadius: 0, borderWidth: 2, yAxisID: 'y1' },
+    ]},
     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: {
       x: { ticks: { maxTicksLimit: 8, font: { size: 9 }, color: '#a8a59c' }, grid: { color: 'rgba(245,241,232,0.08)' } },
       y: { position: 'left', ticks: { font: { size: 9 }, color: '#3b82f6' }, grid: { color: 'rgba(245,241,232,0.08)' } },
       y1: { position: 'right', ticks: { font: { size: 9 }, color: '#b84040' }, grid: { drawOnChartArea: false } },
-    } }
+    }}
   });
+}
+
+// ---------- NUTRITION ----------
+function renderAthleteNutrition() {
+  const s = ATHLETE_SECTIONS[3];
+  const p = currentProfile;
+  const arch = p.archetype ? ARCHETYPES[p.archetype] : ARCHETYPES.hybrid;
+  const age = ageFromDate(p.birth_date);
+  const tdee = calcTDEE(p.weight_kg, p.height_cm, age, p.sex, arch.activity);
+  const macros = calcMacros(tdee, arch.macroRatio);
+  return sectionHeader(s.label, s.sub) +
+    (!tdee ? (
+      '<div class="card" style="padding: 30px; text-align: center; color: var(--text-faint); font-size: 12px; line-height: 1.6;">' +
+        'Faltan datos en tu perfil para calcular tu requerimiento calórico.<br><button onclick="setSection(\'settings\')" class="btn btn-primary" style="margin-top: 12px;">Completar perfil</button>' +
+      '</div>'
+    ) : (
+      '<div class="card" style="border-left: 3px solid var(--blue); padding: 18px 22px; margin-bottom: 14px;">' +
+        '<div style="font-size: 9px; color: var(--blue); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;">Tu plan calórico</div>' +
+        '<div style="font-size: 11px; color: var(--text-muted); margin-top: 6px; line-height: 1.6;">Basado en arquetipo ' + escapeHtml(arch.archetype) + ' (' + escapeHtml(arch.label) + '), peso ' + p.weight_kg + 'kg, altura ' + p.height_cm + 'cm, ' + age + ' años. Mifflin-St Jeor × factor de actividad.</div>' +
+      '</div>' +
+
+      '<div class="grid-4" style="margin-bottom: 14px;">' +
+        '<div class="metric"><div class="metric-label">Calorías</div><div class="metric-value">' + macros.kcal + '<span class="unit">kcal</span></div><div class="metric-sub">/día</div></div>' +
+        '<div class="metric"><div class="metric-label">Proteína</div><div class="metric-value">' + macros.p + '<span class="unit">g</span></div><div class="metric-sub">' + (p.weight_kg ? (macros.p / p.weight_kg).toFixed(1) : '—') + ' g/kg</div></div>' +
+        '<div class="metric"><div class="metric-label">Carbos</div><div class="metric-value">' + macros.c + '<span class="unit">g</span></div><div class="metric-sub">' + (macros.c * 4) + ' kcal</div></div>' +
+        '<div class="metric"><div class="metric-label">Grasas</div><div class="metric-value">' + macros.f + '<span class="unit">g</span></div><div class="metric-sub">' + (macros.f * 9) + ' kcal</div></div>' +
+      '</div>' +
+
+      '<div class="card" style="padding: 16px 20px; margin-bottom: 12px;">' +
+        '<div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 12px;">Distribución</div>' +
+        '<div style="display: flex; height: 14px; overflow: hidden; background: var(--border-strong); margin-bottom: 8px;">' +
+          '<div style="flex: ' + (arch.macroRatio.p * 100) + '; background: var(--blue);" title="Proteína"></div>' +
+          '<div style="flex: ' + (arch.macroRatio.c * 100) + '; background: var(--green);" title="Carbos"></div>' +
+          '<div style="flex: ' + (arch.macroRatio.f * 100) + '; background: var(--yellow);" title="Grasas"></div>' +
+        '</div>' +
+        '<div class="row" style="gap: 14px; font-size: 10px; color: var(--text-faint);">' +
+          '<div class="row" style="gap: 5px;"><span style="width: 8px; height: 8px; background: var(--blue);"></span>P ' + Math.round(arch.macroRatio.p * 100) + '%</div>' +
+          '<div class="row" style="gap: 5px;"><span style="width: 8px; height: 8px; background: var(--green);"></span>C ' + Math.round(arch.macroRatio.c * 100) + '%</div>' +
+          '<div class="row" style="gap: 5px;"><span style="width: 8px; height: 8px; background: var(--yellow);"></span>G ' + Math.round(arch.macroRatio.f * 100) + '%</div>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="card" style="padding: 14px 18px;">' +
+        '<div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 10px;">Notas del arquetipo</div>' +
+        '<div style="font-size: 11px; color: var(--text-muted); line-height: 1.6;">' + escapeHtml(arch.longDesc) + '</div>' +
+      '</div>'
+    ));
 }
 
 // ---------- HABITS ----------
 function renderAthleteHabits() {
-  const s = ATHLETE_SECTIONS[3];
+  const s = ATHLETE_SECTIONS[4];
   const checks = athleteData.habitChecks;
   const groups = [
     { key: 'circadian', label: 'Ritmo circadiano' },
@@ -1365,174 +1424,127 @@ function renderAthleteHabits() {
   const done = DEFAULT_HABITS.filter(h => checks[h.id]).length;
   const total = DEFAULT_HABITS.length;
   const score = Math.round(done / total * 100);
-  return `
-    ${sectionHeader(s)}
-    <div class="card" style="background: var(--blue-dim); border-left: 3px solid var(--blue); padding: 18px 20px; margin-bottom: 18px;" class="row-between">
-      <div class="row-between">
-        <div>
-          <div style="font-size: 10px; color: var(--blue); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;">Disciplina hoy</div>
-          <div style="font-size: 12px; color: var(--text-muted); margin-top: 5px; font-style: italic;">${escapeHtml(todayISO())}</div>
-        </div>
-        <div style="text-align: right;">
-          <div class="num num-georgia" style="font-size: 44px; color: var(--blue); line-height: 1;">${score}<span style="font-size: 14px; color: var(--text-muted);">/100</span></div>
-        </div>
-      </div>
-    </div>
-    ${groups.map(g => {
+  return sectionHeader(s.label, s.sub) +
+    '<div class="card" style="background: var(--blue-dim); border-left: 3px solid var(--blue); padding: 18px 22px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">' +
+      '<div><div style="font-size: 10px; color: var(--blue); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;">Disciplina hoy</div>' +
+      '<div style="font-size: 12px; color: var(--text-muted); margin-top: 5px; font-style: italic;">' + escapeHtml(todayISO()) + '</div></div>' +
+      '<div class="num num-georgia" style="font-size: 44px; color: var(--blue); line-height: 1;">' + score + '<span style="font-size: 14px; color: var(--text-muted);">/100</span></div>' +
+    '</div>' +
+    groups.map(g => {
       const items = DEFAULT_HABITS.filter(h => h.cat === g.key);
       if (!items.length) return '';
       const groupDone = items.filter(h => checks[h.id]).length;
-      return `
-        <div style="margin-bottom: 22px;">
-          <div class="row-between" style="margin-bottom: 12px;">
-            <div style="font-size: 11px; color: var(--blue); letter-spacing: 1.4px; text-transform: uppercase; font-weight: 600;">${g.label}</div>
-            <div style="font-size: 11px; color: var(--text-faint); font-family: Georgia, serif;">${groupDone}/${items.length}</div>
-          </div>
-          <div class="stack">
-            ${items.map(h => {
-              const isDone = !!checks[h.id];
-              return `
-                <button onclick="toggleHabit('${h.id}')" style="text-align: left; display: flex; align-items: center; gap: 12px; padding: 13px 15px; border: 0.5px solid ${isDone ? 'var(--blue)' : 'var(--border)'}; background: ${isDone ? 'var(--blue-dim)' : 'var(--panel)'}; cursor: pointer; width: 100%; color: var(--text); border-radius: 4px;">
-                  <div style="width: 18px; height: 18px; border: 1.5px solid ${isDone ? 'var(--blue)' : 'var(--text-muted)'}; background: ${isDone ? 'var(--blue)' : 'transparent'}; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 3px;">
-                    ${isDone ? '<span style="color: var(--bg); font-size: 12px; font-weight: 700;">✓</span>' : ''}
-                  </div>
-                  <div style="flex: 1; font-size: 12px; color: ${isDone ? 'var(--blue)' : 'var(--text)'};">${escapeHtml(h.name)}</div>
-                </button>
-              `;
-            }).join('')}
-          </div>
-        </div>
-      `;
-    }).join('')}
-  `;
+      return '<div style="margin-bottom: 22px;">' +
+        '<div class="row-between" style="margin-bottom: 12px;">' +
+          '<div style="font-size: 11px; color: var(--blue); letter-spacing: 1.4px; text-transform: uppercase; font-weight: 600;">' + escapeHtml(g.label) + '</div>' +
+          '<div style="font-size: 11px; color: var(--text-faint); font-family: Georgia, serif;">' + groupDone + '/' + items.length + '</div>' +
+        '</div>' +
+        '<div class="stack">' +
+          items.map(h => {
+            const isDone = !!checks[h.id];
+            return '<button onclick="toggleHabit(\'' + h.id + '\')" style="text-align: left; display: flex; align-items: center; gap: 12px; padding: 13px 15px; border: 0.5px solid ' + (isDone ? 'var(--blue)' : 'var(--border)') + '; background: ' + (isDone ? 'var(--blue-dim)' : 'var(--panel)') + '; cursor: pointer; width: 100%; color: var(--text); border-radius: 4px;">' +
+              '<div style="width: 18px; height: 18px; border: 1.5px solid ' + (isDone ? 'var(--blue)' : 'var(--text-muted)') + '; background: ' + (isDone ? 'var(--blue)' : 'transparent') + '; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 3px;">' +
+                (isDone ? '<span style="color: var(--bg); font-size: 12px; font-weight: 700;">&#10003;</span>' : '') +
+              '</div>' +
+              '<div style="flex: 1; font-size: 12px; color: ' + (isDone ? 'var(--blue)' : 'var(--text)') + ';">' + escapeHtml(h.name) + '</div>' +
+            '</button>';
+          }).join('') +
+        '</div>' +
+      '</div>';
+    }).join('');
 }
-
 window.toggleHabit = async function(habitId) {
   const cur = !!athleteData.habitChecks[habitId];
   athleteData.habitChecks[habitId] = !cur;
   render();
-  try {
-    await saveHabitCheck(habitId, !cur);
-  } catch(e) {
-    athleteData.habitChecks[habitId] = cur;
-    render();
-    alert('No se pudo guardar el hábito.');
-  }
+  try { await saveHabitCheck(habitId, !cur); }
+  catch(e) { athleteData.habitChecks[habitId] = cur; render(); alert('No se pudo guardar el hábito.'); }
 };
 
 // ---------- GOALS ----------
 function renderAthleteGoals() {
-  const s = ATHLETE_SECTIONS[4];
+  const s = ATHLETE_SECTIONS[5];
   const gs = athleteData.goals;
-  return `
-    ${sectionHeader(s)}
-    <div class="row-between" style="margin-bottom: 14px;">
-      <div style="font-size: 11px; color: var(--text-muted);">${gs.length} ${gs.length === 1 ? 'objetivo' : 'objetivos'}</div>
-      <button onclick="openGoalModal()" class="btn btn-primary">+ Nuevo</button>
-    </div>
-    ${gs.length === 0 ? `
-      <div class="card" style="padding: 30px; text-align: center; color: var(--text-faint); font-size: 12px; line-height: 1.6;">
-        No tenés objetivos cargados.
-      </div>
-    ` : `
-      <div class="stack">
-        ${gs.map(g => renderGoalRow(g)).join('')}
-      </div>
-    `}
-    <div id="goal-modal" class="hidden"></div>
-  `;
+  return sectionHeader(s.label, s.sub) +
+    '<div class="row-between" style="margin-bottom: 14px;">' +
+      '<div style="font-size: 11px; color: var(--text-muted);">' + gs.length + ' ' + (gs.length === 1 ? 'objetivo' : 'objetivos') + '</div>' +
+      '<button onclick="openGoalModal()" class="btn btn-primary">+ Nuevo</button>' +
+    '</div>' +
+    (gs.length === 0 ?
+      '<div class="card" style="padding: 30px; text-align: center; color: var(--text-faint); font-size: 12px; line-height: 1.6;">No tenés objetivos cargados.</div>' :
+      '<div class="stack">' + gs.map(renderGoalRow).join('') + '</div>') +
+    '<div id="goal-modal" class="hidden"></div>';
 }
-
 function renderGoalRow(g) {
   const pillCls = g.priority === 'high' ? 'pill-red' : g.priority === 'low' ? 'pill-faint' : 'pill-blue';
   const pct = g.pct_progress || 0;
-  return `
-    <div class="card" style="padding: 14px 16px;">
-      <div class="row-between" style="gap: 10px; margin-bottom: 6px;">
-        <div style="flex: 1; min-width: 0;">
-          <div class="row" style="gap: 8px; margin-bottom: 3px;">
-            <span class="pill ${pillCls}">${escapeHtml(g.category || 'general')}</span>
-          </div>
-          <div style="font-size: 13px; font-weight: 500;">${escapeHtml(g.title)}</div>
-          ${g.description ? `<div style="font-size: 11px; color: var(--text-muted); margin-top: 3px; line-height: 1.5;">${escapeHtml(g.description)}</div>` : ''}
-          ${g.current_value || g.target_value ? `
-            <div style="font-size: 11px; color: var(--text-faint); margin-top: 4px;">
-              ${g.current_value ? 'actual ' + escapeHtml(g.current_value) : ''}
-              ${g.target_value ? ' → meta ' + escapeHtml(g.target_value) : ''}
-              ${g.unit ? ' ' + escapeHtml(g.unit) : ''}
-            </div>
-          ` : ''}
-        </div>
-        <div style="text-align: right;">
-          <div class="num num-georgia" style="font-size: 20px;">${pct}<span style="font-size: 11px; color: var(--text-muted);">%</span></div>
-        </div>
-      </div>
-      <div class="progress-track" style="margin-top: 8px;"><div class="progress-fill" style="width: ${pct}%; background: var(--blue);"></div></div>
-      <div class="row" style="gap: 6px; margin-top: 10px; flex-wrap: wrap;">
-        <button onclick="openGoalModal(${g.id})" class="btn btn-ghost btn-sm">Editar</button>
-        <button onclick="updateGoalPct(${g.id}, ${Math.min(100, pct + 10)})" class="btn btn-ghost btn-sm">+10%</button>
-        <button onclick="confirmDeleteGoal(${g.id})" class="btn btn-danger btn-sm">Borrar</button>
-      </div>
-    </div>
-  `;
+  return '<div class="card" style="padding: 14px 16px;">' +
+    '<div class="row-between" style="gap: 10px; margin-bottom: 6px;">' +
+      '<div style="flex: 1; min-width: 0;">' +
+        '<div class="row" style="gap: 8px; margin-bottom: 3px;"><span class="pill ' + pillCls + '">' + escapeHtml(g.category || 'general') + '</span></div>' +
+        '<div style="font-size: 13px; font-weight: 500;">' + escapeHtml(g.title) + '</div>' +
+        (g.description ? '<div style="font-size: 11px; color: var(--text-muted); margin-top: 3px; line-height: 1.5;">' + escapeHtml(g.description) + '</div>' : '') +
+        ((g.current_value || g.target_value) ? '<div style="font-size: 11px; color: var(--text-faint); margin-top: 4px;">' +
+          (g.current_value ? 'actual ' + escapeHtml(g.current_value) : '') +
+          (g.target_value ? ' &rarr; meta ' + escapeHtml(g.target_value) : '') +
+          (g.unit ? ' ' + escapeHtml(g.unit) : '') + '</div>' : '') +
+      '</div>' +
+      '<div style="text-align: right;"><div class="num num-georgia" style="font-size: 20px;">' + pct + '<span style="font-size: 11px; color: var(--text-muted);">%</span></div></div>' +
+    '</div>' +
+    '<div class="progress-track" style="margin-top: 8px;"><div class="progress-fill" style="width: ' + pct + '%;"></div></div>' +
+    '<div class="row" style="gap: 6px; margin-top: 10px; flex-wrap: wrap;">' +
+      '<button onclick="openGoalModal(' + g.id + ')" class="btn btn-ghost btn-sm">Editar</button>' +
+      '<button onclick="updateGoalPct(' + g.id + ', ' + Math.min(100, pct + 10) + ')" class="btn btn-ghost btn-sm">+10%</button>' +
+      '<button onclick="confirmDeleteGoal(' + g.id + ')" class="btn btn-danger btn-sm">Borrar</button>' +
+    '</div>' +
+  '</div>';
 }
-
 window.updateGoalPct = async function(id, pct) {
   const g = athleteData.goals.find(x => x.id === id);
   if (!g) return;
-  g.pct_progress = pct;
-  await saveGoal(g);
-  await loadOwnAthleteData();
-  render();
+  g.pct_progress = pct; await saveGoal(g); await loadOwnAthleteData(); render();
 };
-
 window.confirmDeleteGoal = async function(id) {
   if (!confirm('¿Borrar objetivo?')) return;
-  await deleteGoal(id);
-  await loadOwnAthleteData();
-  render();
+  await deleteGoal(id); await loadOwnAthleteData(); render();
 };
-
 window.openGoalModal = function(id) {
   const editing = id ? athleteData.goals.find(x => x.id === id) : null;
-  const html = `
-    <div class="modal-bg" onclick="if(event.target===this)closeGoalModal()">
-      <div class="modal-card">
-        <div class="row-between" style="margin-bottom: 16px;">
-          <div style="font-size: 18px; font-family: Georgia, serif; font-weight: 500;">${editing ? 'Editar' : 'Nuevo'} objetivo</div>
-          <button onclick="closeGoalModal()" class="btn btn-ghost btn-sm">Cerrar</button>
-        </div>
-        <div style="display: grid; gap: 10px; margin-bottom: 14px;">
-          <input id="g-title" type="text" placeholder="Título (ej: Sub-20 en 5K)" value="${escapeHtml(editing ? editing.title : '')}" class="auth-input" style="margin: 0;" />
-          <textarea id="g-desc" placeholder="Descripción opcional" style="width: 100%; min-height: 70px; padding: 12px; font-size: 13px; border: 0.5px solid var(--border); background: var(--panel-hi); color: var(--text); border-radius: 6px; resize: vertical; line-height: 1.5;">${escapeHtml(editing ? (editing.description || '') : '')}</textarea>
-          <select id="g-cat" class="auth-input" style="margin: 0;">
-            ${['performance','health','composition','longevity','mind'].map(c => `<option value="${c}" ${editing && editing.category === c ? 'selected' : ''}>${c}</option>`).join('')}
-          </select>
-          <div class="grid-2" style="gap: 8px;">
-            <input id="g-cur" type="text" placeholder="Valor actual" value="${escapeHtml(editing ? (editing.current_value || '') : '')}" class="auth-input" style="margin: 0;" />
-            <input id="g-tgt" type="text" placeholder="Valor meta" value="${escapeHtml(editing ? (editing.target_value || '') : '')}" class="auth-input" style="margin: 0;" />
-          </div>
-          <input id="g-unit" type="text" placeholder="Unidad (kg, min, km, etc)" value="${escapeHtml(editing ? (editing.unit || '') : '')}" class="auth-input" style="margin: 0;" />
-          <select id="g-pri" class="auth-input" style="margin: 0;">
-            ${['low','medium','high'].map(p => `<option value="${p}" ${editing && editing.priority === p ? 'selected' : ''}>${p === 'low' ? 'Prioridad baja' : p === 'high' ? 'Prioridad alta' : 'Prioridad media'}</option>`).join('')}
-          </select>
-        </div>
-        <div class="row" style="gap: 8px;">
-          <button onclick="closeGoalModal()" class="btn btn-ghost" style="flex: 1;">Cancelar</button>
-          <button onclick="saveGoalForm(${editing ? editing.id : 'null'})" class="btn btn-primary" style="flex: 2;">Guardar</button>
-        </div>
-      </div>
-    </div>
-  `;
+  const cats = ['performance','health','composition','longevity','mind'];
+  const pris = ['low','medium','high'];
+  const html = '<div class="modal-bg" onclick="if(event.target===this)closeGoalModal()">' +
+    '<div class="modal-card">' +
+      '<div class="row-between" style="margin-bottom: 16px;">' +
+        '<div style="font-size: 18px; font-family: Georgia, serif; font-weight: 500;">' + (editing ? 'Editar' : 'Nuevo') + ' objetivo</div>' +
+        '<button onclick="closeGoalModal()" class="btn btn-ghost btn-sm">Cerrar</button>' +
+      '</div>' +
+      '<div style="display: grid; gap: 10px; margin-bottom: 14px;">' +
+        '<input id="g-title" type="text" placeholder="Título" value="' + escapeHtml(editing ? editing.title : '') + '" class="auth-input" style="margin: 0;" />' +
+        '<textarea id="g-desc" placeholder="Descripción opcional" style="width: 100%; min-height: 70px; padding: 12px; font-size: 13px; border: 0.5px solid var(--border); background: var(--panel-hi); color: var(--text); border-radius: 6px; resize: vertical; line-height: 1.5;">' + escapeHtml(editing ? (editing.description || '') : '') + '</textarea>' +
+        '<select id="g-cat" class="auth-input" style="margin: 0;">' +
+          cats.map(c => '<option value="' + c + '"' + (editing && editing.category === c ? ' selected' : '') + '>' + c + '</option>').join('') +
+        '</select>' +
+        '<div class="grid-2" style="gap: 8px;">' +
+          '<input id="g-cur" type="text" placeholder="Valor actual" value="' + escapeHtml(editing ? (editing.current_value || '') : '') + '" class="auth-input" style="margin: 0;" />' +
+          '<input id="g-tgt" type="text" placeholder="Valor meta" value="' + escapeHtml(editing ? (editing.target_value || '') : '') + '" class="auth-input" style="margin: 0;" />' +
+        '</div>' +
+        '<input id="g-unit" type="text" placeholder="Unidad (kg, min, km...)" value="' + escapeHtml(editing ? (editing.unit || '') : '') + '" class="auth-input" style="margin: 0;" />' +
+        '<select id="g-pri" class="auth-input" style="margin: 0;">' +
+          pris.map(p => '<option value="' + p + '"' + (editing && editing.priority === p ? ' selected' : '') + '>' + (p === 'low' ? 'Prioridad baja' : p === 'high' ? 'Prioridad alta' : 'Prioridad media') + '</option>').join('') +
+        '</select>' +
+      '</div>' +
+      '<div class="row" style="gap: 8px;">' +
+        '<button onclick="closeGoalModal()" class="btn btn-ghost" style="flex: 1;">Cancelar</button>' +
+        '<button onclick="saveGoalForm(' + (editing ? editing.id : 'null') + ')" class="btn btn-primary" style="flex: 2;">Guardar</button>' +
+      '</div>' +
+    '</div></div>';
   document.getElementById('goal-modal').classList.remove('hidden');
   document.getElementById('goal-modal').innerHTML = html;
 };
-
 window.closeGoalModal = function() {
   const el = document.getElementById('goal-modal');
   if (el) { el.innerHTML = ''; el.classList.add('hidden'); }
 };
-
 window.saveGoalForm = async function(id) {
   const g = {
     id: id || null,
@@ -1547,88 +1559,235 @@ window.saveGoalForm = async function(id) {
     pct_progress: id ? (athleteData.goals.find(x => x.id === id) || {}).pct_progress || 0 : 0,
   };
   if (!g.title) { alert('El título es obligatorio.'); return; }
-  await saveGoal(g);
-  closeGoalModal();
-  await loadOwnAthleteData();
-  render();
+  await saveGoal(g); closeGoalModal(); await loadOwnAthleteData(); render();
 };
+
+// ---------- BIOMARKERS ----------
+function renderAthleteBiomarkers() {
+  const s = ATHLETE_SECTIONS[6];
+  const bs = athleteData.biomarkers;
+  // Group by panel
+  const byPanel = {};
+  bs.forEach(b => {
+    if (!byPanel[b.panel]) byPanel[b.panel] = [];
+    byPanel[b.panel].push(b);
+  });
+  return sectionHeader(s.label, s.sub) +
+    '<div class="row-between" style="margin-bottom: 14px;">' +
+      '<div style="font-size: 11px; color: var(--text-muted);">' + bs.length + ' resultado' + (bs.length === 1 ? '' : 's') + ' cargados</div>' +
+      '<button onclick="openBiomarkerModal()" class="btn btn-primary">+ Cargar resultado</button>' +
+    '</div>' +
+    (bs.length === 0 ?
+      '<div class="card" style="padding: 30px; text-align: center; color: var(--text-faint); font-size: 12px; line-height: 1.6;">Sin biomarcadores cargados.<br>Cuando te hagas un análisis, podés ir cargando los valores acá.</div>' :
+      Object.entries(byPanel).map(([panel, items]) =>
+        '<div style="margin-bottom: 18px;">' +
+          '<div style="font-size: 10px; color: var(--blue); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px;">' + escapeHtml(panel) + '</div>' +
+          '<div class="stack">' +
+            items.map(b =>
+              '<div class="card" style="padding: 12px 14px;">' +
+                '<div class="row-between">' +
+                  '<div><div style="font-size: 12px; font-weight: 500;">' + escapeHtml(b.name) + '</div>' +
+                  '<div style="font-size: 10px; color: var(--text-faint); margin-top: 3px;">' + escapeHtml(b.date) + '</div></div>' +
+                  '<div class="row" style="gap: 10px;">' +
+                    '<div class="num num-georgia" style="font-size: 17px;">' + (b.value !== null ? escapeHtml(String(b.value)) : '—') + '<span style="font-size: 10px; color: var(--text-faint); margin-left: 3px;">' + escapeHtml(b.unit || '') + '</span></div>' +
+                    '<button onclick="confirmDeleteBiomarker(' + b.id + ')" class="btn btn-danger btn-sm">×</button>' +
+                  '</div>' +
+                '</div>' +
+                (b.notes ? '<div style="font-size: 10px; color: var(--text-muted); margin-top: 6px; font-style: italic;">' + escapeHtml(b.notes) + '</div>' : '') +
+              '</div>'
+            ).join('') +
+          '</div>' +
+        '</div>'
+      ).join('')) +
+    '<div id="bio-modal" class="hidden"></div>';
+}
+window.confirmDeleteBiomarker = async function(id) {
+  if (!confirm('¿Borrar resultado?')) return;
+  await deleteBiomarker(id); await loadOwnAthleteData(); render();
+};
+window.openBiomarkerModal = function() {
+  const html = '<div class="modal-bg" onclick="if(event.target===this)closeBiomarkerModal()">' +
+    '<div class="modal-card">' +
+      '<div class="row-between" style="margin-bottom: 14px;">' +
+        '<div style="font-size: 18px; font-family: Georgia, serif; font-weight: 500;">Cargar biomarcador</div>' +
+        '<button onclick="closeBiomarkerModal()" class="btn btn-ghost btn-sm">Cerrar</button>' +
+      '</div>' +
+      '<div style="display: grid; gap: 10px; margin-bottom: 14px;">' +
+        '<select id="b-panel" class="auth-input" style="margin: 0;" onchange="updateBiomarkerNames()">' +
+          BIOMARKER_PANELS.map(p => '<option value="' + escapeHtml(p.panel) + '">' + escapeHtml(p.panel) + '</option>').join('') +
+        '</select>' +
+        '<select id="b-name" class="auth-input" style="margin: 0;">' +
+          BIOMARKER_PANELS[0].items.map(n => '<option value="' + escapeHtml(n) + '">' + escapeHtml(n) + '</option>').join('') +
+        '</select>' +
+        '<div class="grid-2" style="gap: 8px;">' +
+          '<input id="b-value" type="number" step="0.01" placeholder="Valor" class="auth-input" style="margin: 0;" />' +
+          '<input id="b-unit" type="text" placeholder="Unidad" class="auth-input" style="margin: 0;" />' +
+        '</div>' +
+        '<input id="b-date" type="date" value="' + todayISO() + '" class="auth-input" style="margin: 0;" />' +
+        '<textarea id="b-notes" placeholder="Notas (opcional)" style="width: 100%; min-height: 70px; padding: 12px; font-size: 13px; border: 0.5px solid var(--border); background: var(--panel-hi); color: var(--text); border-radius: 6px; resize: vertical;"></textarea>' +
+      '</div>' +
+      '<div class="row" style="gap: 8px;">' +
+        '<button onclick="closeBiomarkerModal()" class="btn btn-ghost" style="flex: 1;">Cancelar</button>' +
+        '<button onclick="saveBiomarkerForm()" class="btn btn-primary" style="flex: 2;">Guardar</button>' +
+      '</div>' +
+    '</div></div>';
+  document.getElementById('bio-modal').classList.remove('hidden');
+  document.getElementById('bio-modal').innerHTML = html;
+};
+window.closeBiomarkerModal = function() {
+  const el = document.getElementById('bio-modal');
+  if (el) { el.innerHTML = ''; el.classList.add('hidden'); }
+};
+window.updateBiomarkerNames = function() {
+  const panel = document.getElementById('b-panel').value;
+  const def = BIOMARKER_PANELS.find(p => p.panel === panel) || BIOMARKER_PANELS[0];
+  const sel = document.getElementById('b-name');
+  sel.innerHTML = def.items.map(n => '<option value="' + escapeHtml(n) + '">' + escapeHtml(n) + '</option>').join('');
+};
+window.saveBiomarkerForm = async function() {
+  const panel = document.getElementById('b-panel').value;
+  const name = document.getElementById('b-name').value;
+  const value = parseFloat(document.getElementById('b-value').value);
+  const unit = document.getElementById('b-unit').value.trim();
+  const date = document.getElementById('b-date').value || todayISO();
+  const notes = document.getElementById('b-notes').value.trim();
+  if (isNaN(value)) { alert('El valor es obligatorio.'); return; }
+  await addBiomarker({ panel, name, value, unit, date, notes });
+  closeBiomarkerModal(); await loadOwnAthleteData(); render();
+};
+
+// ---------- AI INSIGHTS ----------
+function renderAthleteInsights() {
+  const s = ATHLETE_SECTIONS[7];
+  return sectionHeader(s.label, s.sub) +
+    '<div class="card" style="padding: 0; overflow: hidden;">' +
+      '<div class="row-between" style="padding: 14px 18px; border-bottom: 0.5px solid var(--border);">' +
+        '<div class="row" style="gap: 10px;">' +
+          '<div style="width: 30px; height: 30px; border-radius: 50%; background: var(--blue-dim); border: 1px solid var(--blue); display: flex; align-items: center; justify-content: center;">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M12 3l2.4 7.2L22 12l-7.6 1.8L12 21l-2.4-7.2L2 12l7.6-1.8L12 3z"/></svg>' +
+          '</div>' +
+          '<div><div style="font-size: 13px; font-weight: 600;">VirtusLab AI</div>' +
+          '<div style="font-size: 9px; color: var(--text-faint); letter-spacing: 0.5px;">Coach con tus datos · Claude Haiku 4.5</div></div>' +
+        '</div>' +
+        '<button onclick="clearOwnChat()" class="btn btn-ghost btn-sm">Limpiar</button>' +
+      '</div>' +
+      '<div id="chat-messages-container" style="background: var(--bg); padding: 18px 16px; min-height: 320px; max-height: 480px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">' +
+        chatMessages.map(m => {
+          const isUser = m.from === 'user';
+          return '<div style="display: flex; ' + (isUser ? 'justify-content: flex-end;' : 'justify-content: flex-start;') + ' width: 100%;">' +
+            (!isUser ? '<div style="width: 26px; height: 26px; border-radius: 50%; background: var(--blue-dim); border: 1px solid var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-right: 8px; align-self: flex-end;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M12 3l2.4 7.2L22 12l-7.6 1.8L12 21l-2.4-7.2L2 12l7.6-1.8L12 3z"/></svg></div>' : '') +
+            '<div class="' + (isUser ? 'chat-bubble-user' : 'chat-bubble-ai') + '" style="max-width: 78%; padding: 11px 15px; color: var(--text); font-size: 13px; line-height: 1.55; white-space: pre-wrap; word-wrap: break-word;">' + escapeHtml(m.text) + '</div>' +
+          '</div>';
+        }).join('') +
+        (_aiLoading ? (
+          '<div style="display: flex; justify-content: flex-start;"><div style="width: 26px; height: 26px; border-radius: 50%; background: var(--blue-dim); border: 1px solid var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-right: 8px; align-self: flex-end;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M12 3l2.4 7.2L22 12l-7.6 1.8L12 21l-2.4-7.2L2 12l7.6-1.8L12 3z"/></svg></div>' +
+          '<div class="chat-bubble-ai" style="padding: 13px 18px;"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div></div>'
+        ) : '') +
+      '</div>' +
+      '<div style="padding: 14px 16px; border-top: 0.5px solid var(--border); display: flex; gap: 8px;">' +
+        '<input id="chat-input" type="text" placeholder="Preguntá lo que quieras..." onkeydown="if(event.key===\'Enter\'){sendChatFromInput();}" style="flex: 1; padding: 12px 16px; font-size: 14px; border: 0.5px solid var(--border-strong); border-radius: 24px; background: var(--panel-hi); color: var(--text); outline: none;" ' + (_aiLoading ? 'disabled' : '') + ' />' +
+        '<button onclick="sendChatFromInput()" style="width: 44px; height: 44px; padding: 0; border: none; border-radius: 50%; background: ' + (_aiLoading ? 'var(--border)' : 'var(--blue)') + '; color: var(--bg); display: flex; align-items: center; justify-content: center; flex-shrink: 0;" ' + (_aiLoading ? 'disabled' : '') + '>' +
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12 L21 4 L14 21 L11 13 Z"/></svg>' +
+        '</button>' +
+      '</div>' +
+      '<div style="padding: 8px 16px 14px; display: flex; flex-wrap: wrap; gap: 6px;">' +
+        ['¿Cómo vengo de recovery?','¿Conviene entrenar fuerte hoy?','¿Qué patrón ves esta semana?'].map(s =>
+          '<button onclick="sendChatSuggestion(\'' + s.replaceAll("'", "\\'") + '\')" style="padding: 7px 12px; font-size: 11px; border: 0.5px solid var(--border-strong); border-radius: 18px; background: var(--bg); color: var(--text-muted); line-height: 1.3;">' + escapeHtml(s) + '</button>'
+        ).join('') +
+      '</div>' +
+    '</div>';
+}
+window.sendChatFromInput = function() {
+  const input = document.getElementById('chat-input');
+  if (!input) return;
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  sendChatMessage(text);
+};
+window.sendChatSuggestion = function(text) { sendChatMessage(text); };
+window.clearOwnChat = clearOwnChat;
+
+// ---------- MEDICAL ----------
+function renderAthleteMedical() {
+  const s = ATHLETE_SECTIONS[8];
+  const cs = athleteData.consultations;
+  return sectionHeader(s.label, s.sub) +
+    '<div class="card" style="border-left: 2px solid var(--blue); padding: 18px 22px; margin-bottom: 18px;">' +
+      '<div style="font-size: 13px; font-weight: 500;">Tu historia clínica</div>' +
+      '<div style="font-size: 11px; color: var(--text-muted); margin-top: 6px; line-height: 1.6;">Acá vas a ver las notas, observaciones y seguimientos que tu médico va dejando.</div>' +
+    '</div>' +
+    (cs.length === 0 ?
+      '<div class="card" style="padding: 30px; text-align: center; color: var(--text-faint); font-size: 12px; line-height: 1.6;">Tu médico todavía no dejó notas.</div>' :
+      '<div class="stack">' + cs.map(n =>
+        '<div class="card" style="border-left: 2px solid var(--blue); padding: 14px 18px;">' +
+          '<div class="row-between" style="margin-bottom: 6px;">' +
+            '<div style="font-size: 9px; color: var(--blue); letter-spacing: 1.2px; text-transform: uppercase;">' + escapeHtml(n.type || 'nota') + '</div>' +
+            '<div style="font-size: 10px; color: var(--text-faint);">' + escapeHtml(n.date) + '</div>' +
+          '</div>' +
+          (n.title ? '<div style="font-size: 13px; font-weight: 500; margin-bottom: 6px;">' + escapeHtml(n.title) + '</div>' : '') +
+          '<div style="font-size: 12px; color: var(--text-muted); line-height: 1.6; white-space: pre-wrap;">' + escapeHtml(n.body) + '</div>' +
+        '</div>'
+      ).join('') + '</div>');
+}
 
 // ---------- SETTINGS ----------
 function renderAthleteSettings() {
-  const s = ATHLETE_SECTIONS[5];
+  const s = ATHLETE_SECTIONS[9];
   const p = currentProfile;
-  return `
-    ${sectionHeader(s)}
-    <div style="margin-bottom: 18px;">
-      <div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px;">Datos personales</div>
-      <div class="card" style="padding: 18px;">
-        <div class="grid-2" style="gap: 10px;">
-          <div>
-            <div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;">Nombre</div>
-            <input id="sp-name" type="text" value="${escapeHtml(p.full_name || '')}" class="auth-input" style="margin: 0;" />
-          </div>
-          <div>
-            <div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;">Fecha nacimiento</div>
-            <input id="sp-birth" type="date" value="${p.birth_date || ''}" class="auth-input" style="margin: 0;" />
-          </div>
-          <div>
-            <div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;">Sexo</div>
-            <select id="sp-sex" class="auth-input" style="margin: 0;">
-              <option value="M" ${p.sex==='M'?'selected':''}>Masculino</option>
-              <option value="F" ${p.sex==='F'?'selected':''}>Femenino</option>
-              <option value="other" ${p.sex==='other'?'selected':''}>Otro</option>
-            </select>
-          </div>
-          <div></div>
-          <div>
-            <div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;">Altura (cm)</div>
-            <input id="sp-h" type="number" value="${p.height_cm || ''}" class="auth-input" style="margin: 0;" />
-          </div>
-          <div>
-            <div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;">Peso (kg)</div>
-            <input id="sp-w" type="number" step="0.1" value="${p.weight_kg || ''}" class="auth-input" style="margin: 0;" />
-          </div>
-        </div>
-        <button onclick="saveProfileForm()" class="btn btn-primary" style="margin-top: 14px;">Guardar perfil</button>
-      </div>
-    </div>
-
-    <div style="margin-bottom: 18px;">
-      <div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px;">Dispositivos</div>
-      <div class="card" style="padding: 14px 18px;">
-        <div class="row-between" style="gap: 12px;">
-          <div>
-            <div style="font-size: 13px; font-weight: 500;">WHOOP</div>
-            <div style="font-size: 11px; color: ${athleteData.whoopConnected ? 'var(--green)' : 'var(--text-faint)'}; margin-top: 4px;">
-              ${athleteData.whoopConnected ? '● Conectado' : '○ No conectado'}
-            </div>
-          </div>
-          ${athleteData.whoopConnected
-            ? `<div class="row" style="gap: 6px;">
-                <button onclick="syncWhoop()" class="btn btn-ghost btn-sm" ${_whoopSyncing ? 'disabled' : ''}>${_whoopSyncing ? 'Sincronizando...' : 'Sincronizar'}</button>
-                <button onclick="disconnectWhoop()" class="btn btn-danger btn-sm">Desconectar</button>
-              </div>`
-            : `<button onclick="connectWhoop()" class="btn btn-primary">Conectar</button>`
-          }
-        </div>
-      </div>
-    </div>
-
-    <div style="margin-bottom: 18px;">
-      <div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px;">Cuenta</div>
-      <div class="card" style="padding: 14px 18px;">
-        <div style="font-size: 11px; color: var(--text-faint); margin-bottom: 8px;">${escapeHtml(currentUser ? currentUser.email : '')}</div>
-        <button onclick="handleSignOut()" class="btn btn-danger">Cerrar sesión</button>
-      </div>
-    </div>
-  `;
+  return sectionHeader(s.label, s.sub) +
+    '<div style="margin-bottom: 18px;">' +
+      '<div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px;">Datos personales</div>' +
+      '<div class="card" style="padding: 18px;">' +
+        '<div class="grid-2" style="gap: 10px;">' +
+          '<div><div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;">Nombre</div>' +
+          '<input id="sp-name" type="text" value="' + escapeHtml(p.full_name || '') + '" class="auth-input" style="margin: 0;" /></div>' +
+          '<div><div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;">Fecha nacimiento</div>' +
+          '<input id="sp-birth" type="date" value="' + (p.birth_date || '') + '" class="auth-input" style="margin: 0;" /></div>' +
+          '<div><div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;">Sexo</div>' +
+          '<select id="sp-sex" class="auth-input" style="margin: 0;">' +
+            '<option value="M"' + (p.sex==='M'?' selected':'') + '>Masculino</option>' +
+            '<option value="F"' + (p.sex==='F'?' selected':'') + '>Femenino</option>' +
+            '<option value="other"' + (p.sex==='other'?' selected':'') + '>Otro</option>' +
+          '</select></div>' +
+          '<div><div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;">Arquetipo</div>' +
+          '<select id="sp-arch" class="auth-input" style="margin: 0;">' +
+            Object.entries(ARCHETYPES).map(([k,a]) => '<option value="' + k + '"' + (p.archetype===k?' selected':'') + '>' + a.archetype + ' · ' + a.label + '</option>').join('') +
+          '</select></div>' +
+          '<div><div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;">Altura (cm)</div>' +
+          '<input id="sp-h" type="number" value="' + (p.height_cm || '') + '" class="auth-input" style="margin: 0;" /></div>' +
+          '<div><div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;">Peso (kg)</div>' +
+          '<input id="sp-w" type="number" step="0.1" value="' + (p.weight_kg || '') + '" class="auth-input" style="margin: 0;" /></div>' +
+        '</div>' +
+        '<button onclick="saveProfileForm()" class="btn btn-primary" style="margin-top: 14px;">Guardar perfil</button>' +
+      '</div>' +
+    '</div>' +
+    '<div style="margin-bottom: 18px;">' +
+      '<div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px;">Dispositivos</div>' +
+      '<div class="card" style="padding: 14px 18px;">' +
+        '<div class="row-between" style="gap: 12px;">' +
+          '<div><div style="font-size: 13px; font-weight: 500;">WHOOP</div>' +
+          '<div style="font-size: 11px; color: ' + (athleteData.whoopConnected ? 'var(--green)' : 'var(--text-faint)') + '; margin-top: 4px;">' + (athleteData.whoopConnected ? '&#9679; Conectado' : '&#9675; No conectado') + '</div></div>' +
+          (athleteData.whoopConnected ?
+            '<div class="row" style="gap: 6px;"><button onclick="syncWhoop()" class="btn btn-ghost btn-sm"' + (_whoopSyncing?' disabled':'') + '>' + (_whoopSyncing?'Sincronizando...':'Sincronizar') + '</button><button onclick="disconnectWhoop()" class="btn btn-danger btn-sm">Desconectar</button></div>' :
+            '<button onclick="connectWhoop()" class="btn btn-primary">Conectar</button>') +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div style="margin-bottom: 18px;">' +
+      '<div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px;">Cuenta</div>' +
+      '<div class="card" style="padding: 14px 18px;">' +
+        '<div style="font-size: 11px; color: var(--text-faint); margin-bottom: 8px;">' + escapeHtml(currentUser ? currentUser.email : '') + '</div>' +
+        '<button onclick="handleSignOut()" class="btn btn-danger">Cerrar sesión</button>' +
+      '</div>' +
+    '</div>';
 }
-
 window.saveProfileForm = async function() {
   const patch = {
     full_name: document.getElementById('sp-name').value.trim(),
     birth_date: document.getElementById('sp-birth').value || null,
     sex: document.getElementById('sp-sex').value,
+    archetype: document.getElementById('sp-arch').value,
     height_cm: parseFloat(document.getElementById('sp-h').value) || null,
     weight_kg: parseFloat(document.getElementById('sp-w').value) || null,
   };
@@ -1642,195 +1801,167 @@ window.saveProfileForm = async function() {
 // ============================================================
 const DOCTOR_SECTIONS = [
   { id: 'patients', label: 'Pacientes' },
-  { id: 'patient-detail', label: 'Detalle', hidden: true },
   { id: 'doctor-settings', label: 'Perfil' },
 ];
 
 function renderDoctor() {
-  return `
-    <div style="background: var(--bg); min-height: 100vh;">
-      <div class="sticky-header">
-        ${renderHeaderShared(escapeHtml(currentProfile.full_name || 'Médico'), 'Pro · Médico')}
-        <div class="nav-tabs">
-          ${DOCTOR_SECTIONS.filter(s => !s.hidden).map(s => `
-            <button class="nav-tab ${activeSection===s.id?'active':''}" onclick="setDoctorSection('${s.id}')">${s.label}</button>
-          `).join('')}
-          ${selectedPatientId ? `<button class="nav-tab ${activeSection==='patient-detail'?'active':''}" onclick="setDoctorSection('patient-detail')">${escapeHtml(selectedPatientProfile ? (selectedPatientProfile.full_name || 'Paciente') : 'Paciente')}</button>` : ''}
-        </div>
-      </div>
-      <div style="padding: 1.5rem 2rem;">
-        ${activeSection === 'patients' ? renderPatientsList() : ''}
-        ${activeSection === 'patient-detail' ? renderPatientDetail() : ''}
-        ${activeSection === 'doctor-settings' ? renderDoctorSettings() : ''}
-      </div>
-      ${renderFooter()}
-    </div>
-  `;
+  return '<div style="background: var(--bg); min-height: 100vh;">' +
+    '<div class="sticky-header">' +
+      renderHeaderShared(currentProfile.full_name || 'Médico', 'Pro · Médico') +
+      '<div class="nav-tabs">' +
+        DOCTOR_SECTIONS.map(s => '<button class="nav-tab' + (activeSection===s.id?' active':'') + '" onclick="setDoctorSection(\'' + s.id + '\')">' + s.label + '</button>').join('') +
+        (selectedPatientId ? '<button class="nav-tab' + (activeSection==='patient-detail'?' active':'') + '" onclick="setDoctorSection(\'patient-detail\')">' + escapeHtml(selectedPatientProfile ? (selectedPatientProfile.full_name || 'Paciente') : 'Paciente') + '</button>' : '') +
+      '</div>' +
+    '</div>' +
+    '<div style="padding: 1.5rem 1.5rem;">' +
+      (activeSection === 'patients' ? renderPatientsList() : '') +
+      (activeSection === 'patient-detail' ? renderPatientDetail() : '') +
+      (activeSection === 'doctor-settings' ? renderDoctorSettings() : '') +
+    '</div>' +
+    renderFooter() +
+  '</div>';
 }
-
 window.setDoctorSection = function(s) {
   activeSection = s;
   if (s !== 'patient-detail') {
     selectedPatientId = null;
     selectedPatientProfile = null;
     selectedPatientData = null;
+    selectedPatientNotes = [];
   }
   render();
 };
-
 function renderPatientsList() {
-  return `
-    <div class="section-title-block">
-      <div class="section-title">Pacientes</div>
-      <div class="section-sub latin">Cura aliorum · ad virtutem</div>
-    </div>
-    <div class="row-between" style="margin-bottom: 14px;">
-      <div style="font-size: 11px; color: var(--text-muted);">${doctorPatients.length} ${doctorPatients.length === 1 ? 'paciente' : 'pacientes'}</div>
-      <button onclick="refreshDoctor()" class="btn btn-ghost btn-sm">Actualizar</button>
-    </div>
-    ${doctorPatients.length === 0 ? `
-      <div class="card" style="padding: 30px; text-align: center; color: var(--text-faint); font-size: 12px;">
-        Todavía no hay pacientes registrados.
-      </div>
-    ` : `
-      <div class="stack">
-        ${doctorPatients.map(p => renderPatientRow(p)).join('')}
-      </div>
-    `}
-  `;
+  return '<div class="section-title-block"><div class="section-title">Pacientes</div><div class="section-sub latin">Cura aliorum · ad virtutem</div></div>' +
+    '<div class="row-between" style="margin-bottom: 14px;">' +
+      '<div style="font-size: 11px; color: var(--text-muted);">' + doctorPatients.length + ' ' + (doctorPatients.length === 1 ? 'paciente' : 'pacientes') + '</div>' +
+      '<button onclick="refreshDoctor()" class="btn btn-ghost btn-sm">Actualizar</button>' +
+    '</div>' +
+    (doctorPatients.length === 0 ?
+      '<div class="card" style="padding: 30px; text-align: center; color: var(--text-faint); font-size: 12px;">Todavía no hay pacientes registrados.</div>' :
+      '<div class="stack">' + doctorPatients.map(renderPatientRow).join('') + '</div>');
 }
-
 function renderPatientRow(p) {
   const r = p._latestRecovery;
   const recScore = r ? r.recovery_score : null;
   const recColor = recScore === null ? 'var(--text-faint)' : recScore >= 67 ? 'var(--green)' : recScore >= 34 ? 'var(--yellow)' : 'var(--red)';
   const age = ageFromDate(p.birth_date);
-  return `
-    <div class="patient-row" onclick="openPatient('${p.id}')">
-      <div style="min-width: 0;">
-        <div style="font-size: 13px; font-weight: 500;">${escapeHtml(p.full_name || '(sin nombre)')}</div>
-        <div style="font-size: 10px; color: var(--text-faint); margin-top: 3px;">
-          ${age !== null ? age + ' años' : ''}${p.sex ? ' · ' + escapeHtml(p.sex) : ''}${p.weight_kg ? ' · ' + p.weight_kg + ' kg' : ''}
-        </div>
-      </div>
-      <div class="hide-mobile" style="text-align: center;">
-        <div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase;">HRV</div>
-        <div class="num num-georgia" style="font-size: 16px; margin-top: 2px;">${r && r.hrv_rmssd ? Math.round(r.hrv_rmssd) : '—'}</div>
-      </div>
-      <div style="text-align: center;">
-        <div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase;">Recovery</div>
-        <div class="num num-georgia" style="font-size: 16px; margin-top: 2px; color: ${recColor};">${recScore !== null ? recScore + '%' : '—'}</div>
-      </div>
-      <div style="font-size: 16px; color: var(--text-faint);">›</div>
-    </div>
-  `;
+  const arch = p.archetype ? ARCHETYPES[p.archetype] : null;
+  return '<div class="patient-row" onclick="openPatient(\'' + p.id + '\')">' +
+    '<div style="min-width: 0;"><div style="font-size: 13px; font-weight: 500;">' + escapeHtml(p.full_name || '(sin nombre)') + '</div>' +
+    '<div style="font-size: 10px; color: var(--text-faint); margin-top: 3px;">' +
+      (age !== null ? age + ' años' : '') + (p.sex ? ' · ' + escapeHtml(p.sex) : '') + (p.weight_kg ? ' · ' + p.weight_kg + ' kg' : '') + (arch ? ' · ' + escapeHtml(arch.label) : '') +
+    '</div></div>' +
+    '<div class="hide-mobile" style="text-align: center;"><div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase;">HRV</div>' +
+    '<div class="num num-georgia" style="font-size: 16px; margin-top: 2px;">' + (r && r.hrv_rmssd ? Math.round(r.hrv_rmssd) : '—') + '</div></div>' +
+    '<div style="text-align: center;"><div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase;">Recovery</div>' +
+    '<div class="num num-georgia" style="font-size: 16px; margin-top: 2px; color: ' + recColor + ';">' + (recScore !== null ? recScore + '%' : '—') + '</div></div>' +
+    '<div style="font-size: 16px; color: var(--text-faint);">&rsaquo;</div>' +
+  '</div>';
 }
-
 window.openPatient = async function(id) {
   await loadPatientDetail(id);
   activeSection = 'patient-detail';
   render();
 };
-
-window.refreshDoctor = async function() {
-  await loadDoctorData();
-  render();
-};
+window.refreshDoctor = async function() { await loadDoctorData(); render(); };
 
 function renderPatientDetail() {
-  if (!selectedPatientProfile) {
-    return `<div class="card" style="padding: 20px;">Cargando paciente...</div>`;
-  }
+  if (!selectedPatientProfile) return '<div class="card" style="padding: 20px;">Cargando paciente...</div>';
   const p = selectedPatientProfile;
   const d = selectedPatientData;
   const last = (d.whoopRecovery && d.whoopRecovery.length) ? d.whoopRecovery[d.whoopRecovery.length - 1] : null;
   const lastSlp = (d.whoopSleep && d.whoopSleep.length) ? d.whoopSleep[d.whoopSleep.length - 1] : null;
   const age = ageFromDate(p.birth_date);
   const habitsDone = Object.values(d.habitChecks || {}).filter(Boolean).length;
-  return `
-    <div class="row-between" style="margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
-      <button onclick="setDoctorSection('patients')" class="btn btn-ghost btn-sm">‹ Volver a pacientes</button>
-      <div style="font-size: 11px; color: var(--text-faint);">${escapeHtml(currentUser.email)}</div>
-    </div>
+  const arch = p.archetype ? ARCHETYPES[p.archetype] : null;
+  return '<div class="row-between" style="margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">' +
+      '<button onclick="setDoctorSection(\'patients\')" class="btn btn-ghost btn-sm">&lsaquo; Volver</button>' +
+      '<button onclick="openConsultModal()" class="btn btn-primary">+ Nueva nota clínica</button>' +
+    '</div>' +
+    '<div class="section-title-block">' +
+      '<div class="section-title">' + escapeHtml(p.full_name || '(sin nombre)') + '</div>' +
+      '<div class="section-sub">' +
+        (age !== null ? age + ' años' : '—') + (p.sex ? ' · ' + escapeHtml(p.sex) : '') + (p.height_cm ? ' · ' + p.height_cm + ' cm' : '') + (p.weight_kg ? ' · ' + p.weight_kg + ' kg' : '') +
+        (arch ? ' · ' + escapeHtml(arch.archetype) + ' (' + escapeHtml(arch.label) + ')' : '') +
+      '</div>' +
+    '</div>' +
+    (p.main_goal ? '<div class="card" style="border-left: 3px solid var(--blue); padding: 14px 18px; margin-bottom: 14px;"><div style="font-size: 9px; color: var(--blue); letter-spacing: 1.2px; text-transform: uppercase; font-weight: 500; margin-bottom: 4px;">Objetivo principal</div><div style="font-size: 12px; line-height: 1.6;">' + escapeHtml(p.main_goal) + '</div></div>' : '') +
+    '<div class="grid-4" style="margin-bottom: 12px;">' +
+      baselineCard('HRV', last && last.hrv_rmssd ? Math.round(last.hrv_rmssd) : '—', 'ms', null) +
+      baselineCard('FC reposo', last && last.resting_hr ? last.resting_hr : '—', 'bpm', null) +
+      baselineCard('Recovery', last && last.recovery_score !== null ? last.recovery_score : '—', '%', null) +
+      baselineCard('Sueño', lastSlp && lastSlp.total_sleep_min ? (lastSlp.total_sleep_min/60).toFixed(1) : '—', 'h', null) +
+    '</div>' +
+    '<div class="grid-3" style="margin-bottom: 14px;">' +
+      '<div class="metric"><div class="metric-label">Hábitos hoy</div><div class="metric-value">' + habitsDone + '<span class="unit">/' + DEFAULT_HABITS.length + '</span></div><div class="metric-sub">cargados por el paciente</div></div>' +
+      '<div class="metric"><div class="metric-label">Sesiones</div><div class="metric-value">' + (d.sessions ? d.sessions.length : 0) + '</div><div class="metric-sub">total</div></div>' +
+      '<div class="metric"><div class="metric-label">Objetivos</div><div class="metric-value">' + (d.goals ? d.goals.length : 0) + '</div><div class="metric-sub">activos</div></div>' +
+    '</div>' +
 
-    <div class="section-title-block">
-      <div class="section-title">${escapeHtml(p.full_name || '(sin nombre)')}</div>
-      <div class="section-sub">
-        ${age !== null ? age + ' años' : '—'}${p.sex ? ' · ' + escapeHtml(p.sex) : ''}${p.height_cm ? ' · ' + p.height_cm + ' cm' : ''}${p.weight_kg ? ' · ' + p.weight_kg + ' kg' : ''}
-      </div>
-    </div>
+    (selectedPatientNotes.length ?
+      '<div style="margin-bottom: 14px;">' +
+        '<div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px;">Notas clínicas</div>' +
+        '<div class="stack">' +
+          selectedPatientNotes.map(n =>
+            '<div class="card" style="border-left: 2px solid var(--blue); padding: 12px 14px;">' +
+              '<div class="row-between" style="margin-bottom: 6px;">' +
+                '<div style="font-size: 9px; color: var(--blue); letter-spacing: 1.2px; text-transform: uppercase;">' + escapeHtml(n.type || 'nota') + ' · ' + escapeHtml(n.date) + '</div>' +
+                '<button onclick="confirmDeleteConsult(' + n.id + ')" class="btn btn-danger btn-sm">×</button>' +
+              '</div>' +
+              (n.title ? '<div style="font-size: 13px; font-weight: 500; margin-bottom: 4px;">' + escapeHtml(n.title) + '</div>' : '') +
+              '<div style="font-size: 11px; color: var(--text-muted); line-height: 1.6; white-space: pre-wrap;">' + escapeHtml(n.body) + '</div>' +
+            '</div>'
+          ).join('') +
+        '</div>' +
+      '</div>' : '') +
 
-    ${p.main_goal ? `
-      <div class="card" style="border-left: 3px solid var(--blue); padding: 14px 18px; margin-bottom: 14px;">
-        <div style="font-size: 9px; color: var(--blue); letter-spacing: 1.2px; text-transform: uppercase; font-weight: 500; margin-bottom: 4px;">Objetivo principal</div>
-        <div style="font-size: 12px; line-height: 1.6;">${escapeHtml(p.main_goal)}</div>
-      </div>
-    ` : ''}
+    (d.whoopRecovery && d.whoopRecovery.length ? (
+      '<div class="card" style="padding: 16px 20px; margin-bottom: 12px;">' +
+        '<div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 14px;">HRV — últimos 60 días</div>' +
+        '<div style="position: relative; height: 220px;"><canvas id="patientHrvChart"></canvas></div>' +
+      '</div>'
+    ) : '') +
 
-    <div class="grid-4" style="margin-bottom: 12px;">
-      ${baselineCard('HRV', last && last.hrv_rmssd ? Math.round(last.hrv_rmssd) : '—', 'ms', null)}
-      ${baselineCard('FC reposo', last && last.resting_hr ? last.resting_hr : '—', 'bpm', null)}
-      ${baselineCard('Recovery', last && last.recovery_score !== null ? last.recovery_score : '—', '%', null)}
-      ${baselineCard('Sueño', lastSlp && lastSlp.total_sleep_min ? (lastSlp.total_sleep_min/60).toFixed(1) : '—', 'h', null)}
-    </div>
+    (d.whoopCycles && d.whoopCycles.length ? (
+      '<div class="card" style="padding: 16px 20px; margin-bottom: 12px;">' +
+        '<div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 14px;">Strain — últimos 60 días</div>' +
+        '<div style="position: relative; height: 220px;"><canvas id="patientStrainChart"></canvas></div>' +
+      '</div>'
+    ) : '') +
 
-    <div class="grid-3" style="margin-bottom: 14px;">
-      <div class="metric"><div class="metric-label">Hábitos hoy</div><div class="metric-value">${habitsDone}<span class="unit">/${DEFAULT_HABITS.length}</span></div><div class="metric-sub">cargados por el paciente</div></div>
-      <div class="metric"><div class="metric-label">Sesiones</div><div class="metric-value">${d.sessions ? d.sessions.length : 0}<span class="unit"></span></div><div class="metric-sub">total registradas</div></div>
-      <div class="metric"><div class="metric-label">Objetivos</div><div class="metric-value">${d.goals ? d.goals.length : 0}<span class="unit"></span></div><div class="metric-sub">activos</div></div>
-    </div>
+    (d.goals && d.goals.length ? (
+      '<div style="margin-bottom: 14px;">' +
+        '<div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px;">Objetivos del paciente</div>' +
+        '<div class="stack">' +
+          d.goals.map(g =>
+            '<div class="card" style="padding: 12px 14px;">' +
+              '<div class="row-between"><div><div style="font-size: 12px; font-weight: 500;">' + escapeHtml(g.title) + '</div>' +
+              (g.description ? '<div style="font-size: 10px; color: var(--text-muted); margin-top: 3px;">' + escapeHtml(g.description) + '</div>' : '') + '</div>' +
+              '<div class="num num-georgia" style="font-size: 16px;">' + (g.pct_progress || 0) + '<span style="font-size: 10px; color: var(--text-muted);">%</span></div></div>' +
+              '<div class="progress-track" style="margin-top: 8px;"><div class="progress-fill" style="width: ' + (g.pct_progress || 0) + '%;"></div></div>' +
+            '</div>'
+          ).join('') +
+        '</div>' +
+      '</div>'
+    ) : '') +
 
-    <div class="card" style="padding: 16px 20px; margin-bottom: 12px;">
-      <div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 14px;">HRV — últimos 60 días</div>
-      <div style="position: relative; height: 220px;"><canvas id="patientHrvChart"></canvas></div>
-    </div>
-
-    <div class="card" style="padding: 16px 20px; margin-bottom: 12px;">
-      <div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 14px;">Strain — últimos 60 días</div>
-      <div style="position: relative; height: 220px;"><canvas id="patientStrainChart"></canvas></div>
-    </div>
-
-    ${d.goals && d.goals.length ? `
-      <div style="margin-bottom: 14px;">
-        <div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px;">Objetivos del paciente</div>
-        <div class="stack">
-          ${d.goals.map(g => `
-            <div class="card" style="padding: 12px 14px;">
-              <div class="row-between">
-                <div>
-                  <div style="font-size: 12px; font-weight: 500;">${escapeHtml(g.title)}</div>
-                  ${g.description ? `<div style="font-size: 10px; color: var(--text-muted); margin-top: 3px;">${escapeHtml(g.description)}</div>` : ''}
-                </div>
-                <div class="num num-georgia" style="font-size: 16px;">${g.pct_progress || 0}<span style="font-size: 10px; color: var(--text-muted);">%</span></div>
-              </div>
-              <div class="progress-track" style="margin-top: 8px;"><div class="progress-fill" style="width: ${g.pct_progress || 0}%;"></div></div>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    ` : ''}
-
-    ${d.sessions && d.sessions.length ? `
-      <div>
-        <div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px;">Últimas sesiones</div>
-        <div class="stack">
-          ${d.sessions.slice(0, 8).map(s => `
-            <div class="card" style="padding: 12px 14px;">
-              <div class="row-between">
-                <div>
-                  <div style="font-size: 12px; font-weight: 500;">${escapeHtml(s.date)}</div>
-                  <div style="font-size: 10px; color: var(--text-faint); margin-top: 3px;">RPE ${s.rpe || '—'}/10</div>
-                </div>
-              </div>
-              ${s.notes ? `<div style="font-size: 11px; color: var(--text-muted); margin-top: 8px; font-style: italic; line-height: 1.5;">${escapeHtml(s.notes)}</div>` : ''}
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    ` : ''}
-  `;
+    (d.sessions && d.sessions.length ? (
+      '<div>' +
+        '<div style="font-size: 10px; color: var(--text-muted); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px;">Últimas sesiones</div>' +
+        '<div class="stack">' +
+          d.sessions.slice(0, 8).map(s =>
+            '<div class="card" style="padding: 12px 14px;">' +
+              '<div class="row-between"><div><div style="font-size: 12px; font-weight: 500;">' + escapeHtml(s.date) + '</div>' +
+              '<div style="font-size: 10px; color: var(--text-faint); margin-top: 3px;">RPE ' + (s.rpe || '—') + '/10</div></div></div>' +
+              (s.notes ? '<div style="font-size: 11px; color: var(--text-muted); margin-top: 8px; font-style: italic; line-height: 1.5;">' + escapeHtml(s.notes) + '</div>' : '') +
+            '</div>'
+          ).join('') +
+        '</div>' +
+      '</div>'
+    ) : '') +
+    '<div id="consult-modal" class="hidden"></div>';
 }
-
 function drawPatientCharts() {
   const d = selectedPatientData;
   if (!d) return;
@@ -1852,39 +1983,73 @@ function drawPatientCharts() {
   }
 }
 
+window.openConsultModal = function() {
+  const html = '<div class="modal-bg" onclick="if(event.target===this)closeConsultModal()">' +
+    '<div class="modal-card">' +
+      '<div class="row-between" style="margin-bottom: 14px;">' +
+        '<div style="font-size: 18px; font-family: Georgia, serif; font-weight: 500;">Nota clínica</div>' +
+        '<button onclick="closeConsultModal()" class="btn btn-ghost btn-sm">Cerrar</button>' +
+      '</div>' +
+      '<div style="font-size: 11px; color: var(--text-faint); margin-bottom: 12px;">Esta nota va a aparecer en la sección Consulta médica del paciente.</div>' +
+      '<div style="display: grid; gap: 10px; margin-bottom: 14px;">' +
+        '<select id="c-type" class="auth-input" style="margin: 0;">' +
+          '<option value="note">Nota</option><option value="consult">Consulta</option>' +
+          '<option value="followup">Seguimiento</option><option value="alert">Alerta</option>' +
+        '</select>' +
+        '<input id="c-title" type="text" placeholder="Título (opcional)" class="auth-input" style="margin: 0;" />' +
+        '<input id="c-date" type="date" value="' + todayISO() + '" class="auth-input" style="margin: 0;" />' +
+        '<textarea id="c-body" placeholder="Observaciones, plan, recomendaciones..." style="width: 100%; min-height: 140px; padding: 12px; font-size: 13px; border: 0.5px solid var(--border); background: var(--panel-hi); color: var(--text); border-radius: 6px; resize: vertical; line-height: 1.5;"></textarea>' +
+      '</div>' +
+      '<div class="row" style="gap: 8px;">' +
+        '<button onclick="closeConsultModal()" class="btn btn-ghost" style="flex: 1;">Cancelar</button>' +
+        '<button onclick="saveConsultForm()" class="btn btn-primary" style="flex: 2;">Guardar</button>' +
+      '</div>' +
+    '</div></div>';
+  document.getElementById('consult-modal').classList.remove('hidden');
+  document.getElementById('consult-modal').innerHTML = html;
+};
+window.closeConsultModal = function() {
+  const el = document.getElementById('consult-modal');
+  if (el) { el.innerHTML = ''; el.classList.add('hidden'); }
+};
+window.saveConsultForm = async function() {
+  const body = document.getElementById('c-body').value.trim();
+  if (!body || body.length < 5) { alert('La nota es obligatoria.'); return; }
+  await addConsultation(selectedPatientId, {
+    type: document.getElementById('c-type').value,
+    title: document.getElementById('c-title').value.trim(),
+    date: document.getElementById('c-date').value || todayISO(),
+    body: body,
+  });
+  closeConsultModal();
+  await loadPatientDetail(selectedPatientId);
+  render();
+};
+window.confirmDeleteConsult = async function(id) {
+  if (!confirm('¿Borrar nota?')) return;
+  await deleteConsultation(id);
+  await loadPatientDetail(selectedPatientId);
+  render();
+};
+
 function renderDoctorSettings() {
   const p = currentProfile;
-  return `
-    <div class="section-title-block">
-      <div class="section-title">Perfil</div>
-      <div class="section-sub latin">Cura sui · ad virtutem</div>
-    </div>
-    <div class="card" style="padding: 18px;">
-      <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.6;">
-        Cuenta de médico. Tenés acceso de lectura a los datos de todos los atletas registrados.
-      </div>
-      <div class="grid-2" style="gap: 10px;">
-        <div>
-          <div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;">Nombre</div>
-          <input id="dp-name" type="text" value="${escapeHtml(p.full_name || '')}" class="auth-input" style="margin: 0;" />
-        </div>
-        <div>
-          <div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;">Email</div>
-          <input type="email" value="${escapeHtml(currentUser ? currentUser.email : '')}" disabled class="auth-input" style="margin: 0; opacity: 0.6;" />
-        </div>
-      </div>
-      <button onclick="saveDoctorProfileForm()" class="btn btn-primary" style="margin-top: 14px;">Guardar</button>
-    </div>
-    <div style="margin-top: 18px;">
-      <button onclick="handleSignOut()" class="btn btn-danger">Cerrar sesión</button>
-    </div>
-  `;
+  return '<div class="section-title-block"><div class="section-title">Perfil</div><div class="section-sub latin">Cura sui · ad virtutem</div></div>' +
+    '<div class="card" style="padding: 18px;">' +
+      '<div style="font-size: 11px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.6;">Cuenta de médico. Tenés acceso de lectura a los datos de todos los atletas registrados, y podés escribir notas clínicas.</div>' +
+      '<div class="grid-2" style="gap: 10px;">' +
+        '<div><div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;">Nombre</div>' +
+        '<input id="dp-name" type="text" value="' + escapeHtml(p.full_name || '') + '" class="auth-input" style="margin: 0;" /></div>' +
+        '<div><div style="font-size: 9px; color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px;">Email</div>' +
+        '<input type="email" value="' + escapeHtml(currentUser ? currentUser.email : '') + '" disabled class="auth-input" style="margin: 0; opacity: 0.6;" /></div>' +
+      '</div>' +
+      '<button onclick="saveDoctorProfileForm()" class="btn btn-primary" style="margin-top: 14px;">Guardar</button>' +
+    '</div>' +
+    '<div style="margin-top: 18px;"><button onclick="handleSignOut()" class="btn btn-danger">Cerrar sesión</button></div>';
 }
-
 window.saveDoctorProfileForm = async function() {
   await updateProfile({ full_name: document.getElementById('dp-name').value.trim() });
-  alert('Perfil actualizado.');
-  render();
+  alert('Perfil actualizado.'); render();
 };
 
 // ============================================================
